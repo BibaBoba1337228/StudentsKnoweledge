@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Seminaria';
+    src: local('Seminaria'), url(../fonts/Seminaria.ttf) format('ttf');
+
+  }
+
+@font-face {
+  font-family: 'IgraSans';
+  src: local('IgraSans'), url(../fonts/IgraSans.otf) format('otf');
+
+}
+
+@font-face {
+    font-family: 'LiteralBold';
+    src: local('LiteralBold'), url(../fonts/LiteralBold.otf) format('otf');
+
+  }
+
+@font-face {
+    font-family: 'LiteralRegular';
+    src: local('LiteralRegular'), url(../fonts/LiteralRegular.otf) format('otf');
+
+  }
+
+@font-face {
+    font-family: 'LiteralLight';
+    src: local('LiteralLight'), url(../fonts/LiteralLight.otf) format('otf');
+
+  }
