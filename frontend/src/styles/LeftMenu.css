@@ -1,0 +1,54 @@
+#LeftMenuContainer{
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F3ECE6;
+    height: 100%;
+}
+
+#LeftMenuHeader{
+    font-family: Seminaria;
+    font-size: 40px;
+}
+
+#LeftMenuTopPagesContainer{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+#LeftMenuDownPagesContainer{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+
+
+#LeftMenuTopPages{
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.LeftMenuTopPage{
+    display: flex;
+    justify-content: start;
+    width: 100%;
+}
+
+.LeftMenuTopPageName{
+    font-family: "Igra Sans";
+    font-size: 14px;
+    margin-left: 15px;
+}
