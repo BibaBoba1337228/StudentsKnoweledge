@@ -1,4 +1,4 @@
-#LeftMenuContainer{
+#LeftMenuContainer {
     width: 170px;
     display: flex;
     flex-direction: column;
@@ -6,7 +6,26 @@
     align-items: center;
     background-color: #F3ECE6;
     height: 100%;
+    transition: width 0.3s ease;
 }
+
+#LeftMenuContainer.collapsed {
+    width: 60px;
+
+}
+
+.LeftMenuTopPageName {
+    font-family: "Igra Sans";
+    font-size: 14px;
+    margin-left: 15px;
+    transition: opacity 1s ease 1s;
+}
+
+#LeftMenuContainer.collapsed .LeftMenuTopPageName {
+    opacity: 0;
+    pointer-events: none;
+}
+
 
 #LeftMenuHeader{
     font-family: Seminaria;
@@ -39,16 +58,40 @@
     align-items: center;
 }
 
+#LeftMenuTopPages.collapsed {
+    padding-left: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 
 
 .LeftMenuTopPage{
     display: flex;
+    flex-direction: row;
     justify-content: start;
     width: 100%;
+    margin-bottom: 0px;
 }
 
-.LeftMenuTopPageName{
-    font-family: "Igra Sans";
-    font-size: 14px;
-    margin-left: 15px;
+.LeftMenuTopPage.collapsed{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 100%;
+    margin-bottom: 10px;
 }
+
+.collapsed{
+    margin-bottom: 15px;
+}
+
+.collapsed:last-child{
+    margin-bottom: 0px;
+
+}
+
+
+

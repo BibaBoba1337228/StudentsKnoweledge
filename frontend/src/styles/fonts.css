@@ -12,18 +12,18 @@
 
 @font-face {
     font-family: 'LiteralBold';
-    src: local('LiteralBold'), url(../fonts/LiteralBold.otf) format('otf');
+    src: local('LiteralBold'), url(../fonts/Literal-Bold.ttf) format('ttf');
 
   }
 
 @font-face {
     font-family: 'LiteralRegular';
-    src: local('LiteralRegular'), url(../fonts/LiteralRegular.otf) format('otf');
+    src: local('LiteralRegular'), url(../fonts/Literal-Regular.ttf) format('ttf');
 
   }
 
 @font-face {
     font-family: 'LiteralLight';
-    src: local('LiteralLight'), url(../fonts/LiteralLight.otf) format('otf');
+    src: local('LiteralLight'), url(../fonts/Literal-Light.ttf) format('ttf');
 
   }
