@@ -1,0 +1,37 @@
+#CourceDetailWrapper {
+    background-color: #FCF8F5;
+    width: 100%;
+    height: 100%;
+}
+
+#CourceDetailContainer {
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+#CourceDetailDelimiter {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid gray;
+    margin-top: 25px;
+}
+
+
+#CourceDetailHeader {
+    font-family: LiteralBold;
+    font-size: 40px;
+}
+
+
+#CourceDetailCourceContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+
+}
+
+
+

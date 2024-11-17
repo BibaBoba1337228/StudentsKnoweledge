@@ -4,28 +4,32 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: #F3ECE6;
-    height: 100%;
+    position: fixed; /* Фиксируем на экране */
+    top: 0;
+    right: 0;
+    height: 100vh;
 }
 
-.RightMenuSection{
+.RightMenuSection {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.RightMenuSectionHeader{
-    font-size: 20px;
+.RightMenuSectionHeader {
+    font-size: 14px;
     font-weight: bold;
     font-family: LiteralBold;
 }
 
-.RightMenuSectionDelimiter{
-    border: 0.01px gray solid;
+.RightMenuSectionDelimiter {
+    border-collapse: collapse;
+    border-bottom: 1px solid gray;
 }
 
-.RightMenuSectionEvent{
-    width: 90%;
+.RightMenuSectionEvent {
+    width: 100%;
     background-color: #fff;
     border: 0.01px gray solid;
     border-radius: 15px;
@@ -34,8 +38,8 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.RightMenuSectionMessage{
-    width: 90%;
+.RightMenuSectionMessage {
+    width: 100%;
     background-color: #fff;
     border: 0.01px gray solid;
     border-radius: 15px;
@@ -44,47 +48,49 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.RightMenuSectionEvent:last-child{
+.RightMenuSectionEvent:last-child {
     margin-bottom: 0;
 
 }
 
-.RightMenuSectionMessage:last-child{
+.RightMenuSectionMessage:last-child {
     margin-bottom: 0;
 
 }
 
 
-.RightMenuSectionEventHeader{
-    font-size: 14px;
+.RightMenuSectionEventHeader {
+    font-size: 12px;
     font-weight: bold;
     font-family: LiteralBold;
+    white-space: wrap;
 }
 
-.RightMenuSectionMessageHeader{
-    font-size: 14px;
+.RightMenuSectionMessageHeader {
+    font-size: 12px;
     font-weight: bold;
     font-family: LiteralBold;
+    white-space: wrap;
 }
 
-.RightMenuSectionEventDataAndDescription{
+.RightMenuSectionEventDataAndDescription {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-.RightMenuSectionMessageDataAndDescription{
+.RightMenuSectionMessageDataAndDescription {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-#RightMenuSectionLastEvents{
+#RightMenuSectionLastEvents {
     margin-top: 10px
 }
 
-#RightMenuSectionLastMessages{
+#RightMenuSectionLastMessages {
     margin-top: 10px;
 }

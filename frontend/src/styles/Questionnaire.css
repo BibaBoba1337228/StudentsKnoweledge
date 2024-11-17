@@ -1,0 +1,87 @@
+/* General Styles */
+.questionnaire-container {
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.question-container {
+    margin-bottom: 20px;
+    padding: 5px 15px;
+    border-radius: 15px;
+    background-color: #F2E8C9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.question-container label {
+    font-family: IgraSans;
+    font-size: 16px;
+}
+
+.custom-radio {
+    display: flex;
+    align-items: center;
+}
+
+.question-header {
+    font-family: LiteralBold;
+    font-size: 24px;
+    margin: 15px 0;
+}
+
+.question-question {
+    font-family: IgraSans;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+}
+
+/* Custom Radio Button */
+.custom-radio input[type="radio"] {
+    display: none;
+}
+
+.custom-radio-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url('../assets/icons/unchecked_radio.svg') no-repeat center/contain;
+    margin-right: 8px;
+}
+
+.custom-radio input[type="radio"]:checked + .custom-radio-icon {
+    background: url('../assets/icons/checked_radio.svg') no-repeat center/contain;
+}
+
+/* Custom Checkbox */
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url('../assets/icons/unchecked_checkbox.svg') no-repeat center/contain;
+    margin-right: 8px;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .custom-checkbox-icon {
+    background: url('../assets/icons/checked_checkbox.svg') no-repeat center/contain;
+}
+
+/* Custom Textarea */
+.custom-textarea {
+    all: unset;
+    border: 1px solid black;
+    width: 98%;
+    border-radius: 15px;
+    padding: 10px;
+    font-family: IgraSans;
+    font-size: 16px;
+    background-color: transparent;
+}

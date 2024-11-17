@@ -1,0 +1,123 @@
+#OtherProfileWrapper {
+    background-color: #FCF8F5;
+    width: 100%;
+    height: 100%;
+}
+
+#OtherProfileContainer {
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+#OtherProfileDelimiter {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid gray;
+    margin-top: 25px;
+}
+
+
+#OtherProfileHeader {
+    font-family: LiteralBold;
+    font-size: 40px;
+}
+
+
+#OtherProfileCourceContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 35px;
+
+
+}
+
+.OtherProfileInfoBlock {
+    background-color: #F2E8C9;
+    border-radius: 25px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.OtherProfileInfoBlockWithProfileImage {
+    background-color: #F2E8C9;
+    border-radius: 25px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: start;
+}
+
+.OtherProfileTextBlockWithProfileImage {
+
+    margin-bottom: 15px;
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.OtherProfileTextBlock {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.OtherProfileTextBlock:last-child {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.OtherProfileInfoBlockHeader {
+    font-family: LiteralBold;
+    font-size: 18px;
+}
+
+.OtherProfileInfoBlockInfo {
+    font-family: IgraSans;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+.OtherProfileInfoBlockHeaderWithProfileImage {
+    font-family: LiteralBold;
+    font-size: 26px;
+}
+
+.OtherProfileInfoBlockInfoWithProfileImage {
+    font-family: IgraSans;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    margin-top: 7px;
+}
+
+.OtherProfileInfoBlockInfoWithImage {
+    font-family: IgraSans;
+    font-size: 14px;
+    margin-left: 20px;
+    display: flex;
+}
+
+#ExpandCourcesButton {
+    all: unset;
+    cursor: pointer;
+    font-family: IgraSans;
+    font-size: 12px;
+    text-decoration: underline;
+
+}
+
+.OtherProfileCourseInInfoBlock {
+    font-family: IgraSans;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
+
+
+

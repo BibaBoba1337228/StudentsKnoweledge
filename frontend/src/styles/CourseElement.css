@@ -1,0 +1,82 @@
+.accordion {
+
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+    height: 85vh;
+    overflow-y: auto;
+
+
+}
+
+.accordion-item {
+    margin-top: 25px;
+    background-color: #F2E8C9;
+    border-radius: 15px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+
+.accordion-header {
+
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    background-color: #F2E8C9;
+    border-radius: 15px;
+
+
+}
+
+.accordion-header-text {
+    font-family: LiteralBold;
+    font-size: 24px;
+    margin-left: 20px;
+}
+
+#AccordionDelimiter {
+
+}
+
+
+.accordion-icon {
+    font-size: 16px;
+
+}
+
+.accordion-sub-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+}
+
+.accordion-sub-item-text {
+    font-family: IgraSans;
+    font-size: 18px;
+    margin-left: 20px;
+}
+
+.accordion-icon.open {
+    transform: rotate(90deg);
+
+}
+
+.accordion-content {
+    overflow: hidden;
+    max-height: 0; /* Изначально контент скрыт */
+    border-radius: 15px;
+
+}
+
+.accordion-inner-content {
+    padding: 10px 15px;
+    background-color: #F2E8C9;
+    border-radius: 15px;
+}

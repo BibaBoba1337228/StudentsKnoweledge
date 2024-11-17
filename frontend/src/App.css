@@ -1,12 +1,49 @@
-.App{
-  flex: 1;
-  height: 100%;
+.App {
+    height: 100%;
+    max-height: 100%;
 }
 
 .MainContainer {
-  display: flex;
-  background: #f2f2f2;
-  height: 100%;
-  justify-content: space-between;
+    display: flex;
+    background: #f2f2f2;
+    justify-content: space-between;
+
+}
+
+/* AuthorizedContainer.css */
+.MainContainer {
+    display: flex;
+    height: 100vh; /* Полная высота окна */
+    overflow: hidden; /* Убираем прокрутку для контейнера */
+}
+
+.LeftMenu {
+    position: fixed; /* Фиксированное положение */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Полная высота */
+    width: 200px; /* Фиксированная ширина */
+    background-color: #f4f4f4; /* Цвет фона */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Тень */
+    z-index: 10; /* Поверх содержимого */
+}
+
+.RightMenu {
+    position: fixed; /* Фиксированное положение */
+    top: 0;
+    right: 0;
+    height: 100vh; /* Полная высота */
+    width: 200px; /* Фиксированная ширина */
+    background-color: #f4f4f4; /* Цвет фона */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Тень */
+    z-index: 10; /* Поверх содержимого */
+}
+
+.Content {
+    margin-right: 300px; /* Отступ справа (равен ширине RightMenu) */
+    flex: 1; /* Занимает оставшееся пространство */
+    overflow-y: auto; /* Прокрутка, если контент превышает высоту */
+    height: 100%; /* Полная высота */
+    background-color: #FCF8F5; /* Фон центрального блока */
 }
 

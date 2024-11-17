@@ -1,0 +1,74 @@
+#AllStudentMarksForCurrentSubjectWrapper {
+    background-color: #FCF8F5;
+    width: 100%;
+
+}
+
+#AllStudentMarksForCurrentSubjectContainer {
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+#AllStudentMarksForCurrentSubjectDelimiter {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid gray;
+    margin-top: 25px;
+}
+
+
+#AllStudentMarksForCurrentSubjectHeader {
+    font-family: LiteralBold;
+    font-size: 40px;
+}
+
+
+#AllStudentMarksForCurrentSubjectCourceContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 35px;
+
+}
+
+
+.AllStudentMarksForCurrentSubjectInfoBlock {
+    background-color: #F2E8C9;
+    border-radius: 25px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.AllStudentMarksForCurrentSubjectTextBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.AllStudentMarksForCurrentSubjectTextBlock:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0px;
+}
+
+.AllStudentMarksForCurrentSubjectInfoBlockHeader {
+    font-family: LiteralBold;
+    font-size: 18px;
+}
+
+.AllStudentMarksForCurrentSubjectInfoBlockInfo {
+    font-family: IgraSans;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+
+
+
+
+

@@ -1,0 +1,95 @@
+#LoginWrapper {
+    background-color: #FCF8F5;
+    width: 100%;
+    height: 100%;
+}
+
+#LoginContainer {
+    padding: 40px 40px;
+
+}
+
+#LoginHeaderContainer {
+    font-family: Seminaria;
+    font-size: 96px;
+}
+
+#LoginDelimiter {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid gray;
+}
+
+#LoginFormContainer {
+    margin: 150px auto;
+    width: 40%;
+    background-color: #EAE1DA;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+#LoginFormInputHeader {
+    font-family: IgraSans;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+#LoginFormInputLogin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+    border-collapse: collapse;
+    border: 0.3px solid gray;
+}
+
+#LoginFormInputPassword {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+    border-collapse: collapse;
+    border: 0.3px solid gray;
+}
+
+#LoginFormLoginInput {
+    all: unset;
+    text-align: right;
+    width: 80%;
+}
+
+#LoginFormPasswordInput {
+    all: unset;
+    text-align: right;
+    width: 80%;
+}
+
+#LoginFormPasswordForgotten {
+    font-family: IgraSans;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+#LoginFormSubmit {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#LoginFormSubmitButton {
+    all: unset;
+    background-color: #fff;
+    padding: 12px 40px;
+    border-radius: 15px;
+    font-family: IgraSans;
+    font-size: 18px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
