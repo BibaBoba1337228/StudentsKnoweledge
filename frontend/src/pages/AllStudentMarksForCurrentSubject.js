@@ -1,8 +1,11 @@
 import '../styles/AllStudentMarksForCurrentSubject.css'
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 
 function AllStudentMarksForCurrentSubject() {
+
+    const navigate = useNavigate();
     return (
         <div id="AllStudentMarksForCurrentSubjectWrapper">
 
@@ -18,7 +21,9 @@ function AllStudentMarksForCurrentSubject() {
                 <div id="AllStudentMarksForCurrentSubjectCourceContainer">
 
 
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
+                    <div className="AllStudentMarksForCurrentSubjectInfoBlock"
+                         onClick={() => navigate('/system/course/task')}
+                         style={{cursor: "pointer"}}>
 
                         <div className="AllStudentMarksForCurrentSubjectTextBlock">
                             <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №1
@@ -27,9 +32,11 @@ function AllStudentMarksForCurrentSubject() {
                         </div>
                     </div>
 
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
+                    <div className="AllStudentMarksForCurrentSubjectInfoBlock"
+                         onClick={() => navigate('/system/course/test')}
+                         style={{cursor: "pointer"}}>
                         <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №2
+                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">РК №1
                             </div>
                             <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">5/10</div>
                         </div>

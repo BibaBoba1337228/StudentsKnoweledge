@@ -1,8 +1,12 @@
 import '../styles/TestOverview.css'
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 
 function TestOverview() {
+
+    const navigate = useNavigate();
+
     return (
         <div id="TestOverviewWrapper">
 
@@ -75,12 +79,14 @@ function TestOverview() {
 
                     <div id="TestOverviewManageButtons">
 
-                        <button id="TestOverviewChangeButton">
+                        <button id="TestOverviewChangeButton" onClick={() => navigate('/system/course/')}
+                                style={{cursor: "pointer"}}>
                             Отправить
                         </button>
 
 
-                        <button id="TestOverviewDeleteButton">
+                        <button id="TestOverviewDeleteButton" onClick={() => navigate(-1)}
+                                style={{cursor: "pointer"}}>
                             Назад
                         </button>
 

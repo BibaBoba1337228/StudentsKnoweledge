@@ -1,7 +1,10 @@
 import React from 'react';
 import '../styles/Questionnaire.css';
+import {useNavigate} from "react-router-dom";
 
 function Questionnaire() {
+
+    const navigate = useNavigate();
     return (
         <div id="TestDetailWrapper">
 
@@ -112,7 +115,8 @@ function Questionnaire() {
 
                     <div id="TestDetailManageButtons">
 
-                        <button id="TestDetailChangeButton">
+                        <button id="TestDetailChangeButton" onClick={() => navigate('/system/course/test/overview')}
+                                style={{cursor: "pointer"}}>
                             Закончить попытку
                         </button>
 

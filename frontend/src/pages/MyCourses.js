@@ -10,6 +10,8 @@ import Background4 from '../assets/images/card_background_4.svg'
 
 function MyCourses() {
 
+    const navigate = useNavigate();
+
     return (
         <div id="MyCourcesWrapper">
 
@@ -36,7 +38,8 @@ function MyCourses() {
                     <div id="MyCourcesCourcesCardsContainer">
 
 
-                        <div className="MyCourcesCourcesCard">
+                        <div className="MyCourcesCourcesCard" onClick={() => navigate('/system/course')}
+                             style={{cursor: "pointer"}}>
 
                             <img className="MyCourcesCourcesCardBackground" src={Background1}/>
 

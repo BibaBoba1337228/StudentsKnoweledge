@@ -1,11 +1,15 @@
 import React from 'react';
-import {Navigate, Outlet, Route, Routes} from 'react-router-dom';
+import {Navigate, Outlet, Route, Routes, useNavigate} from 'react-router-dom';
 import '../styles/LrManage.css';
 import lab from '../assets/icons/lab.svg'
 import FileAttachment from "../components/CoursePage/FileAttachment";
 
 
 function LrManage() {
+
+
+    const navigate = useNavigate();
+
     return (
         <div id="LrManageWrapper">
 
@@ -50,12 +54,14 @@ function LrManage() {
 
                     <div id="LrManageManageButtons">
 
-                        <button id="LrManageChangeButton">
+                        <button id="LrManageChangeButton" onClick={() => navigate('/system/course/task')}
+                                style={{cursor: "pointer"}}>
                             Сохранить
                         </button>
 
 
-                        <button id="LrManageDeleteButton">
+                        <button id="LrManageDeleteButton" onClick={() => navigate('/system/course/task')}
+                                style={{cursor: "pointer"}}>
                             Отмена
                         </button>
 

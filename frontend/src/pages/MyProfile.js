@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Navigate, Outlet, Route, Routes} from 'react-router-dom';
+import {Navigate, Outlet, Route, Routes, useNavigate} from 'react-router-dom';
 import '../styles/MyProfile.css';
 import profile from '../assets/images/profile.svg'
 import add from '../assets/icons/add.svg'
@@ -7,6 +7,8 @@ import add from '../assets/icons/add.svg'
 
 function MyProfile() {
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const navigate = useNavigate();
 
     const courses = [
         "Технологии программирования",
@@ -42,7 +44,9 @@ function MyProfile() {
 
                         <div className="MyProfileTextBlockWithProfileImage">
                             <div className="MyProfileInfoBlockHeaderWithProfileImage">Ерофеев А.А.</div>
-                            <div className="MyProfileInfoBlockInfoWithProfileImage">
+                            <div className="MyProfileInfoBlockInfoWithProfileImage"
+                                 onClick={() => navigate('/system/findcontacts')}
+                                 style={{cursor: "pointer"}}>
                                 Найти контакты
                                 <img src={add} alt="add" style={{width: '20px', marginLeft: '10px'}}/>
                             </div>
@@ -94,7 +98,8 @@ function MyProfile() {
                         </button>
                     </div>
 
-                    <div className="MyProfileInfoBlock">
+                    <div className="MyProfileInfoBlock" onClick={() => navigate('/system/mymarks')}
+                         style={{cursor: "pointer"}}>
 
                         <div className="MyProfileTextBlock">
                             <div className="MyProfileInfoBlockHeader" style={{textDecoration: "underline"}}>Оценки</div>

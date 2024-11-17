@@ -10,39 +10,40 @@ import test from '../../assets/icons/test.svg'
 import sendLab from '../../assets/icons/send_lab.svg'
 import printer from '../../assets/icons/printer.svg'
 import other from '../../assets/icons/other.svg'
+import {useNavigate} from "react-router-dom";
 
 const accordionData = {
 
     "Лекции":
         [
-            {icon: lection, title: "Основы программирования на C#"},
-            {icon: lection, title: "Основы программирования на C#"},
-            {icon: lection, title: "Основы программирования на C#"},
-            {icon: lection, title: "Основы программирования на C#"}
+            {icon: lection, title: "Основы программирования на C#", link: ""},
+            {icon: lection, title: "Основы программирования на C#", link: ""},
+            {icon: lection, title: "Основы программирования на C#", link: ""},
+            {icon: lection, title: "Основы программирования на C#", link: ""}
         ],
 
     "Материалы":
         [
-            {icon: material, title: "Курсы по C#"},
-            {icon: material, title: "Курсы по C#"},
-            {icon: material, title: "Курсы по C#"},
-            {icon: material, title: "Курсы по C#"},
+            {icon: material, title: "Курсы по C#", link: ""},
+            {icon: material, title: "Курсы по C#", link: ""},
+            {icon: material, title: "Курсы по C#", link: ""},
+            {icon: material, title: "Курсы по C#", link: ""},
         ],
 
     "Задания": [
-        {icon: test, title: "Тест по теме декораторы"},
-        {icon: lab, title: "Лабораторная №1"},
-        {icon: sendLab, title: "Слот для сдачи ЛР№1"},
+        {icon: test, title: "Тест по теме декораторы", link: "/system/course/test/manage"},
+        {icon: lab, title: "Лабораторная №1", link: ""},
+        {icon: sendLab, title: "Слот для сдачи ЛР№1", link: "/system/course/task/manage"},
     ],
 
     "Печатные материалы": [
-        {icon: printer, title: "Конспект по лекции №1"},
-        {icon: printer, title: "Конспект по лекции №2"},
+        {icon: printer, title: "Конспект по лекции №1", link: ""},
+        {icon: printer, title: "Конспект по лекции №2", link: ""},
     ],
 
     "Прочее": [
-        {icon: other, title: "Конспект по лекции №1"},
-        {icon: other, title: "Конспект по лекции №1"},
+        {icon: other, title: "Конспект по лекции №1", link: ""},
+        {icon: other, title: "Конспект по лекции №1", link: ""},
     ]
 }
 
@@ -67,6 +68,7 @@ const CourseElement = () => {
                             key={subIndex}
                             icon={item.icon}
                             title={item.title}
+                            link={item.link}
                         />
                     ))}
                 </AccordionItem>
@@ -108,11 +110,13 @@ const AccordionItem = ({title, children}) => {
     );
 };
 
-const AccordionSubItem = ({icon, title}) => {
+const AccordionSubItem = ({icon, title, link}) => {
 
+    const navigate = useNavigate();
 
     return (
-        <div className="accordion-sub-item">
+        <div className="accordion-sub-item" onClick={() => navigate(link)}
+             style={{cursor: "pointer"}}>
             <img src={icon} style={{width: '20px'}}/>
             <div className="accordion-sub-item-text">{title}</div>
         </div>

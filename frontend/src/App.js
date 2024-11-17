@@ -6,14 +6,96 @@ import Calendar from "./components/MainContainer/Calendar";
 import {createBrowserRouter, RouterProvider, Outlet, useNavigate} from 'react-router-dom';
 import AuthorizedContainer from "./components/MainContainer/AuthorizedContainer";
 import Login from "./pages/Login";
+import MyCourses from "./pages/MyCourses";
+import CourseDetail from "./pages/CourseDetail";
+import MyChats from "./pages/MyChats";
+import MyProfile from "./pages/MyProfile";
+import AllStudentMarks from "./pages/AllStudentMarks";
+import AllStudentMarksForCurrentSubject from "./pages/AllStudentMarksForCurrentSubject";
+import LrDetail from "./pages/LrDetail";
+import TestDetail from "./pages/TestDetail";
+import LrManage from "./pages/LrManage";
+import TestOverview from "./pages/TestOverview";
+import DoingTest from "./pages/DoingTest";
+import FindContacts from "./pages/FindContacts";
+import OtherProfile from "./pages/OtherProfile";
+import Chat from "./pages/Chat";
 
 function App() {
     const router = createBrowserRouter([
         {
             index: true,
-            element: <AuthorizedContainer/>,
+            element: <Login/>,
 
-        }
+        },
+        {
+            path: "/system",
+            element: <AuthorizedContainer/>,
+            children: [
+                {
+                    path: "/system/courses/",
+                    element: <MyCourses></MyCourses>
+                },
+                {
+                    path: "/system/course/",
+                    element: <CourseDetail></CourseDetail>
+                },
+                {
+                    path: "/system/profile",
+                    element: <MyProfile></MyProfile>,
+                },
+                {
+                    path: "/system/chats",
+                    element: <MyChats></MyChats>,
+                },
+                {
+                    path: "/system/chats/chat",
+                    element: <Chat></Chat>,
+                },
+                {
+                    path: "/system/findcontacts",
+                    element: <FindContacts></FindContacts>
+                },
+                {
+                    path: "/system/profile/profileid",
+                    element: <OtherProfile></OtherProfile>
+                },
+                {
+                    path: "/system/mymarks",
+                    element: <AllStudentMarks></AllStudentMarks>,
+                },
+                {
+                    path: "/system/mymarks/subject",
+                    element: <AllStudentMarksForCurrentSubject></AllStudentMarksForCurrentSubject>
+
+                },
+                {
+                    path: "/system/course/task",
+                    element: <LrDetail></LrDetail>
+                },
+                {
+                    path: "/system/course/test",
+                    element: <TestDetail></TestDetail>
+                },
+                {
+                    path: "/system/course/task/manage",
+                    element: <LrManage></LrManage>
+                },
+                {
+                    path: "/system/course/test/manage",
+                    element: <TestDetail></TestDetail>
+                },
+                {
+                    path: "/system/course/test/complete",
+                    element: <DoingTest></DoingTest>
+                },
+                {
+                    path: "/system/course/test/overview",
+                    element: <TestOverview></TestOverview>
+                }
+            ]
+        },
+
     ]);
 
     return <RouterProvider router={router}/>;

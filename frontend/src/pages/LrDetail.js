@@ -1,10 +1,14 @@
 import React from 'react';
-import {Navigate, Outlet, Route, Routes} from 'react-router-dom';
+import {Navigate, Outlet, Route, Routes, useNavigate} from 'react-router-dom';
 import '../styles/LrDetail.css';
 import lab from '../assets/icons/lab.svg'
 
 
 function LrDetail() {
+
+
+    const navigate = useNavigate();
+
     return (
         <div id="LrDetailWrapper">
 
@@ -102,12 +106,14 @@ function LrDetail() {
 
                     <div id="LrDetailManageButtons">
 
-                        <button id="LrDetailChangeButton">
+                        <button id="LrDetailChangeButton" onClick={() => navigate('/system/course/task/manage')}
+                                style={{cursor: "pointer"}}>
                             Изменить
                         </button>
 
 
-                        <button id="LrDetailDeleteButton">
+                        <button id="LrDetailDeleteButton" onClick={() => navigate('/system/course/task')}
+                                style={{cursor: "pointer"}}>
                             Удалить
                         </button>
 

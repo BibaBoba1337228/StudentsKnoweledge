@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Navigate, Outlet, Route, Routes} from 'react-router-dom';
+import {Navigate, Outlet, Route, Routes, useNavigate} from 'react-router-dom';
 import '../styles/OtherProfile.css';
 import profile from '../assets/images/profile.svg'
 import add from '../assets/icons/add.svg'
@@ -8,6 +8,8 @@ import pencil from '../assets/icons/pencil.svg'
 
 function OtherProfile() {
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const navigate = useNavigate();
 
     const courses = [
         "Технологии программирования",
@@ -43,7 +45,9 @@ function OtherProfile() {
 
                         <div className="OtherProfileTextBlockWithProfileImage">
                             <div className="OtherProfileInfoBlockHeaderWithProfileImage">Ерофеев А.А.</div>
-                            <div className="OtherProfileInfoBlockInfoWithProfileImage">
+                            <div className="OtherProfileInfoBlockInfoWithProfileImage"
+                                 onClick={() => navigate('/system/chats/chat')}
+                                 style={{cursor: "pointer"}}>
                                 Написать
                                 <img src={pencil} alt="add" style={{width: '20px', marginLeft: '10px'}}/>
                             </div>

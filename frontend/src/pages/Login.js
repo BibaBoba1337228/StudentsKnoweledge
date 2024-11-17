@@ -1,12 +1,12 @@
 import '../styles/Login.css'
 import '../styles/fonts.css'
-import {createBrowserRouter, RouterProvider, Outlet, useNavigate} from 'react-router-dom';
+import {createBrowserRouter, RouterProvider, Outlet, useNavigate, Link} from 'react-router-dom';
 import ProfileIcon from '../assets/icons/profile_icon.svg'
 import PasswordIcon from '../assets/icons/password_icon.svg'
 
 
 function Login() {
-
+    const navigate = useNavigate();
     return (
         <div id="LoginWrapper">
 
@@ -39,9 +39,13 @@ function Login() {
 
                     <div id="LoginFormPasswordForgotten">Забыли пароль?</div>
 
+
                     <div id="LoginFormSubmit">
-                        <button id="LoginFormSubmitButton">Войти</button>
+                        <button id="LoginFormSubmitButton" onClick={() => navigate('/system')}
+                                style={{cursor: "pointer"}}>Войти
+                        </button>
                     </div>
+
 
                 </div>
 

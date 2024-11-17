@@ -1,8 +1,11 @@
 import '../styles/TestDetail.css'
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 
 function TestDetail() {
+
+    const navigate = useNavigate();
     return (
         <div id="TestDetailWrapper">
 
@@ -105,12 +108,14 @@ function TestDetail() {
 
                     <div id="TestDetailManageButtons">
 
-                        <button id="TestDetailChangeButton">
+                        <button id="TestDetailChangeButton" onClick={() => navigate('/system/course/test/complete')}
+                                style={{cursor: "pointer"}}>
                             Начать тест
                         </button>
 
 
-                        <button id="TestDetailDeleteButton">
+                        <button id="TestDetailDeleteButton" onClick={() => navigate(-1)}
+                                style={{cursor: "pointer"}}>
                             Назад
                         </button>
 

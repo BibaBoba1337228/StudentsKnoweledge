@@ -1,8 +1,11 @@
 import '../styles/AllStudentMarks.css'
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 
 function AllStudentMarks() {
+
+    const navigate = useNavigate();
     return (
         <div id="AllStudentMarksWrapper">
 
@@ -17,7 +20,8 @@ function AllStudentMarks() {
 
                 <div id="AllStudentMarksCourceContainer">
 
-                    <div className="AllStudentMarksInfoBlock">
+                    <div className="AllStudentMarksInfoBlock" onClick={() => navigate('/system/mymarks/subject')}
+                         style={{cursor: "pointer"}}>
 
                         <div className="AllStudentMarksTextBlock">
                             <div className="AllStudentMarksInfoBlockHeader">Технологии программирования</div>

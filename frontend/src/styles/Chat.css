@@ -1,0 +1,168 @@
+#ChatWrapper {
+    background-color: #FCF8F5;
+    width: 100%;
+    height: 100%;
+
+}
+
+#ChatContainer {
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+#ChatDelimiter {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid gray;
+}
+
+#ChatHeaderAndSearchBarContainer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+#ChatHeader {
+    font-family: LiteralBold;
+    font-size: 40px;
+}
+
+#ChatSearchBar {
+    background-color: #fff;
+    width: 20%;
+    display: flex;
+    padding: 10px;
+    border-radius: 15px;
+    justify-content: space-between;
+    border-collapse: collapse;
+    border: 1px solid gray;
+}
+
+#ChatSearchBarInput {
+    all: unset;
+
+}
+
+#ChatCourcesCardsWrapper {
+    height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+#ChatCourcesCardsContainer {
+    display: flex;
+    margin-top: 40px;
+    gap: 30px; /* Отступ между картами по горизонтали и вертикали */
+    flex-direction: column;
+    width: 100%;
+    flex-wrap: wrap;
+
+
+}
+
+.ChatMessage {
+    background-color: #F2E8C9;
+    border-radius: 25px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    width: 45%;
+}
+
+.fromMe {
+    align-self: flex-end;
+}
+
+.fromBro {
+    align-self: flex-start;
+}
+
+.ChatCourcesCardBackground {
+    border-radius: 15px 15px 0 0;
+}
+
+.ChatCourcesCard {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 20px;
+
+}
+
+.ChatCourcesCardTextContainer {
+    width: 100%;
+    padding: 7px;
+}
+
+.ChatMessageText {
+    font-family: IgraSans;
+    font-size: 15px;
+    word-break: break-all;
+    white-space: wrap;
+    width: 75%;
+}
+
+.ChatMessageDate {
+    font-family: IgraSans;
+    font-size: 10px;
+}
+
+.ChatCourcesCardSubjectSemestr {
+    font-family: IgraSans;
+    font-size: 12px;
+}
+
+/* Контейнер для фиксированной позиции */
+.message-input-container {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 10px 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Ширина поля ввода */
+    max-width: 800px; /* Максимальная ширина */
+}
+
+/* Стили для textarea */
+.message-input {
+    flex: 1;
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 16px;
+    line-height: 1.5;
+    height: 36px;
+    max-height: 300px; /* Ограничение на высоту */
+    padding: 5px;
+    margin-right: 10px;
+}
+
+/* Стили для кнопки прикрепления */
+.attach-button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    outline: none;
+}
+
+
+
+

@@ -18,6 +18,8 @@ import MyProfile from "../../pages/MyProfile";
 import OtherProfile from "../../pages/OtherProfile";
 import GroupMarksTable from "../Statistics/GroupMarksTable";
 import GroupMarks from "../../pages/GroupMarks";
+import MyChats from "../../pages/MyChats";
+import FindContacts from "../../pages/FindContacts";
 
 
 function AuthorizedContainer() {
@@ -39,7 +41,7 @@ function AuthorizedContainer() {
                 <LeftMenu onMenuToggle={handleMenuToggle}/>
             </div>
             <div className="Content">
-                <GroupMarks></GroupMarks>
+                <Outlet></Outlet>
             </div>
             <div className="RightMenu">
                 <RightMenu/>
