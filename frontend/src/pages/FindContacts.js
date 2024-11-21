@@ -36,6 +36,7 @@ function FindContacts() {
                          onClick={() => navigate('/system/profile/profileid')}
                          style={{cursor: "pointer"}}>
 
+
                         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                             <img src={Chats} alt="Chats" style={{width: '80px'}}/>
 

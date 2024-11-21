@@ -1,10 +1,7 @@
 .accordion {
 
     border-radius: 5px;
-    overflow: hidden;
     margin-top: 20px;
-    height: 85vh;
-    overflow-y: auto;
 
 
 }
@@ -14,6 +11,7 @@
     background-color: #F2E8C9;
     border-radius: 15px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+
 
 }
 
@@ -54,6 +52,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 15px;
+    justify-content: space-between;
 
 }
 
@@ -79,4 +78,37 @@
     padding: 10px 15px;
     background-color: #F2E8C9;
     border-radius: 15px;
+}
+
+#CourceDetailItemCancelButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #F2C9C9;
+    padding: 5px 10px;
+    font-family: IgraSans;
+    font-size: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-right: 10px;
+}
+
+#CourceDetailItemSaveButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #D6F2C9;
+    padding: 5px 10px;
+    font-family: IgraSans;
+    font-size: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-right: 10px;
+}
+
+#CourceDetailItemAddButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #F2F2C9;
+    padding: 5px 10px;
+    font-family: IgraSans;
+    font-size: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-right: 10px;
 }

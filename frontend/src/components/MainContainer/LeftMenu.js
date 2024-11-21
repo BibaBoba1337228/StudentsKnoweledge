@@ -8,6 +8,7 @@ import NotificationIcon from '../../assets/icons/notification_icon.svg';
 import ProfileIcon from '../../assets/icons/profile_icon.svg';
 import SettingsIcon from '../../assets/icons/settings_icon.svg';
 import LogoutIcon from '../../assets/icons/logout_icon.svg';
+import KeyIcon from '../../assets/icons/key.svg';
 import {Link, useNavigate} from "react-router-dom";
 
 function LeftMenu({onMenuToggle}) {
@@ -28,11 +29,11 @@ function LeftMenu({onMenuToggle}) {
             <div id="LeftMenuTopPagesContainer">
                 <h1 id="LeftMenuHeader" onClick={toggleMenu}>T</h1>
                 <div id="LeftMenuTopPages" className={isCollapsed ? 'collapsed' : ''}>
-                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={() => navigate('/system')}
-                         style={{cursor: "pointer"}}>
-                        <img src={MainPageIcon} alt="MainPage icon" style={{width: "20px"}}/>
-                        {!isCollapsed && <p className="LeftMenuTopPageName">Главная</p>}
-                    </div>
+                    {/*<div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={() => navigate('/system')}*/}
+                    {/*     style={{cursor: "pointer"}}>*/}
+                    {/*    <img src={MainPageIcon} alt="MainPage icon" style={{width: "20px"}}/>*/}
+                    {/*    {!isCollapsed && <p className="LeftMenuTopPageName">Главная</p>}*/}
+                    {/*</div>*/}
                     <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}
                          onClick={() => navigate('/system/courses')}
                          style={{cursor: "pointer"}}>
@@ -46,8 +47,8 @@ function LeftMenu({onMenuToggle}) {
                         {!isCollapsed && <p className="LeftMenuTopPageName">Сообщения</p>}
                     </div>
                     <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}>
-                        <img src={NotificationIcon} alt="Notification icon" style={{width: "20px"}}/>
-                        {!isCollapsed && <p className="LeftMenuTopPageName">Уведомления</p>}
+                        <img src={KeyIcon} alt="Key icon" style={{width: "20px"}}/>
+                        {!isCollapsed && <p className="LeftMenuTopPageName">Админ-панель</p>}
                     </div>
                 </div>
             </div>
@@ -60,10 +61,10 @@ function LeftMenu({onMenuToggle}) {
                         <img src={ProfileIcon} alt="Profile icon" style={{width: "20px"}}/>
                         {!isCollapsed && <p className="LeftMenuTopPageName">Профиль</p>}
                     </div>
-                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}>
-                        <img src={SettingsIcon} alt="Settings icon" style={{width: "20px"}}/>
-                        {!isCollapsed && <p className="LeftMenuTopPageName">Настройки</p>}
-                    </div>
+                    {/*<div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}>*/}
+                    {/*    <img src={SettingsIcon} alt="Settings icon" style={{width: "20px"}}/>*/}
+                    {/*    {!isCollapsed && <p className="LeftMenuTopPageName">Настройки</p>}*/}
+                    {/*</div>*/}
                     <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={() => navigate('/')}
                          style={{cursor: "pointer"}}>
                         <img src={LogoutIcon} alt="Logout icon" style={{width: "20px"}}/>

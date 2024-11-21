@@ -33,5 +33,214 @@
 
 }
 
+#CourceDetailButtonsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    margin-top: 40px;
+}
+
+
+#CourceDetailTeachersButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #94D0BB;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-family: IgraSans;
+}
+
+#CourceDetailGroupsButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #ABD094;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-family: IgraSans;
+}
+
+
+#CourceDetailWorkButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #97D8DF;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-family: IgraSans;
+}
+
+#CourceDetailEventsButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #A197DF;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-family: IgraSans;
+}
+
+#CourceDetailAddButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #F2F2C9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 10px 20px;
+    font-family: IgraSans;
+}
+
+#CourceDetailSectionAddModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 52;
+    padding: 50px 0px;
+}
+
+#CourceDetailSectionAddModalContent {
+    background-color: #f2e8c9;
+    padding: 10px 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    text-align: center;
+}
+
+#CourceDetailSectionAddModalInputCourse {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+    border-collapse: collapse;
+    border: 0.3px solid gray;
+}
+
+#CourceDetailSectionAddModalInputCourseInput {
+    all: unset;
+    text-align: center;
+    width: 100%;
+    font-family: IgraSans;
+}
+
+#CourceDetailSectionAddModalInputCourseInputDropDown {
+    padding: 10px 2px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    text-align: center;
+    width: 100%;
+    font-family: IgraSans;
+}
+
+#CourseAddSubmit {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+#CourseAddSubmitButton {
+    all: unset;
+    background-color: #fff;
+    padding: 12px 30px;
+    border-radius: 15px;
+    font-family: IgraSans;
+    font-size: 18px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#CourceDetailTeachersAddModalContent {
+    background-color: #f2e8c9;
+    padding: 20px 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    text-align: center;
+}
+
+#CourseTeachersDetailHeaderAndSearchBarContainer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#CourseTeachersHeader {
+    font-family: LiteralBold;
+    font-size: 30px;
+}
+
+#CourseTeachersSearchBar {
+    background-color: #fff;
+    width: 20%;
+    display: flex;
+    padding: 10px;
+    border-radius: 15px;
+    justify-content: space-between;
+    border-collapse: collapse;
+    border: 1px solid gray;
+    font-size: 12px;
+}
+
+#CourseTeachersSearchBarInput {
+    all: unset;
+    text-align: left;
+    width: 90%;
+
+}
+
+#CourseContactsCourceContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 35px;
+    height: 55vh;
+    overflow-y: auto;
+
+
+}
+
+.CourseContactsInfoBlockWithChatsImage {
+    background-color: #EAE1DA;
+    border-radius: 25px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    width: 95%;
+
+}
+
+.CourseContactsTextBlockWithChatsImage {
+
+    margin-bottom: 15px;
+    margin-left: 40px;
+    margin-top: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.CourseContactsInfoBlockHeaderWithChatsImage {
+    font-family: LiteralBold;
+    font-size: 26px;
+}
+
+
+
+
 
 

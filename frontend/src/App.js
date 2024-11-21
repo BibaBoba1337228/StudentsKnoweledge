@@ -20,6 +20,11 @@ import DoingTest from "./pages/DoingTest";
 import FindContacts from "./pages/FindContacts";
 import OtherProfile from "./pages/OtherProfile";
 import Chat from "./pages/Chat";
+import AllSendendTasksFromStudent from "./pages/AllSendendTasksFromStudent";
+import AllSendendTasks from "./pages/AllSendendTasks";
+import LrRate from "./pages/LrRate";
+import AllEvents from "./pages/AllEvents";
+import ChangeTask from "./pages/ChangeTask";
 
 function App() {
     const router = createBrowserRouter([
@@ -74,8 +79,28 @@ function App() {
                     element: <LrDetail></LrDetail>
                 },
                 {
+                    path: "/system/course/task/change",
+                    element: <ChangeTask></ChangeTask>
+                },
+                {
                     path: "/system/course/test",
                     element: <TestDetail></TestDetail>
+                },
+                {
+                    path: "/system/course/answers",
+                    element: <AllSendendTasks></AllSendendTasks>
+                },
+                {
+                    path: "/system/course/answers/students",
+                    element: <AllSendendTasksFromStudent></AllSendendTasksFromStudent>
+                },
+                {
+                    path: "/system/course/answers/students/student",
+                    element: <LrRate></LrRate>
+                },
+                {
+                    path: "/system/course/events",
+                    element: <AllEvents></AllEvents>
                 },
                 {
                     path: "/system/course/task/manage",
@@ -92,7 +117,11 @@ function App() {
                 {
                     path: "/system/course/test/overview",
                     element: <TestOverview></TestOverview>
-                }
+                }, {
+                    index: true,
+                    element: <MyCourses/>,
+
+                },
             ]
         },
 

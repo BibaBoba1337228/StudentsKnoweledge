@@ -1,0 +1,105 @@
+#ChangeTaskWrapper {
+    background-color: #FCF8F5;
+    width: 100%;
+    height: 100%;
+}
+
+#ChangeTaskContainer {
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+#ChangeTaskDelimiter {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid gray;
+    margin-top: 25px;
+}
+
+
+#ChangeTaskHeader {
+    font-family: LiteralBold;
+    font-size: 40px;
+}
+
+
+#ChangeTaskCourceContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 35px;
+    overflow: visible;
+
+
+}
+
+.ChangeTaskInfoBlock {
+    background-color: #F2E8C9;
+    border-radius: 25px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.ChangeTaskTextBlock {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.ChangeTaskTextBlock:last-child {
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    margin-bottom: 0px;
+}
+
+.ChangeTaskInfoBlockHeader {
+    font-family: LiteralBold;
+    font-size: 18px;
+    overflow: visible;
+}
+
+.ChangeTaskInfoBlockInfo {
+    font-family: IgraSans;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+.ChangeTaskInfoBlockInfoWithImage {
+    font-family: IgraSans;
+    font-size: 14px;
+    margin-left: 20px;
+    display: flex;
+}
+
+#ChangeTaskManageButtons {
+    margin-top: 20px;
+}
+
+#ChangeTaskChangeButton {
+    all: unset;
+    background-color: #A8E4A0;
+    font-size: 16px;
+    font-family: IgraSans;
+    padding: 12px 25px;
+    border-radius: 15px;
+
+}
+
+#ChangeTaskDeleteButton {
+    all: unset;
+    background-color: #FFA05C;
+    font-size: 16px;
+    font-family: IgraSans;
+    padding: 12px 25px;
+    border-radius: 15px;
+    margin-left: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+
+

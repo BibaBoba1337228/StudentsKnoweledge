@@ -1,0 +1,74 @@
+#AllSendendTasksWrapper {
+    background-color: #FCF8F5;
+    width: 100%;
+
+}
+
+#AllSendendTasksContainer {
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+#AllSendendTasksDelimiter {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid gray;
+    margin-top: 25px;
+}
+
+
+#AllSendendTasksHeader {
+    font-family: LiteralBold;
+    font-size: 40px;
+}
+
+
+#AllSendendTasksCourceContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 35px;
+
+
+}
+
+.AllSendendTasksInfoBlock {
+    background-color: #F2E8C9;
+    border-radius: 25px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.AllSendendTasksTextBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.AllSendendTasksTextBlock:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0px;
+}
+
+.AllSendendTasksInfoBlockHeader {
+    font-family: LiteralBold;
+    font-size: 18px;
+}
+
+.AllSendendTasksInfoBlockInfo {
+    font-family: IgraSans;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+
+
+
+
+

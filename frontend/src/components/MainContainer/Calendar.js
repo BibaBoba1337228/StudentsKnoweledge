@@ -1,57 +1,112 @@
-import React, { useState } from 'react';
-import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, getDay } from 'date-fns';
-import ru from 'date-fns/locale/ru';
-import LeftIcon from '../../assets/icons/left_icon.svg'
-import RightIcon from '../../assets/icons/right_icon.svg'
+import React, {useState} from "react";
+import {
+    format,
+    addMonths,
+    subMonths,
+    startOfMonth,
+    endOfMonth,
+    eachDayOfInterval,
+    getDay,
+    isSameDay,
+} from "date-fns";
+import ru from "date-fns/locale/ru";
+import LeftIcon from "../../assets/icons/left_icon.svg";
+import RightIcon from "../../assets/icons/right_icon.svg";
+import "../../styles/Calendar.css";
+import {useNavigate} from "react-router-dom"; // Подключение CSS
 
 function Calendar() {
     const [currentDate, setCurrentDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(null);
 
-    const handlePrevMonth = () => {
-        setCurrentDate(subMonths(currentDate, 1));
-    };
+    const specialDays = [new Date(2024, 9, 31), new Date(2024, 10, 1)];
 
-    const handleNextMonth = () => {
-        setCurrentDate(addMonths(currentDate, 1));
-    };
+    const handlePrevMonth = () => setCurrentDate(subMonths(currentDate, 1));
+    const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
 
     const monthStart = startOfMonth(currentDate);
     const monthEnd = endOfMonth(currentDate);
+    const days = eachDayOfInterval({start: monthStart, end: monthEnd});
+    const startDayOfWeek = (getDay(monthStart) + 6) % 7;
 
-    const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
+    const isSpecialDay = (day) =>
+        specialDays.some((specialDay) => isSameDay(specialDay, day));
 
-    // Определяем сдвиг для начала месяца (0 - Понедельник, ..., 6 - Воскресенье)
-    const startDayOfWeek = (getDay(monthStart) + 6) % 7; // Смещение для понедельника как первого дня
+    const navigate = useNavigate();
 
     return (
-        <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif', color: '#333' }}>
-            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px'}}>
+        <div className="calendar-container">
+            {/* Навигация по месяцам */}
+            <div className="calendar-navigation">
                 <img src={LeftIcon} alt="left" onClick={handlePrevMonth}/>
-                <p>{format(currentDate, 'LLLL yyyy', {locale: ru})}</p>
+                <p className="calendar-title">
+                    {format(currentDate, "LLLL yyyy", {locale: ru})}
+                </p>
                 <img src={RightIcon} alt="right" onClick={handleNextMonth}/>
+            </div>
 
+            {/* Заголовки дней недели */}
+            <div className="calendar-grid">
+                {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"].map((day) => (
+                    <div key={day} className="calendar-day-header">
+                        {day}
+                    </div>
+                ))}
 
-        </div>
-    <div style={{display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '5px' }}>
-                {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map(day => (
-                    <div key={day} style={{ fontWeight: 'bold' }}>{day}</div>
+                {/* Пустые ячейки для сдвига */}
+                {Array.from({length: startDayOfWeek}).map((_, index) => (
+                    <div key={index}/>
                 ))}
-                {/* Добавляем пустые ячейки для смещения дней недели */}
-                {Array.from({ length: startDayOfWeek }).map((_, index) => (
-                    <div key={index} />
-                ))}
-                {days.map(day => (
+
+                {/* Дни месяца */}
+                {days.map((day) => (
                     <div
                         key={day}
-                        style={{
-                            color: 'black', // Все дни будут черными
-                            padding: '5px',
-                        }}
+                        className={`calendar-day ${isSpecialDay(day) ? "special" : ""}`}
+                        onClick={() => isSpecialDay(day) && setSelectedDate(day)}
                     >
-                        {format(day, 'd')}
+                        {format(day, "d")}
                     </div>
                 ))}
             </div>
+
+            {/* Модальное окно */}
+            {selectedDate && (
+                <div className="modal-overlay" onClick={() => setSelectedDate(null)}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-date">
+                            {format(selectedDate, "dd.MM.yyyy")}
+                        </div>
+                        <div id="ChatDelimiter"></div>
+                        <div style={{marginTop: "10px"}}>
+                            <div className="modal-entry" onClick={() => {
+                                setSelectedDate(null);
+                                navigate('/system/course/task')
+                            }}
+                                 style={{cursor: "pointer"}}>
+                                <div>ТП 2к3с - ЛР1</div>
+                                <div>до 01.11.2024</div>
+                            </div>
+                            <div className="modal-entry" onClick={() => {
+                                setSelectedDate(null);
+                                navigate('/system/course/task')
+                            }}
+                                 style={{cursor: "pointer"}}>
+                                <div>ТП 2к3с - ЛР2</div>
+                                <div>открывается сегодня в 11:59</div>
+                            </div>
+                            <div className="modal-entry" onClick={() => {
+                                setSelectedDate(null);
+                                navigate('/system/course/task')
+                            }}
+                                 style={{cursor: "pointer"}}>
+                                <div>ТП 2к3с - ЛР3</div>
+                                <div>закрывается сегодня</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

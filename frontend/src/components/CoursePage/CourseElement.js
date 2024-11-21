@@ -10,9 +10,13 @@ import test from '../../assets/icons/test.svg'
 import sendLab from '../../assets/icons/send_lab.svg'
 import printer from '../../assets/icons/printer.svg'
 import other from '../../assets/icons/other.svg'
+import pencil from '../../assets/icons/pencil.svg'
+import eye from '../../assets/icons/eye.svg'
+import cross from '../../assets/icons/cross.svg'
 import {useNavigate} from "react-router-dom";
 
 const accordionData = {
+
 
     "Лекции":
         [
@@ -72,7 +76,10 @@ const CourseElement = () => {
                         />
                     ))}
                 </AccordionItem>
+
+
             ))}
+
         </div>
     );
 };
@@ -81,6 +88,7 @@ const CourseElement = () => {
 const AccordionItem = ({title, children}) => {
     const [isOpen, setIsOpen] = useState(false);
     const contentRef = useRef(null);
+    const navigate = useNavigate();
 
     const toggleAccordion = () => {
         setIsOpen(!isOpen);
@@ -88,11 +96,29 @@ const AccordionItem = ({title, children}) => {
 
     return (
         <div className="accordion-item">
-            <button className="accordion-header" onClick={toggleAccordion}>
-                <img src={isOpen ? OpenedIcon : ClosedIcon} alt="Opened Icon" style={{width: '25px'}}/>
-                <div className="accordion-header-text">{title}</div>
+            <div style={{display: "flex", alignItems: "center"}}>
+                <button className="accordion-header" onClick={toggleAccordion}>
+                    <img src={isOpen ? OpenedIcon : ClosedIcon} alt="Opened Icon" style={{width: '25px'}}/>
+                    <div className="accordion-header-text">{title}</div>
 
-            </button>
+                </button>
+                <div style={{display: "flex", alignItems: "center", marginRight: "10px"}}>
+
+                    <button style={{marginRight: '20px', all: "unset"}}
+                    >
+                        <img src={pencil} alt="Opened Icon" style={{marginRight: '20px', width: '20px'}}/>
+                    </button>
+
+                    <button style={{marginRight: '20px', all: "unset"}}>
+                        <img src={eye} alt="Opened Icon" style={{marginRight: '20px', width: '20px'}}/>
+                    </button>
+
+                    <button style={{all: "unset"}}>
+                        <img src={cross} alt="Opened Icon" style={{marginRight: '20px', width: '20px'}}/>
+                    </button>
+
+                </div>
+            </div>
 
 
             <div
@@ -104,7 +130,15 @@ const AccordionItem = ({title, children}) => {
             >
                 <div ref={contentRef} className="accordion-inner-content">
                     {children}
+                    <div id="CourceDetailButtonsContainer">
+
+                        <button id="CourceDetailItemCancelButton">Отменить</button>
+                        <button id="CourceDetailItemSaveButton">Сохранить</button>
+                        <button id="CourceDetailItemAddButton">Добавить</button>
+
+                    </div>
                 </div>
+
             </div>
         </div>
     );
@@ -115,10 +149,29 @@ const AccordionSubItem = ({icon, title, link}) => {
     const navigate = useNavigate();
 
     return (
-        <div className="accordion-sub-item" onClick={() => navigate(link)}
+        <div className="accordion-sub-item"
              style={{cursor: "pointer"}}>
-            <img src={icon} style={{width: '20px'}}/>
-            <div className="accordion-sub-item-text">{title}</div>
+            <div style={{display: "flex", alignItems: "center"}} onClick={() => navigate(link)}>
+                <img src={icon} style={{width: '20px'}}/>
+                <div className="accordion-sub-item-text">{title}</div>
+            </div>
+
+            <div style={{display: "flex", alignItems: "center", marginRight: "10px"}}>
+
+                <button style={{marginRight: '20px', all: "unset"}}
+                        onClick={() => navigate('/system/course/task/change')}>
+                    <img src={pencil} alt="Opened Icon" style={{marginRight: '20px', width: '20px'}}/>
+                </button>
+
+                <button style={{marginRight: '20px', all: "unset"}}>
+                    <img src={eye} alt="Opened Icon" style={{marginRight: '20px', width: '20px'}}/>
+                </button>
+
+                <button style={{all: "unset"}}>
+                    <img src={cross} alt="Opened Icon" style={{marginRight: '20px', width: '20px'}}/>
+                </button>
+
+            </div>
         </div>
     );
 };
