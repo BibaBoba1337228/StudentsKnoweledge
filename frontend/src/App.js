@@ -25,6 +25,8 @@ import AllSendendTasks from "./pages/AllSendendTasks";
 import LrRate from "./pages/LrRate";
 import AllEvents from "./pages/AllEvents";
 import ChangeTask from "./pages/ChangeTask";
+import AdminPanel from "./pages/AdminPanel";
+import GroupMarks from "./pages/GroupMarks";
 
 function App() {
     const router = createBrowserRouter([
@@ -54,6 +56,10 @@ function App() {
                     element: <MyChats></MyChats>,
                 },
                 {
+                    path: "/system/admin",
+                    element: <AdminPanel></AdminPanel>,
+                },
+                {
                     path: "/system/chats/chat",
                     element: <Chat></Chat>,
                 },
@@ -77,6 +83,10 @@ function App() {
                 {
                     path: "/system/course/task",
                     element: <LrDetail></LrDetail>
+                },
+                {
+                    path: "/system/course/marks",
+                    element: <GroupMarks></GroupMarks>
                 },
                 {
                     path: "/system/course/task/change",

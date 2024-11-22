@@ -46,7 +46,9 @@ function LeftMenu({onMenuToggle}) {
                         <img src={MessengerIcon} alt="Messenger icon" style={{width: "20px"}}/>
                         {!isCollapsed && <p className="LeftMenuTopPageName">Сообщения</p>}
                     </div>
-                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}>
+                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}
+                         onClick={() => navigate('/system/admin')}
+                         style={{cursor: "pointer"}}>
                         <img src={KeyIcon} alt="Key icon" style={{width: "20px"}}/>
                         {!isCollapsed && <p className="LeftMenuTopPageName">Админ-панель</p>}
                     </div>

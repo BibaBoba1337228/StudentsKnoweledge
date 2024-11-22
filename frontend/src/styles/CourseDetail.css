@@ -79,6 +79,15 @@
     font-family: IgraSans;
 }
 
+#CourceDetailMarksButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #D0CE94;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-family: IgraSans;
+}
+
 #CourceDetailAddButton {
     all: unset;
     border-radius: 15px;

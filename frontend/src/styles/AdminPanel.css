@@ -1,0 +1,179 @@
+#AdminPanelWrapper {
+    background-color: #FCF8F5;
+    width: 100%;
+    height: 100%;
+}
+
+#AdminPanelContainer {
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+#AdminPanelDelimiter {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid gray;
+}
+
+#AdminPanelHeaderAndSearchBarContainer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+#AdminPanelHeader {
+    font-family: LiteralBold;
+    font-size: 40px;
+}
+
+#AdminPanelSearchBar {
+    background-color: #fff;
+    width: 20%;
+    display: flex;
+    padding: 10px;
+    border-radius: 15px;
+    justify-content: space-between;
+    border-collapse: collapse;
+    border: 1px solid gray;
+}
+
+#AdminPanelSearchBarInput {
+    all: unset;
+
+}
+
+#AdminPanelCourcesCardsWrapper {
+    height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+#AdminPanelCourcesCardsContainer {
+    display: flex;
+    margin-top: 40px;
+    gap: 30px; /* Отступ между картами по горизонтали и вертикали */
+    justify-content: flex-start; /* Выравнивание по левому краю */
+    width: 100%;
+    flex-wrap: wrap;
+
+
+}
+
+.AdminPanelCourcesCardBackground {
+    border-radius: 15px 15px 0 0;
+}
+
+.AdminPanelCourcesCard {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 20px;
+
+}
+
+.AdminPanelCourcesCardTextContainer {
+    width: 100%;
+    padding: 7px;
+}
+
+.AdminPanelCourcesCardSubjectName {
+    font-family: IgraSans;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.AdminPanelCourcesCardSubjectSemestr {
+    font-family: IgraSans;
+    font-size: 12px;
+}
+
+#AdminPanelButtonsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#AdminCourseButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #D0CE94;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-family: IgraSans;
+}
+
+#AdminGroupsButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #ABD094;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-family: IgraSans;
+}
+
+#AdminTeachersButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #94D0BB;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-family: IgraSans;
+}
+
+#AdminStudentsButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #94B5D0;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-family: IgraSans;
+}
+
+#AdminTableTh {
+
+
+    padding: 8px;
+    font-size: 16px;
+    font-family: IgraSans;
+
+}
+
+#AdminTableTd {
+
+
+    padding: 8px;
+    font-size: 16px;
+    font-family: IgraSans;
+
+}
+
+#AdminPanelAddButton {
+    all: unset;
+    border-radius: 15px;
+    background-color: #C4CFB9;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 10px 20px;
+
+    font-family: IgraSans;
+}
+
+#AdminPanelButtonsAddContainer {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+
+

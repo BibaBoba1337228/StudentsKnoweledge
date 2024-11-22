@@ -79,6 +79,9 @@ function MyCourses() {
                         <button id="CourceDetailEventsButton" onClick={() => navigate('/system/course/events')}
                                 style={{cursor: "pointer"}}>События
                         </button>
+                        <button id="CourceDetailMarksButton" onClick={() => navigate('/system/course/marks')}
+                                style={{cursor: "pointer"}}>Успеваемость
+                        </button>
 
                     </div>
                     <CourseElement></CourseElement>
