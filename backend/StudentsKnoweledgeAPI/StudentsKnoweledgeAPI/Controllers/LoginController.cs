@@ -36,7 +36,23 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Unauthorized(new { message = "Invalid username or password." });
         }
 
-        [HttpPost("logout")]
+        [HttpGet("status")]
+        public IActionResult Status()
+        {
+            if (User.Identity == null || !User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { message = "User is not authenticated." });
+            }
+
+            return Ok(new
+            {
+                message = "User is authenticated.",
+                username = User.Identity.Name, // Имя пользователя
+                claims = User.Claims.Select(c => new { c.Type, c.Value }) // Все утверждения (claims)
+            });
+        }
+
+        [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
