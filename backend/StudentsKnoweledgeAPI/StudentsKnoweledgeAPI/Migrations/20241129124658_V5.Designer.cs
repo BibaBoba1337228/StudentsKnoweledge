@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace StudentsKnoweledgeAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241129124658_V5")]
+    partial class V5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,36 +23,6 @@ namespace StudentsKnoweledgeAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CourseGroup", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GroupsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CoursesId", "GroupsId");
-
-                    b.HasIndex("GroupsId");
-
-                    b.ToTable("CourseGroup");
-                });
-
-            modelBuilder.Entity("CourseTeacher", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TeachersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("CoursesId", "TeachersId");
-
-                    b.HasIndex("TeachersId");
-
-                    b.ToTable("CourseTeacher");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -257,23 +230,6 @@ namespace StudentsKnoweledgeAPI.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Course", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Courses");
-                });
-
             modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Group", b =>
                 {
                     b.Property<int>("Id")
@@ -289,59 +245,6 @@ namespace StudentsKnoweledgeAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Material", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("SectionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SectionId");
-
-                    b.ToTable("Materials");
-
-                    b.HasDiscriminator<string>("Type").HasValue("Material");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Section", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Administrator", b =>
@@ -420,75 +323,6 @@ namespace StudentsKnoweledgeAPI.Migrations
                     b.HasDiscriminator().HasValue("Teacher");
                 });
 
-            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.FileMaterial", b =>
-                {
-                    b.HasBaseType("StudentsKnoweledgeAPI.Models.Material");
-
-                    b.Property<string>("FilePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("File");
-                });
-
-            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.TaskMaterial", b =>
-                {
-                    b.HasBaseType("StudentsKnoweledgeAPI.Models.Material");
-
-                    b.Property<DateTime>("Deadline")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Grade")
-                        .HasColumnType("float");
-
-                    b.HasDiscriminator().HasValue("Task");
-                });
-
-            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.TextContentMaterial", b =>
-                {
-                    b.HasBaseType("StudentsKnoweledgeAPI.Models.Material");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("TextContent");
-                });
-
-            modelBuilder.Entity("CourseGroup", b =>
-                {
-                    b.HasOne("StudentsKnoweledgeAPI.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudentsKnoweledgeAPI.Models.Group", null)
-                        .WithMany()
-                        .HasForeignKey("GroupsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CourseTeacher", b =>
-                {
-                    b.HasOne("StudentsKnoweledgeAPI.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudentsKnoweledgeAPI.Models.Teacher", null)
-                        .WithMany()
-                        .HasForeignKey("TeachersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -540,28 +374,6 @@ namespace StudentsKnoweledgeAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Material", b =>
-                {
-                    b.HasOne("StudentsKnoweledgeAPI.Models.Section", "Section")
-                        .WithMany("Materials")
-                        .HasForeignKey("SectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Section");
-                });
-
-            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Section", b =>
-                {
-                    b.HasOne("StudentsKnoweledgeAPI.Models.Course", "Course")
-                        .WithMany("Sections")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-                });
-
             modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Student", b =>
                 {
                     b.HasOne("StudentsKnoweledgeAPI.Models.Group", "Group")
@@ -573,19 +385,9 @@ namespace StudentsKnoweledgeAPI.Migrations
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Course", b =>
-                {
-                    b.Navigation("Sections");
-                });
-
             modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Group", b =>
                 {
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Section", b =>
-                {
-                    b.Navigation("Materials");
                 });
 #pragma warning restore 612, 618
         }
