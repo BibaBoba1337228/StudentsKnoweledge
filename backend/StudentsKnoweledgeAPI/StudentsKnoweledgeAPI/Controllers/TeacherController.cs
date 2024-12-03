@@ -27,7 +27,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTeacherById(int id)
+        public async Task<IActionResult> GetTeacherById(string id)
         {
             var teacher = await _context.Teachers.Include(t => t.Courses).FirstOrDefaultAsync(t => t.Id == id);
 
@@ -47,6 +47,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             {
                 UserName = request.UserName,
                 Role = UserRole.Teacher
+                
             };
 
             var result = await _userManager.CreateAsync(newTeacher, request.Password);
@@ -58,7 +59,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTeacher(int id, [FromBody] UpdateTeacherRequest request)
+        public async Task<IActionResult> UpdateTeacher(string id, [FromBody] UpdateTeacherRequest request)
         {
             var teacher = await _context.Teachers.Include(t => t.Courses).FirstOrDefaultAsync(t => t.Id == id);
 

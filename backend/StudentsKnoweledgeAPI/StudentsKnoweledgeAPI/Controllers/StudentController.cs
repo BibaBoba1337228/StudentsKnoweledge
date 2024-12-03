@@ -27,7 +27,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetStudentById(int id)
+        public async Task<IActionResult> GetStudentById(string id)
         {
             var student = await _context.Students.Include(s => s.Group).FirstOrDefaultAsync(s => s.Id == id);
 
@@ -63,7 +63,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateStudent(int id, [FromBody] UpdateStudentRequest request)
+        public async Task<IActionResult> UpdateStudent(string id, [FromBody] UpdateStudentRequest request)
         {
             var student = await _context.Students.Include(s => s.Group).FirstOrDefaultAsync(s => s.Id == id);
 

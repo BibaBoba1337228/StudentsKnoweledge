@@ -1,6 +1,6 @@
 import '../styles/CourseDetail.css'
 import '../styles/fonts.css'
-import {createBrowserRouter, RouterProvider, Outlet, useNavigate} from 'react-router-dom';
+import {createBrowserRouter, RouterProvider, Outlet, useNavigate, useLoaderData} from 'react-router-dom';
 import CourseElement from "../components/CoursePage/CourseElement";
 import React, {useState} from "react";
 import ProfileIcon from "../assets/icons/profile_icon.svg";
@@ -12,6 +12,10 @@ import CheckBoxСheckedIcon from '../assets/icons/checked_checkbox.svg'
 
 
 function MyCourses() {
+
+
+    const data = useLoaderData();
+    console.log(data)
 
     const navigate = useNavigate();
 
@@ -84,7 +88,7 @@ function MyCourses() {
                         </button>
 
                     </div>
-                    <CourseElement></CourseElement>
+                    <CourseElement data={data}></CourseElement>
 
                     <div id="CourceDetailButtonsContainer">
 
@@ -106,32 +110,9 @@ function MyCourses() {
                         </label>
                         <div id="CourceDetailSectionAddModalInputCourse">
                             <input id="CourceDetailSectionAddModalInputCourseInput"
-                                   placeholder="Введите название курса..."/>
+                                   placeholder="Введите название раздела..."/>
                         </div>
-                        <div style={{padding: "0px"}}>
-                            <label htmlFor="dropdown"
-                                   style={{display: "block", marginBottom: "10px", fontFamily: "IgraSans"}}>
-                                Семестр
-                            </label>
-                            <select
-                                id="dropdown"
-                                name="dropdown"
-                                placeholder="1 курс 1 семестр"
-                                id="CourceDetailSectionAddModalInputCourseInputDropDown"
 
-                            >
-
-                                <option value="1 курс 1 семестр">1 курс 1 семестр</option>
-                                <option value="1 курс 2 семестр">1 курс 2 семестр</option>
-                                <option value="2 курс 3 семестр">2 курс 3 семестр</option>
-                                <option value="2 курс 4 семестр">2 курс 4 семестр</option>
-                                <option value="3 курс 5 семестр">3 курс 5 семестр</option>
-                                <option value="3 курс 6 семестр">3 курс 6 семестр</option>
-                                <option value="4 курс 7 семестр">4 курс 7 семестр</option>
-                                <option value="4 курс 8 семестр">4 курс 8 семестр</option>
-
-                            </select>
-                        </div>
                         <div id="CourseAddSubmit">
                             <button id="CourseAddSubmitButton" onClick={() => {
                                 setIsSectionOpen(false);

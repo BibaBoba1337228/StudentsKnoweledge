@@ -19,7 +19,17 @@ namespace StudentsKnoweledgeAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMaterialsBySectionId(int sectionId)
         {
-            var materials = await _context.Materials.Where(m => m.SectionId == sectionId).ToListAsync();
+            var materials = await _context.Materials
+                .Where(m => m.SectionId == sectionId)
+                .Select(m => new
+                {
+                    m.Id,
+                    m.Title,
+                    m.SectionId,
+                    Type = m.Type // Добавляем тип
+                })
+                .ToListAsync();
+
             return Ok(materials);
         }
 

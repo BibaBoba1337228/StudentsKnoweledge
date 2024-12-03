@@ -140,7 +140,7 @@
       },
       {
         "Name": "teacherId",
-        "Type": "System.Int32",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -198,7 +198,7 @@
       },
       {
         "Name": "teacherId",
-        "Type": "System.Int32",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -235,7 +235,7 @@
       },
       {
         "Name": "section",
-        "Type": "StudentsKnoweledgeAPI.Models.Section",
+        "Type": "StudentsKnoweledgeAPI.RequestsTemplates.CreateCourseSectionRequest",
         "IsRequired": true
       }
     ],
@@ -358,6 +358,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
+    "Method": "GetCoursesByUser",
+    "RelativePath": "api/Course/UserCourses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.GroupController",
     "Method": "GetAllGroups",
     "RelativePath": "api/Group",
@@ -467,6 +477,16 @@
     "Method": "Status",
     "RelativePath": "api/Login/status",
     "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.LoginController",
+    "Method": "CORS",
+    "RelativePath": "api/Login/status",
+    "HttpMethod": "OPTIONS",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
@@ -686,7 +706,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -702,7 +722,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.String",
         "IsRequired": true
       },
       {
@@ -765,7 +785,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -781,7 +801,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.String",
         "IsRequired": true
       },
       {

@@ -27,13 +27,25 @@ import AllEvents from "./pages/AllEvents";
 import ChangeTask from "./pages/ChangeTask";
 import AdminPanel from "./pages/AdminPanel";
 import GroupMarks from "./pages/GroupMarks";
+import LoginErrorBoundary from "./components/LoginErrorBoundary";
+import MainPage from "./pages/MainPage";
+import {mainPageLoader} from "./api/loaders/MainPageLoader";
+import {myCourcesLoader} from "./api/loaders/MyCourcesLoader";
+import {courseDetailLoader} from "./api/loaders/CourseDetailLoader";
+
 
 function App() {
     const router = createBrowserRouter([
         {
             index: true,
-            element: <Login/>,
+            element: <MainPage/>,
+            loader: mainPageLoader,
+            errorElement: <LoginErrorBoundary/>
 
+        },
+        {
+            path: "/login",
+            element: <Login/>,
         },
         {
             path: "/system",
@@ -41,7 +53,22 @@ function App() {
             children: [
                 {
                     path: "/system/courses/",
-                    element: <MyCourses></MyCourses>
+                    element: <Outlet/>,
+                    children: [
+                        {
+                            path: "/system/courses/course/:courseId",
+                            loader: courseDetailLoader,
+                            element: <CourseDetail></CourseDetail>,
+                            errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                        },
+                        {
+                            index: true,
+                            element: <MyCourses></MyCourses>,
+                            loader: myCourcesLoader,
+                            errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                        },
+                    ]
+
                 },
                 {
                     path: "/system/course/",

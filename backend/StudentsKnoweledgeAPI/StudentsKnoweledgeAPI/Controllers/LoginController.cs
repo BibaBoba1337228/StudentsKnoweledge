@@ -52,6 +52,13 @@ namespace StudentsKnoweledgeAPI.Controllers
             });
         }
 
+        [HttpOptions("status")]
+        public IActionResult CORS()
+        {
+
+            return Ok();
+        }
+
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {

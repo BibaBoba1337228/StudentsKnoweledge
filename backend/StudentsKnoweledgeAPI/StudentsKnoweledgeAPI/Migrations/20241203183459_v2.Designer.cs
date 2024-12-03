@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace StudentsKnoweledgeAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241129135555_v6")]
-    partial class v6
+    [Migration("20241203183459_v2")]
+    partial class v2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -271,6 +271,9 @@ namespace StudentsKnoweledgeAPI.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Semester")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

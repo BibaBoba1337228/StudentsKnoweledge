@@ -28,7 +28,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.Cookie.HttpOnly = true;
+    options.Cookie.HttpOnly = false;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     options.Cookie.SameSite = SameSiteMode.None;
     options.Cookie.Name = "AppAuth";
@@ -58,6 +58,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowReactApp");
 
 app.UseAuthorization();
 

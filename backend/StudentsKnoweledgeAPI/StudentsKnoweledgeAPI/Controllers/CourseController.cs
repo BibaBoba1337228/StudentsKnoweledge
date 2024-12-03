@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
+using StudentsKnoweledgeAPI.RequestsTemplates;
+using System.Security.Claims;
 
 namespace StudentsKnoweledgeAPI.Controllers
 {
@@ -30,7 +32,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpPost("{courseId}/Sections")]
-        public async Task<IActionResult> AddSectionToCourse(int courseId, [FromBody] Section section)
+        public async Task<IActionResult> AddSectionToCourse(int courseId, [FromBody] CreateCourseSectionRequest section)
         {
             var course = await _context.Courses.FindAsync(courseId);
 
@@ -96,7 +98,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPost("{courseId}/AddTeacher/{teacherId}")]
-        public async Task<IActionResult> AddTeacherToCourse(int courseId, int teacherId)
+        public async Task<IActionResult> AddTeacherToCourse(int courseId, string teacherId)
         {
             var course = await _context.Courses.Include(c => c.Teachers).FirstOrDefaultAsync(c => c.Id == courseId);
             var teacher = await _context.Teachers.FindAsync(teacherId);
@@ -114,7 +116,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpDelete("{courseId}/RemoveTeacher/{teacherId}")]
-        public async Task<IActionResult> RemoveTeacherFromCourse(int courseId, int teacherId)
+        public async Task<IActionResult> RemoveTeacherFromCourse(int courseId, string teacherId)
         {
             var course = await _context.Courses.Include(c => c.Teachers).FirstOrDefaultAsync(c => c.Id == courseId);
             var teacher = await _context.Teachers.FindAsync(teacherId);
@@ -195,6 +197,32 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(courses);
         }
+
+        [HttpGet("UserCourses")]
+        public async Task<IActionResult> GetCoursesByUser()
+        {
+            // Получаем текущего пользователя (например, из контекста запроса)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // Assuming you are using JWT authentication
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { message = "User is not authenticated." });
+            }
+
+            // Получаем список курсов, в которых пользователь состоит как студент или преподаватель
+            var courses = await _context.Courses
+                .Include(c => c.Groups)   // Включаем группы, чтобы проверить студентов
+                .Include(c => c.Teachers) // Включаем преподавателей
+                .Where(c => c.Groups.Any(g => g.Students.Any(s => s.Id.ToString() == userId)) || c.Teachers.Any(t => t.Id.ToString() == userId))
+                .ToListAsync();
+
+            if (!courses.Any())
+            {
+                return NotFound(new { message = "No courses found for the user." });
+            }
+
+            return Ok(courses);
+        }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCourseById(int id)

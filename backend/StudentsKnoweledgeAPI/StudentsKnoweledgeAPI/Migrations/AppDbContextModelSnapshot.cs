@@ -269,6 +269,9 @@ namespace StudentsKnoweledgeAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Semester")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Courses");

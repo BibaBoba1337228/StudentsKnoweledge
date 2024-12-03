@@ -38,6 +38,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
                 .HasMany(c => c.Teachers)
                 .WithMany(t => t.Courses);
 
+
         modelBuilder.Entity<Section>()
                 .HasOne(s => s.Course)
                 .WithMany(c => c.Sections)
@@ -55,6 +56,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
                 .HasValue<TaskMaterial>("Task")
                 .HasValue<FileMaterial>("File")
                 .HasValue<TextContentMaterial>("TextContent");
+
+
 
     }
 }

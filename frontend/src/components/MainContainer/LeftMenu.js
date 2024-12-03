@@ -10,6 +10,7 @@ import SettingsIcon from '../../assets/icons/settings_icon.svg';
 import LogoutIcon from '../../assets/icons/logout_icon.svg';
 import KeyIcon from '../../assets/icons/key.svg';
 import {Link, useNavigate} from "react-router-dom";
+import {fetchWithAuth} from "../../api/fetchWithAuth";
 
 function LeftMenu({onMenuToggle}) {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -21,6 +22,27 @@ function LeftMenu({onMenuToggle}) {
         setIsCollapsed(newState);
         if (onMenuToggle) {
             onMenuToggle(newState);  // Уведомляем родителя о изменении
+        }
+    };
+
+    const handleLogoutClick = async (e) => {
+        try {
+            const response = await fetchWithAuth(`https://localhost:7065/api/Login/logout`, {
+                method: 'GET',
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            navigate('/login');
+            if (response.status === 200) {
+                localStorage.clear();
+                navigate('/login');
+            } else {
+                console.log('Ошибка входа. Проверьте логин и пароль.');
+            }
+        } catch (error) {
+            console.log('Ошибка подключения. Пожалуйста, попробуйте позже.');
         }
     };
 
@@ -67,7 +89,7 @@ function LeftMenu({onMenuToggle}) {
                     {/*    <img src={SettingsIcon} alt="Settings icon" style={{width: "20px"}}/>*/}
                     {/*    {!isCollapsed && <p className="LeftMenuTopPageName">Настройки</p>}*/}
                     {/*</div>*/}
-                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={() => navigate('/')}
+                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={() => handleLogoutClick()}
                          style={{cursor: "pointer"}}>
                         <img src={LogoutIcon} alt="Logout icon" style={{width: "20px"}}/>
                         {!isCollapsed && <p className="LeftMenuTopPageName">Выйти</p>}
