@@ -74,20 +74,19 @@ function MyCourses() {
                     <div id="MyCourcesCourcesCardsWrapper">
                         <div id="MyCourcesCourcesCardsContainer">
                             {data.map(course => (
-                                course.groups.map(group => (
-                                    <div key={group.id} className="MyCourcesCourcesCard"
-                                         onClick={() => navigate(`/system/courses/course/${course.id}`)}
-                                         style={{cursor: "pointer"}}>
-                                        <img className="MyCourcesCourcesCardBackground"
-                                             loading="eager" src={getRandomBackground()}/>
+                                <div key={course.id} className="MyCourcesCourcesCard"
+                                     onClick={() => navigate(`/system/courses/course/${course.id}`)}
+                                     style={{cursor: "pointer"}}>
+                                    <img className="MyCourcesCourcesCardBackground"
+                                         loading="eager" src={getRandomBackground()}/>
 
-                                        <div className="MyCourcesCourcesCardTextContainer">
-                                            <div className="MyCourcesCourcesCardSubjectName">{course.name}</div>
-                                            <div
-                                                className="MyCourcesCourcesCardSubjectSemestr">{getSemesterText(course.semester)}</div>
-                                        </div>
+                                    <div className="MyCourcesCourcesCardTextContainer">
+                                        <div className="MyCourcesCourcesCardSubjectName">{course.name}</div>
+                                        <div
+                                            className="MyCourcesCourcesCardSubjectSemestr">{getSemesterText(course.semester)}</div>
                                     </div>
-                                ))
+                                </div>
+
                             ))}
                         </div>
                     </div>

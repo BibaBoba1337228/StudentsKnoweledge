@@ -26,12 +26,32 @@ namespace StudentsKnoweledgeAPI.Controllers
                     m.Id,
                     m.Title,
                     m.SectionId,
-                    Type = m.Type // Добавляем тип
+                    m.IsVisible,
+                    Type = m.Type 
                 })
                 .ToListAsync();
 
             return Ok(materials);
         }
+
+        [HttpPut("{materialId}/Visibility")]
+        public async Task<IActionResult> ToggleMaterialVisibility(int sectionId, int materialId, [FromBody] bool isVisible)
+        {
+            var material = await _context.Materials
+                .FirstOrDefaultAsync(m => m.SectionId == sectionId && m.Id == materialId);
+
+            if (material == null)
+                return NotFound(new { message = "Material not found." });
+
+            material.IsVisible = isVisible;
+
+            _context.Entry(material).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Material visibility updated successfully." });
+        }
+
+
 
         // ----- Управление заданиями -----
 

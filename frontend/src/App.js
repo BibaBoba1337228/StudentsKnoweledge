@@ -32,6 +32,7 @@ import MainPage from "./pages/MainPage";
 import {mainPageLoader} from "./api/loaders/MainPageLoader";
 import {myCourcesLoader} from "./api/loaders/MyCourcesLoader";
 import {courseDetailLoader} from "./api/loaders/CourseDetailLoader";
+import {adminPanelLoader} from "./api/loaders/AdminPanelLoader";
 
 
 function App() {
@@ -71,8 +72,10 @@ function App() {
 
                 },
                 {
-                    path: "/system/course/",
-                    element: <CourseDetail></CourseDetail>
+                    path: "/system/admin",
+                    element: <AdminPanel></AdminPanel>,
+                    loader: adminPanelLoader,
+                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                 },
                 {
                     path: "/system/profile",
@@ -82,10 +85,7 @@ function App() {
                     path: "/system/chats",
                     element: <MyChats></MyChats>,
                 },
-                {
-                    path: "/system/admin",
-                    element: <AdminPanel></AdminPanel>,
-                },
+
                 {
                     path: "/system/chats/chat",
                     element: <Chat></Chat>,

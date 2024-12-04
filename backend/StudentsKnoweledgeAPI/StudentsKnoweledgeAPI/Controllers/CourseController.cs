@@ -67,6 +67,22 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Section updated successfully.", section });
         }
 
+        [HttpPut("{courseId}/Sections/{sectionId}/Visibility")]
+        public async Task<IActionResult> ToggleSectionVisibility(int courseId, int sectionId, [FromBody] bool isVisible)
+        {
+            var section = await _context.Sections.FirstOrDefaultAsync(s => s.Id == sectionId && s.CourseId == courseId);
+
+            if (section == null)
+                return NotFound(new { message = "Section not found." });
+
+            section.IsVisible = isVisible;
+
+            _context.Entry(section).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Section visibility updated successfully.", section });
+        }
+
         [HttpDelete("{courseId}/Sections/{sectionId}")]
         public async Task<IActionResult> DeleteSection(int courseId, int sectionId)
         {
@@ -114,6 +130,38 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(new { message = "Teacher added to course successfully." });
         }
+
+        [HttpPost("{courseId}/AddTeachers")]
+        public async Task<IActionResult> AddTeachersToCourse(int courseId, [FromBody] List<string> teacherIds)
+        {
+            var course = await _context.Courses.Include(c => c.Teachers).FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course == null)
+                return NotFound(new { message = "Course not found." });
+
+            var teachers = await _context.Teachers.Where(t => teacherIds.Contains(t.Id)).ToListAsync();
+
+            if (teachers.Count != teacherIds.Count)
+                return NotFound(new { message = "One or more teachers not found." });
+
+            var addedTeachers = new List<Teacher>(); // Список для добавленных преподавателей
+
+            foreach (var teacher in teachers)
+            {
+                if (course.Teachers.Any(t => t.Id == teacher.Id))
+                    return BadRequest(new { message = $"Teacher {teacher.UserName} is already associated with this course." });
+
+                course.Teachers.Add(teacher);
+                addedTeachers.Add(teacher); // Добавляем преподавателя в список
+            }
+
+            await _context.SaveChangesAsync();
+
+            // Возвращаем добавленных преподавателей в ответе
+            return Ok(addedTeachers);
+        }
+
+
 
         [HttpDelete("{courseId}/RemoveTeacher/{teacherId}")]
         public async Task<IActionResult> RemoveTeacherFromCourse(int courseId, string teacherId)
@@ -166,6 +214,40 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(new { message = "Group added to course successfully." });
         }
+
+        [HttpPost("{courseId}/AddGroups")]
+        public async Task<IActionResult> AddGroupsToCourse(int courseId, [FromBody] List<int> groupIds)
+        {
+            var course = await _context.Courses.Include(c => c.Groups).FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course == null)
+                return NotFound(new { message = "Course not found." });
+
+            // Загружаем все группы по их ID
+            var groupsToAdd = await _context.Groups.Where(g => groupIds.Contains(g.Id)).ToListAsync();
+
+            if (groupsToAdd.Count != groupIds.Count)
+                return NotFound(new { message = "One or more groups not found." });
+
+            List<Group> addedGroups = new List<Group>();
+
+            foreach (var group in groupsToAdd)
+            {
+                // Проверяем, не добавлена ли группа уже в курс
+                if (!course.Groups.Any(g => g.Id == group.Id))
+                {
+                    course.Groups.Add(group);
+                    addedGroups.Add(group);
+                }
+            }
+
+            // Сохраняем изменения в базе данных
+            await _context.SaveChangesAsync();
+
+            // Возвращаем добавленные группы
+            return Ok(addedGroups);
+        }
+
 
         [HttpDelete("{courseId}/RemoveGroup/{groupId}")]
         public async Task<IActionResult> RemoveGroupFromCourse(int courseId, int groupId)

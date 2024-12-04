@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentsKnoweledgeAPI.Models
 {
@@ -6,6 +7,10 @@ namespace StudentsKnoweledgeAPI.Models
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
+
+        public bool IsVisible { get; set; } = true;
+
+
 
         public int SectionId { get; set; }
         public Section Section { get; set; }

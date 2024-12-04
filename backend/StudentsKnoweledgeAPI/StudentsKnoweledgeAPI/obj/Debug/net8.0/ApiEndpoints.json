@@ -127,6 +127,27 @@
   },
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
+    "Method": "AddGroupsToCourse",
+    "RelativePath": "api/Course/{courseId}/AddGroups",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "groupIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
     "Method": "AddTeacherToCourse",
     "RelativePath": "api/Course/{courseId}/AddTeacher/{teacherId}",
     "HttpMethod": "POST",
@@ -141,6 +162,27 @@
       {
         "Name": "teacherId",
         "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
+    "Method": "AddTeachersToCourse",
+    "RelativePath": "api/Course/{courseId}/AddTeachers",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "teacherIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": true
       }
     ],
@@ -283,6 +325,32 @@
       {
         "Name": "sectionId",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
+    "Method": "ToggleSectionVisibility",
+    "RelativePath": "api/Course/{courseId}/Sections/{sectionId}/Visibility",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "isVisible",
+        "Type": "System.Boolean",
         "IsRequired": true
       }
     ],
@@ -531,6 +599,32 @@
   },
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.MaterialController",
+    "Method": "ToggleMaterialVisibility",
+    "RelativePath": "api/Section/{sectionId}/Material/{materialId}/Visibility",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "materialId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "isVisible",
+        "Type": "System.Boolean",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.MaterialController",
     "Method": "CreateFileMaterial",
     "RelativePath": "api/Section/{sectionId}/Material/File",
     "HttpMethod": "POST",
@@ -743,7 +837,7 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -822,7 +916,23 @@
     "Parameters": [
       {
         "Name": "id",
-        "Type": "System.Int32",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.TeacherController",
+    "Method": "CreateTeachers",
+    "RelativePath": "api/Teacher/bulk",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requests",
+        "Type": "System.Collections.Generic.List\u00601[[StudentsKnoweledgeAPI.RequestsTemplates.CreateTeacherRequest, StudentsKnoweledgeAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],

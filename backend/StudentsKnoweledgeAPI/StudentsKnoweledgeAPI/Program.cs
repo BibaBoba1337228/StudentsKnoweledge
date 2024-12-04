@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +50,19 @@ builder.Services.AddCors(options =>
 });
 
 
+
+
 var app = builder.Build();
+
+
+app.UseStaticFiles();
+
+var filesPath = Path.Combine(Directory.GetCurrentDirectory(), "files");
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(filesPath),
+    RequestPath = "/files" 
+});
 
 if (app.Environment.IsDevelopment())
 {

@@ -58,6 +58,58 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Teacher created successfully.", teacherId = newTeacher.Id });
         }
 
+        [HttpPost("bulk")]
+        public async Task<IActionResult> CreateTeachers([FromBody] List<CreateTeacherRequest> requests)
+        {
+            if (requests == null || !requests.Any())
+                return BadRequest(new { message = "Request body is empty or no teachers provided." });
+
+            var createdTeachers = new List<string>(); // Список для хранения успешно созданных учителей
+            var failedTeachers = new List<string>(); // Список для хранения ошибок создания учителей
+
+            foreach (var request in requests)
+            {
+                if (!ModelState.IsValid)
+                {
+                    failedTeachers.Add(request.UserName);
+                    continue;
+                }
+
+                var newTeacher = new Teacher
+                {
+                    UserName = request.UserName,
+                    Role = UserRole.Teacher
+                };
+
+                var result = await _userManager.CreateAsync(newTeacher, request.Password);
+
+                if (result.Succeeded)
+                {
+                    createdTeachers.Add(newTeacher.Id); // Добавляем ID успешно созданного учителя в список
+                }
+                else
+                {
+                    failedTeachers.Add(request.UserName); // Добавляем учителя, создание которого не удалось
+                }
+            }
+
+            if (failedTeachers.Any())
+            {
+                return BadRequest(new
+                {
+                    message = "Some teachers could not be created.",
+                    failedTeachers
+                });
+            }
+
+            return Ok(new
+            {
+                message = "Teachers created successfully.",
+                teacherIds = createdTeachers
+            });
+        }
+
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTeacher(string id, [FromBody] UpdateTeacherRequest request)
         {
@@ -75,7 +127,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTeacher(int id)
+        public async Task<IActionResult> DeleteTeacher(string id)
         {
             var teacher = await _context.Teachers.FindAsync(id);
             if (teacher == null)

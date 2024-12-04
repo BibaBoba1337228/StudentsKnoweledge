@@ -11,23 +11,41 @@ import printer from '../../assets/icons/printer.svg';
 import other from '../../assets/icons/other.svg';
 import pencil from '../../assets/icons/pencil.svg';
 import eye from '../../assets/icons/eye.svg';
+import crossedEye from '../../assets/icons/crossed_eye.svg';
 import cross from '../../assets/icons/cross.svg';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const iconMapping = {
-    "Лекции": lection,
-    "Материалы": material,
-    "Задания": test,
-    "Печатные материалы": printer,
-    "Прочее": other,
+    "File": lab,
+    "Task": sendLab,
+    "TextContent": other,
 };
 
-const CourseElement = ({data}) => {
+const CourseElement = ({data, setData}) => {
     const [openIndex, setOpenIndex] = useState(null);
+    const {courseId} = useParams();
 
     const toggleAccordion = (index) => {
         setOpenIndex(openIndex === index ? null : index);
     };
+
+    const handleDelete = async (sectionId) => {
+        try {
+            const response = await fetch(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                // Удаляем секцию из локальных данных
+                setData(prevData => prevData.filter(section => section.id !== sectionId));
+            } else {
+                console.error('Ошибка удаления секции');
+            }
+        } catch (error) {
+            console.error('Ошибка подключения к серверу:', error);
+        }
+    };
+
 
     return (
         <div className="accordion">
@@ -37,13 +55,23 @@ const CourseElement = ({data}) => {
                     title={section.name}
                     isOpen={openIndex === index}
                     onToggle={() => toggleAccordion(index)}
+                    onDelete={() => handleDelete(section.id)}
+                    isVisible={section.isVisible}
+                    courseId={courseId}
+                    sectionId={section.id}
+                    setData={setData}
                 >
                     {section.materials.map((material) => (
                         <AccordionSubItem
                             key={material.id}
-                            icon={iconMapping[section.name] || other}
+                            icon={iconMapping[material.type] || other}
                             title={material.title}
                             link={material.link || ""}
+                            isVisible={material.isVisible}
+                            courseId={courseId}
+                            sectionId={section.id}
+                            materialId={material.id}
+                            setData={setData}
                         />
                     ))}
                 </AccordionItem>
@@ -52,8 +80,50 @@ const CourseElement = ({data}) => {
     );
 };
 
-const AccordionItem = ({title, children, isOpen, onToggle}) => {
+const AccordionItem = ({
+                           title,
+                           children,
+                           isOpen,
+                           onToggle,
+                           onDelete,
+                           isVisible,
+                           courseId,
+                           sectionId,
+                           setData
+                       }) => {
     const contentRef = useRef(null);
+
+    const toggleVisibility = async () => {
+        try {
+            const response = await fetch(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}/Visibility`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(
+                    !isVisible
+                ),
+            });
+
+            if (response.ok) {
+                // Обновляем локальные данные
+                setData(prevData => {
+                    const updatedData = [...prevData];
+                    updatedData.forEach(section => {
+                        if (section.id === sectionId) {
+                            section.isVisible = !isVisible; // Обновляем состояние видимости секции
+                        }
+                    });
+                    return updatedData;
+                });
+            } else {
+                console.error('Ошибка обновления видимости');
+            }
+        } catch (error) {
+            console.error('Ошибка подключения к серверу:', error);
+        }
+    };
+
 
     return (
         <div className="accordion-item">
@@ -66,10 +136,11 @@ const AccordionItem = ({title, children, isOpen, onToggle}) => {
                     <button style={{marginRight: '20px', all: "unset"}}>
                         <img src={pencil} alt="Edit Icon" style={{marginRight: '20px', width: '20px'}}/>
                     </button>
-                    <button style={{marginRight: '20px', all: "unset"}}>
-                        <img src={eye} alt="View Icon" style={{marginRight: '20px', width: '20px'}}/>
+                    <button style={{marginRight: '20px', all: "unset", cursor: "pointer"}} onClick={toggleVisibility}>
+                        <img src={isVisible ? eye : crossedEye} alt="View Icon"
+                             style={{marginRight: '20px', width: '20px'}}/>
                     </button>
-                    <button style={{all: "unset"}}>
+                    <button style={{all: "unset", cursor: "pointer"}} onClick={onDelete}>
                         <img src={cross} alt="Delete Icon" style={{marginRight: '20px', width: '20px'}}/>
                     </button>
                 </div>
@@ -94,8 +165,41 @@ const AccordionItem = ({title, children, isOpen, onToggle}) => {
     );
 };
 
-const AccordionSubItem = ({icon, title, link}) => {
+const AccordionSubItem = ({icon, title, link, isVisible, courseId, sectionId, materialId, setData}) => {
     const navigate = useNavigate();
+
+    const toggleVisibility = async () => {
+        try {
+            const response = await fetch(`https://localhost:7065/api/Section/${sectionId}/Material/${materialId}/Visibility`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(
+                    !isVisible
+                ),
+            });
+
+            if (response.ok) {
+                // Обновляем локальные данные
+                setData(prevData => {
+                    const updatedData = [...prevData];
+                    updatedData.forEach(section => {
+                        section.materials.forEach(material => {
+                            if (material.id === materialId) {
+                                material.isVisible = !isVisible; // Обновляем состояние видимости
+                            }
+                        });
+                    });
+                    return updatedData;
+                });
+            } else {
+                console.error('Ошибка обновления видимости');
+            }
+        } catch (error) {
+            console.error('Ошибка подключения к серверу:', error);
+        }
+    };
 
     return (
         <div className="accordion-sub-item" style={{cursor: "pointer"}}>
@@ -107,8 +211,9 @@ const AccordionSubItem = ({icon, title, link}) => {
                 <button style={{marginRight: '20px', all: "unset"}}>
                     <img src={pencil} alt="Edit Icon" style={{marginRight: '20px', width: '20px'}}/>
                 </button>
-                <button style={{marginRight: '20px', all: "unset"}}>
-                    <img src={eye} alt="View Icon" style={{marginRight: '20px', width: '20px'}}/>
+                <button style={{marginRight: '20px', all: "unset"}} onClick={toggleVisibility}>
+                    <img src={isVisible ? eye : crossedEye} alt="View Icon"
+                         style={{marginRight: '20px', width: '20px'}}/>
                 </button>
                 <button style={{all: "unset"}}>
                     <img src={cross} alt="Delete Icon" style={{marginRight: '20px', width: '20px'}}/>
