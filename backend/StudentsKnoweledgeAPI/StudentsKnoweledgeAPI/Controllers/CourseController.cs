@@ -362,5 +362,42 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(new { message = "Course deleted successfully." });
         }
+
+        [HttpGet("{courseId}/TaskMaterials")]
+        public async Task<IActionResult> GetTaskMaterialsByCourseId(int courseId)
+        {
+            var course = await _context.Courses
+                .Include(c => c.Sections)  // Include sections related to the course
+                .ThenInclude(s => s.Materials)  // Include materials for each section
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course == null)
+                return NotFound(new { message = "Course not found." });
+
+            // Get all TaskMaterials from the sections
+            var taskMaterials = course.Sections
+                .SelectMany(s => s.Materials.OfType<TaskMaterial>())  // Flatten the materials from all sections
+                .ToList();
+
+            return Ok(taskMaterials);
+        }
+
+        [HttpGet("TaskMaterials/{materialId}/StudentAnswers")]
+        public async Task<IActionResult> GetStudentAnswersByTaskMaterialId(int materialId)
+        {
+            // Retrieve all student answers for the given TaskMaterial by materialId
+            var studentAnswers = await _context.StudentAnswers
+                .Include(sa => sa.Student)  // Include related student data
+                .Where(sa => sa.MaterialId == materialId)  // Filter by TaskMaterial ID
+                .ToListAsync();
+
+            if (studentAnswers == null || !studentAnswers.Any())
+            {
+                return NotFound(new { message = "No student answers found for the given TaskMaterial." });
+            }
+
+            return Ok(studentAnswers);
+        }
+
     }
 }

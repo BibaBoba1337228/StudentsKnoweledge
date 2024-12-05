@@ -13,9 +13,6 @@
 
        public DateTime CloseDate { get; set; } 
 
-       public int MaterialId { get; set; }
-
-       public TaskMaterial Material { get; set; }
-
+       public string URL { get; set; }
     }
 }

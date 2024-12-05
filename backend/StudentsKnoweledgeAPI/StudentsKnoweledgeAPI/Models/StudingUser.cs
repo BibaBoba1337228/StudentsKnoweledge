@@ -12,5 +12,8 @@
 
         public ICollection<Chat> Chats { get; set; } = new List<Chat>();
 
+        public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+
+
     }
 }

@@ -19,6 +19,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<StudentAnswer> StudentAnswers { get; set; }
 
     public DbSet<Event> Events { get; set; }
+
+    public DbSet<Notification> Notifications { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -101,6 +103,20 @@ public class AppDbContext : IdentityDbContext<AppUser>
             .WithMany(c => c.Events)
             .HasForeignKey(e => e.CourseId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Notification>()
+            .HasOne(n => n.StudingUser)
+            .WithMany(u => u.Notifications)
+            .HasForeignKey(n => n.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+
+        modelBuilder.Entity<Notification>()
+            .HasOne(n => n.StudingUser)
+            .WithMany(u => u.Notifications)
+            .HasForeignKey(n => n.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
 
 
 
