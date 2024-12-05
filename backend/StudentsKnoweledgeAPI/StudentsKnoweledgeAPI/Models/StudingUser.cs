@@ -9,5 +9,8 @@
 
         public string ProfilePictureUrl { get; set; } = "files/UserProfilePictures/default.svg";
         public string Phone { get; set; }
+
+        public ICollection<Chat> Chats { get; set; } = new List<Chat>();
+
     }
 }

@@ -13,5 +13,8 @@ namespace StudentsKnoweledgeAPI.Models
         public ICollection<Group> Groups { get; set; } = new List<Group>();
         public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
         public ICollection<Section> Sections { get; set; } = new List<Section>();
+
+        public ICollection<Event> Events { get; set; } = new List<Event>();
+
     }
 }
