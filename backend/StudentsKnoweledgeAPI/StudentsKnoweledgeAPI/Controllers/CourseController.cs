@@ -335,20 +335,19 @@ namespace StudentsKnoweledgeAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCourse(int id, [FromBody] Course updatedCourse)
         {
-            if (id != updatedCourse.Id)
-                return BadRequest(new { message = "Course ID mismatch." });
-
             var course = await _context.Courses.FindAsync(id);
             if (course == null)
                 return NotFound(new { message = "Course not found." });
 
             course.Name = updatedCourse.Name;
+            course.Semester = updatedCourse.Semester;  
 
             _context.Entry(course).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return Ok(course);
+            return Ok(course);  
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)

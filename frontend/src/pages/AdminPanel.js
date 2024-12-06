@@ -5,11 +5,12 @@ import SearchIcon from '../assets/icons/search.svg'
 import React, {useEffect, useState} from "react";
 import PencilIcon from '../assets/icons/pencil.svg'
 import Cross from '../assets/icons/cross.svg'
-import {fetchWithAuth} from "../api/fetchWithAuth";
+import {fetchWithErrorHandling, ErrorHandler, ErrorModal} from "../components/ErrorHandler";
 
 
 function AdminPanel() {
-    useNavigate();
+    const navigate = useNavigate();
+
     const [currentTable, setCurrentTable] = useState("Курсы");
     const [isTeachersOpen, setIsTeachersOpen] = useState(false);
     const [isGroupsOpen, setIsGroupsOpen] = useState(false);
@@ -21,11 +22,36 @@ function AdminPanel() {
     const [teachers, setTeachers] = useState([]);
     const [students, setStudents] = useState([]);
 
+    const [isEditMode, setIsEditMode] = useState(false);  // Для проверки, в режиме ли редактирования
+
+    const [selectedCourseId, setSelectedCourseId] = useState(null);
+    const [selectedGroupId, setSelectedGroupId] = useState(null);
+    const [selectedTeacherId, setSelectedTeacherId] = useState(null);
+    const [selectedStudentId, setSelectedStudentId] = useState(null);
+
     const [courseName, setCourseName] = useState("");
     const [semester, setSemester] = useState(1);
 
 
     const [groupName, setGroupName] = useState("");
+
+    const [error, setError] = useState(null); // Состояние для ошибки
+    const errorHandler = new ErrorHandler(setError);
+
+    useEffect(() => {
+        errorHandler.setErrorCallback(setError); // Передаем setError в errorHandler
+
+    }, []);
+
+
+    const closeErrorModal = () => {
+        setError(null); // Закрытие модального окна
+    };
+
+    useEffect(() => {
+        console.log(error)// Передаем setError в errorHandler
+
+    }, [error]);
 
 
     const [teacherData, setTeacherData] = useState({
@@ -46,7 +72,7 @@ function AdminPanel() {
         middleName: "",
         phone: "",
         password: "",
-        group: 1
+        groupId: 1
     });
 
 
@@ -55,6 +81,35 @@ function AdminPanel() {
             ...prevData,
             [field]: value,
         }));
+    };
+
+    const handleStudentInputChange = (field, value) => {
+        setStudentData((prevData) => ({
+            ...prevData,
+            [field]: value,
+        }));
+    };
+
+    const handleEditCourse = (course) => {
+        setCourseName(course.name);
+        setSemester(course.semester);
+        setSelectedCourseId(course.id);  // Сохраняем ID выбранного курса
+        setIsEditMode(true);  // Переводим в режим редактирования
+        setIsCourseOpen(true);  // Открываем модальное окно
+    };
+
+    const handleAddCourse = () => {
+        setCourseName("");
+        setSemester(1);
+        setIsEditMode(false);  // Переводим в режим добавления
+        setIsCourseOpen(true);  // Открываем модальное окно
+    };
+
+    const handleEditGroup = (group) => {
+        setSelectedGroupId(group.id); // Устанавливаем id группы
+        setGroupName(group.name); // Заполняем название группы
+        setIsEditMode(true); // Включаем режим редактирования
+        setIsGroupsOpen(true); // Открываем модальное окно
     };
 
 
@@ -71,7 +126,6 @@ function AdminPanel() {
                 break;
             case "Студенты":
                 GetStudents();
-                GetGroups();
                 break;
         }
 
@@ -90,224 +144,297 @@ function AdminPanel() {
                 setIsTeachersOpen(true);
                 break;
             case "Студенты":
+                GetGroups();
                 setIsStudentsOpen(true);
                 break;
         }
 
     };
 
+    const handleCloseTeacherModal = () => {
+        setIsTeachersOpen(false); // Закрываем модальное окно
+        setIsEditMode(false); // Сбрасываем режим редактирования
+        setTeacherData({}); // Очищаем данные преподавателя
+        setSelectedTeacherId(null); // Очищаем выбранный id преподавателя
+    };
+
+    const handleCloseStudentModal = () => {
+        setIsStudentsOpen(false); // Закрываем модальное окно
+        setIsEditMode(false); // Сбрасываем режим редактирования
+        setStudentData({}); // Очищаем данные преподавателя
+        setSelectedStudentId(null); // Очищаем выбранный id преподавателя
+    };
+
+    const handleCloseCourseModal = () => {
+        setIsCourseOpen(false); // Закрываем модальное окно
+        setIsEditMode(false); // Сбрасываем режим редактирования
+        setCourseName(""); // Очищаем данные курса
+        setSemester(1); // Сбрасываем значение семестра
+        setSelectedCourseId(null); // Очищаем выбранный id курса
+    };
+
+    const handleCloseGroupModal = () => {
+        setIsGroupsOpen(false); // Закрываем модальное окно
+        setIsEditMode(false); // Сбрасываем режим редактирования
+        setGroupName(""); // Очищаем данные группы
+        setSelectedGroupId(null); // Очищаем выбранный id группы
+    };
+
+
     const getSemesterText = (semester) => {
-        const year = Math.floor(semester / 2) + 1; // Assuming 2 semesters per year
-        const sem = semester % 2 === 0 ? "лето" : "осень"; // Example: autumn or spring
+        const year = Math.ceil(semester / 2); // Год будет определяться через округление вверх, т.к. на каждом курсе 2 семестра
+        const sem = semester % 2 === 0 ? "лето" : "осень"; // Если четное число, то лето, если нечетное - осень
         return `${year} курс ${semester} семестр`;
     };
 
-    async function GetCourses() {
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/`, {
-                method: "GET",
-                credentials: "include",
-            });
 
-            if (response.status === 200) {
-                const courses = await response.json(); // Ожидаем результат
-                setCources(courses); // Устанавливаем состояние
-                console.log(courses);
-                return;
-            }
+    const GetCourses = async () => {
+        await fetchWithErrorHandling(
+            "https://localhost:7065/api/Course/",
+            {method: "GET", credentials: "include"},
+            (courses) => setCources(courses),
+            errorHandler
+        );
+    };
 
-            if (response.status === 401) {
-                throw {status: 401, message: "Unauthorized"};
-            }
+    const GetGroups = async () => {
+        await fetchWithErrorHandling(
+            "https://localhost:7065/api/Group/",
+            {method: "GET", credentials: "include"},
+            (groups) => setGroups(groups),
+            errorHandler
+        );
+    };
 
-            throw {status: response.status, message: response.statusText};
-        } catch (error) {
-            console.error("Error fetching courses:", error);
-            alert(`Ошибка: ${error.message}`);
-        }
-    }
+    const GetTeachers = async () => {
+        await fetchWithErrorHandling(
+            "https://localhost:7065/api/Teacher/",
+            {method: "GET", credentials: "include"},
+            (teachers) => setTeachers(teachers),
+            errorHandler
+        );
+    };
 
-    async function GetGroups() {
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Group/`, {
-                method: "GET",
-                credentials: "include",
-            });
+    const GetStudents = async () => {
+        await fetchWithErrorHandling(
+            "https://localhost:7065/api/Student/",
+            {method: "GET", credentials: "include"},
+            (students) => setStudents(students),
+            errorHandler
+        );
+    };
 
-            if (response.status === 200) {
-                const groups = await response.json(); // Ожидаем результат
-                setGroups(groups); // Устанавливаем состояние
-                console.log(groups);
-                return;
-            }
-
-            if (response.status === 401) {
-                throw {status: 401, message: "Unauthorized"};
-            }
-
-            throw {status: response.status, message: response.statusText};
-        } catch (error) {
-            console.error("Error fetching groups:", error);
-            alert(`Ошибка: ${error.message}`);
-        }
-    }
-
-    async function GetTeachers() {
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Teacher/`, {
-                method: "GET",
-                credentials: "include",
-            });
-
-            if (response.status === 200) {
-                const teachers = await response.json(); // Ожидаем результат
-                setTeachers(teachers); // Устанавливаем состояние
-                console.log(teachers);
-                return;
-            }
-
-            if (response.status === 401) {
-                throw {status: 401, message: "Unauthorized"};
-            }
-
-            throw {status: response.status, message: response.statusText};
-        } catch (error) {
-            console.error("Error fetching teachers:", error);
-            alert(`Ошибка: ${error.message}`);
-        }
-    }
-
-    async function GetStudents() {
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Student/`, {
-                method: "GET",
-                credentials: "include",
-            });
-
-            if (response.status === 200) {
-                const students = await response.json(); // Ожидаем результат
-                setStudents(students); // Устанавливаем состояние
-                console.log(students);
-                return;
-            }
-
-            if (response.status === 401) {
-                throw {status: 401, message: "Unauthorized"};
-            }
-
-            throw {status: response.status, message: response.statusText};
-        } catch (error) {
-            console.error("Error fetching students:", error);
-            alert(`Ошибка: ${error.message}`);
-        }
-    }
-
-
-    async function DeleteEntity(entityType, entityId, setter) {
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/${entityType}/${entityId}`, {
+    const DeleteEntity = async (entityType, entityId, setter) => {
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/${entityType}/${entityId}`,
+            {
                 method: "DELETE",
                 credentials: "include",
-            });
+            },
+            () => setter((prev) => prev.filter((entity) => entity.id !== entityId)),
+            errorHandler
+        );
+    };
 
-            if (response.status === 200) {
-                setter((prev) => prev.filter(entity => entity.id !== entityId));
-                return;
-            }
-
-            if (response.status === 401) {
-                throw {status: 401, message: "Unauthorized"};
-            }
-
-            throw {status: response.status, message: response.statusText};
-        } catch (error) {
-            console.error(`Error deleting ${entityType}:`, error);
-            alert(`Ошибка: ${error.message}`);
-        }
-    }
-
-    async function AddCourse() {
-        const body = {
+    const AddCourse = async () => {
+        const newCourse = {
             name: courseName,
             semester: semester,
         };
 
-        try {
-            const response = await fetchWithAuth("https://localhost:7065/api/Course/", {
+        await fetchWithErrorHandling(
+            "https://localhost:7065/api/Course",  // Эндпоинт для добавления нового курса
+            {
                 method: "POST",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(body),
-            });
+                body: JSON.stringify(newCourse),
+            },
+            (addedCourse) => {
+                setCources((prevCources) => [...prevCources, addedCourse]);
+                // Закрыть модальное окно
+            },
+            errorHandler
+        );
+    };
 
-            if (response.status === 201) {
-                const newCourse = await response.json();
-                setCources((prevCourses) => [...prevCourses, newCourse]); // Add new course to the existing list
-                setIsCourseOpen(false); // Close the modal
-            } else {
-                throw {status: response.status, message: response.statusText};
-            }
-        } catch (error) {
-            console.error("Error adding course:", error);
-            alert(`Ошибка при добавлении курса: ${error.message}`);
-        }
-    }
 
-    async function AddGroup() {
+    const UpdateCourse = async () => {
+        const updatedCourse = {
+            name: courseName,
+            semester: semester,
+        };
+
+        console.log("Выбранный ID", selectedCourseId)
+
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Course/${selectedCourseId}`,  // Эндпоинт для обновления существующего курса
+            {
+                method: "PUT",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedCourse),
+            },
+            (course) => {
+                setCources((prevCources) =>
+                    prevCources.map((c) => (c.id === course.id ? course : c))
+                );
+                // Закрыть модальное окно
+                setIsEditMode(false); // Отключаем режим редактирования
+                setCourseName(""); // Сбрасываем поле ввода
+                setSelectedCourseId(null); // Сбрасываем id выбранной группы
+            },
+            errorHandler
+        );
+    };
+
+
+    const AddGroup = async () => {
         const body = {
             name: groupName,
         };
 
-        try {
-            const response = await fetchWithAuth("https://localhost:7065/api/Group/", {
+        await fetchWithErrorHandling(
+            "https://localhost:7065/api/Group/",
+            {
                 method: "POST",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(body),
-            });
+            },
+            (newGroup) => {
+                setGroups((prevGroups) => [...prevGroups, newGroup]);
+                // Закрыть модальное окно
+            },
+            errorHandler
+        );
+    };
 
-            if (response.status === 201) {
-                const newGroup = await response.json();
-                setGroups((prevGroups) => [...prevGroups, newGroup]); // Add new course to the existing list
-                setIsCourseOpen(false); // Close the modal
-            } else {
-                throw {status: response.status, message: response.statusText};
-            }
-        } catch (error) {
-            console.error("Error adding course:", error);
-            alert(`Ошибка при добавлении курса: ${error.message}`);
-        }
-    }
+    const UpdateGroup = async () => {
+        const updatedGroup = {id: selectedGroupId, name: groupName};
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Group/${selectedGroupId}`,
+            {
+                method: "PUT",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedGroup),
+            },
+            (updatedGroupData) => {
+                // Обновляем данные в списке групп после успешного обновления
+                setGroups((prevGroups) =>
+                    prevGroups.map((group) =>
+                        group.id === selectedGroupId ? {...group, name: updatedGroup.name} : group
+                    )
+                );
+                setIsEditMode(false); // Отключаем режим редактирования
+                setGroupName(""); // Сбрасываем поле ввода
+                setSelectedGroupId(null); // Сбрасываем id выбранной группы
+            },
+            errorHandler
+        );
+    };
 
-    async function AddTeacher() {
-        try {
-            const response = await fetchWithAuth("https://localhost:7065/api/Teacher/", {
+
+    const AddTeacher = async () => {
+        await fetchWithErrorHandling(
+            "https://localhost:7065/api/Teacher/",
+            {
                 method: "POST",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(teacherData),
-            });
+            },
+            (newTeacher) => {
+                setTeachers((prevTeachers) => [...prevTeachers, newTeacher]);
+                // Закрыть модальное окно
+            },
+            errorHandler
+        );
+    };
 
-            if (response.status === 200) {
-                const newTeacher = await response.json();
-                setTeachers((prevTeachers) => [...prevTeachers, newTeacher]); // Добавить нового преподавателя в список
-                setIsTeachersOpen(false); // Закрыть модальное окно
-            } else {
+    const UpdateTeacher = async () => {
+        const updatedTeacher = {id: selectedTeacherId, ...teacherData};
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Teacher/${selectedTeacherId}`,
+            {
+                method: "PUT",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedTeacher),
+            },
+            (updatedTeacherData) => {
+                setTeachers((prevTeachers) =>
+                    prevTeachers.map((teacher) =>
+                        teacher.id === selectedTeacherId ? updatedTeacherData : teacher
+                    )
+                );
+                setIsTeachersOpen(false);
+                setIsEditMode(false);
+                setTeacherData({});
+                setSelectedTeacherId(null);
+            },
+            errorHandler
+        );
+    };
 
-                console.error("Error adding teacher:", response);
-                alert(`Ошибка при добавлении учителя: ${response.body}`);
-            }
-        } catch (error) {
-            console.error("Error adding teacher:", error);
-            alert(`Ошибка при добавлении учителя: ${error.message}`);
-        }
-    }
+    const AddStudent = async () => {
+        await fetchWithErrorHandling(
+            "https://localhost:7065/api/Student/",
+            {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(studentData),
+            },
+            (newStudent) => {
+                setStudents((prevStudents) => [...prevStudents, newStudent]);
+                // Закрыть модальное окно
+            },
+            errorHandler
+        );
+    };
+
+    const UpdateStudent = async () => {
+        const updatedStudent = {id: selectedStudentId, ...teacherData};
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Student/${selectedStudentId}`,
+            {
+                method: "PUT",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updatedStudent),
+            },
+            (updatedStudentData) => {
+                setStudents((prevStudents) =>
+                    prevStudents.map((student) =>
+                        student.id === selectedTeacherId ? updatedStudentData : student
+                    )
+                );
+                setIsStudentsOpen(false);
+                setIsEditMode(false);
+                setStudentData({});
+                setSelectedStudentId(null);
+            },
+            errorHandler
+        );
+    };
 
 
     return (
@@ -315,6 +442,7 @@ function AdminPanel() {
 
 
             <div id="AdminPanelContainer">
+
 
                 <div id="AdminPanelHeaderContainer">
 
@@ -407,7 +535,9 @@ function AdminPanel() {
                                     <td id="AdminTableTd">{getSemesterText(course.semester)}</td>
                                     <td id="AdminTableTd">
                                         <div>
-                                            <img src={PencilIcon} style={{width: '20px', marginRight: '25px'}}/>
+                                            <img src={PencilIcon}
+                                                 style={{width: '20px', marginRight: '25px', cursor: "pointer"}}
+                                                 onClick={() => handleEditCourse(course)}/>
                                             <img src={Cross}
                                                  style={{width: '20px', marginRight: '5px', cursor: "pointer"}}
                                                  onClick={() => DeleteEntity("Course", course.id, setCources)}/>
@@ -451,7 +581,9 @@ function AdminPanel() {
                                     <td id="AdminTableTd">{group.name}</td>
                                     <td id="AdminTableTd">
                                         <div>
-                                            <img src={PencilIcon} style={{width: '20px', marginRight: '25px'}}/>
+                                            <img src={PencilIcon}
+                                                 style={{width: '20px', marginRight: '25px', cursor: "pointer"}}
+                                                 onClick={() => handleEditGroup(group)}/>
                                             <img src={Cross}
                                                  style={{width: '20px', marginRight: '5px', cursor: "pointer"}}
                                                  onClick={() => DeleteEntity("Group", group.id, setGroups)}/>
@@ -471,7 +603,6 @@ function AdminPanel() {
                             width: "100%",
                             textAlign: "center",
                         }}>
-
                             <thead style={{
                                 borderCollapse: "collapse",
                                 width: "100%",
@@ -489,7 +620,6 @@ function AdminPanel() {
                             </thead>
 
                             <tbody style={{backgroundColor: '#FFEFEF'}}>
-
                             {teachers.map(teacher => (
                                 <tr key={teacher.id}>
                                     <td id="AdminTableTd">{teacher.id}</td>
@@ -499,15 +629,33 @@ function AdminPanel() {
                                     <td id="AdminTableTd">{teacher.lastName}</td>
                                     <td id="AdminTableTd">
                                         <div>
-                                            <img src={PencilIcon} style={{width: '20px', marginRight: '25px'}}/>
-                                            <img src={Cross}
-                                                 style={{width: '20px', marginRight: '5px', cursor: "pointer"}}
-                                                 onClick={() => DeleteEntity("Teacher", teacher.id, setTeachers)}/>
+                                            <img
+                                                src={PencilIcon}
+                                                style={{width: '20px', marginRight: '25px', cursor: "pointer"}}
+                                                onClick={() => {
+                                                    setIsEditMode(true);
+                                                    setTeacherData({
+                                                        userName: teacher.userName,
+                                                        mail: teacher.mail,
+                                                        name: teacher.name,
+                                                        lastName: teacher.lastName,
+                                                        middleName: teacher.middleName,
+                                                        phone: teacher.phone,
+                                                        password: teacher.password,
+                                                    });
+                                                    setSelectedTeacherId(teacher.id);
+                                                    setIsTeachersOpen(true);
+                                                }}
+                                            />
+                                            <img
+                                                src={Cross}
+                                                style={{width: '20px', marginRight: '5px', cursor: "pointer"}}
+                                                onClick={() => DeleteEntity("Teacher", teacher.id, setTeachers)}
+                                            />
                                         </div>
                                     </td>
                                 </tr>
                             ))}
-
                             </tbody>
                         </table>
                     )}
@@ -548,7 +696,26 @@ function AdminPanel() {
                                     <td id="AdminTableTd">{student.group.name}</td>
                                     <td id="AdminTableTd">
                                         <div>
-                                            <img src={PencilIcon} style={{width: '20px', marginRight: '25px'}}/>
+                                            <img src={PencilIcon}
+                                                 style={{width: '20px', marginRight: '25px', cursor: "pointer"}}
+                                                 onClick={() => {
+                                                     setIsEditMode(true);
+                                                     setStudentData({
+                                                         userName: student.userName,
+                                                         mail: student.mail,
+                                                         name: student.name,
+                                                         lastName: student.lastName,
+                                                         middleName: student.middleName,
+                                                         phone: student.phone,
+                                                         password: student.password,
+                                                         groupId: student.group?.id,
+
+                                                     });
+
+                                                     console.log(student.group?.id)
+                                                     setSelectedStudentId(student.id);
+                                                     setIsStudentsOpen(true);
+                                                 }}/>
                                             <img src={Cross}
                                                  style={{width: '20px', marginRight: '5px', cursor: "pointer"}}
                                                  onClick={() => DeleteEntity("Student", student.id, setStudents)}/>
@@ -570,17 +737,18 @@ function AdminPanel() {
                     </div>
 
                     {isCourseOpen && (
-                        <div id="CourceDetailSectionAddModalOverlay" onClick={() => setIsCourseOpen(false)}
+                        <div id="CourceDetailSectionAddModalOverlay" onClick={() => handleCloseCourseModal()}
                              style={{zIndex: 999}}>
                             <div id="CourceDetailSectionAddModalContent" onClick={(e) => e.stopPropagation()}>
-                                <label style={{display: "block", marginBottom: "10px", fontFamily: "IgraSans"}}>
-                                    Название курса
-                                </label>
+                                <label style={{display: "block", marginBottom: "10px", fontFamily: "IgraSans"}}>Название
+                                    курса</label>
                                 <div id="CourceDetailSectionAddModalInputCourse">
-                                    <input id="CourceDetailSectionAddModalInputCourseInput"
-                                           placeholder="Введите название курса..."
-                                           value={courseName}
-                                           onChange={(e) => setCourseName(e.target.value)}/>
+                                    <input
+                                        id="CourceDetailSectionAddModalInputCourseInput"
+                                        placeholder="Введите название курса..."
+                                        value={courseName}
+                                        onChange={(e) => setCourseName(e.target.value)}
+                                    />
                                 </div>
                                 <div style={{padding: "0px"}}>
                                     <label htmlFor="dropdown"
@@ -594,9 +762,7 @@ function AdminPanel() {
                                         id="CourceDetailSectionAddModalInputCourseInputDropDown"
                                         value={semester}
                                         onChange={(e) => setSemester(Number(e.target.value))}
-
                                     >
-
                                         <option value="1">1 курс 1 семестр</option>
                                         <option value="2">1 курс 2 семестр</option>
                                         <option value="3">2 курс 3 семестр</option>
@@ -609,49 +775,60 @@ function AdminPanel() {
                                         <option value="10">5 курс 10 семестр</option>
                                         <option value="11">6 курс 11 семестр</option>
                                         <option value="12">6 курс 12 семестр</option>
-
                                     </select>
                                 </div>
                                 <div id="CourseAddSubmit">
-                                    <button id="CourseAddSubmitButton" onClick={() => {
-                                        AddCourse();
-                                        setIsCourseOpen(false);
-                                    }}
-                                            style={{cursor: "pointer"}}>Добавить
+                                    <button
+                                        id="CourseAddSubmitButton"
+                                        onClick={() => {
+                                            isEditMode ? UpdateCourse() : AddCourse();  // В зависимости от режима добавляем или обновляем курс
+                                            setIsCourseOpen(false);
+                                        }}
+                                        style={{cursor: "pointer"}}
+                                    >
+                                        {isEditMode ? "Изменить" : "Добавить"}
                                     </button>
                                 </div>
                             </div>
                         </div>
                     )}
 
+
                     {isGroupsOpen && (
-                        <div id="CourceDetailSectionAddModalOverlay" onClick={() => setIsGroupsOpen(false)}
+                        <div id="CourceDetailSectionAddModalOverlay" onClick={() => handleCloseGroupModal()}
                              style={{zIndex: 999}}>
                             <div id="CourceDetailSectionAddModalContent" onClick={(e) => e.stopPropagation()}>
                                 <label style={{display: "block", marginBottom: "10px", fontFamily: "IgraSans"}}>
                                     Название группы
                                 </label>
                                 <div id="CourceDetailSectionAddModalInputCourse">
-                                    <input id="CourceDetailSectionAddModalInputCourseInput"
-                                           placeholder="Введите название группы..."
-                                           value={groupName}
-                                           onChange={(e) => setGroupName(e.target.value)}/>
+                                    <input
+                                        id="CourceDetailSectionAddModalInputCourseInput"
+                                        placeholder="Введите название группы..."
+                                        value={groupName}
+                                        onChange={(e) => setGroupName(e.target.value)}
+                                    />
                                 </div>
 
                                 <div id="CourseAddSubmit">
-                                    <button id="CourseAddSubmitButton" onClick={() => {
-                                        AddGroup();
-                                        setIsGroupsOpen(false);
-                                    }}
-                                            style={{cursor: "pointer"}}>Добавить
+                                    <button
+                                        id="CourseAddSubmitButton"
+                                        onClick={() => {
+                                            isEditMode ? UpdateGroup() : AddGroup();  // В зависимости от режима вызываем нужную функцию
+                                            setIsGroupsOpen(false);  // Закрываем окно после выполнения
+                                        }}
+                                        style={{cursor: "pointer"}}
+                                    >
+                                        {isEditMode ? "Изменить" : "Добавить"} {/* Меняем текст кнопки в зависимости от режима */}
                                     </button>
                                 </div>
                             </div>
                         </div>
                     )}
 
+
                     {isTeachersOpen && (
-                        <div id="CourceDetailSectionAddModalOverlay" onClick={() => setIsTeachersOpen(false)}
+                        <div id="CourceDetailSectionAddModalOverlay" onClick={() => handleCloseTeacherModal()}
                              style={{zIndex: 999}}>
                             <div id="CourceDetailSectionAddModalContent" onClick={(e) => e.stopPropagation()}>
                                 {["userName", "mail", "name", "lastName", "middleName", "phone", "password"].map((field) => (
@@ -694,13 +871,16 @@ function AdminPanel() {
                                     </div>
                                 ))}
 
-
                                 <div id="CourseAddSubmit">
-                                    <button id="CourseAddSubmitButton" onClick={() => {
-                                        AddTeacher();
-                                        setIsTeachersOpen(false);
-                                    }}
-                                            style={{cursor: "pointer"}}>Добавить
+                                    <button
+                                        id="CourseAddSubmitButton"
+                                        onClick={() => {
+                                            isEditMode ? UpdateTeacher() : AddTeacher(); // В зависимости от режима добавляем или обновляем преподавателя
+                                            setIsTeachersOpen(false);
+                                        }}
+                                        style={{cursor: "pointer"}}
+                                    >
+                                        {isEditMode ? "Изменить" : "Добавить"}
                                     </button>
                                 </div>
                             </div>
@@ -708,7 +888,7 @@ function AdminPanel() {
                     )}
 
                     {isStudentsOpen && (
-                        <div id="CourceDetailSectionAddModalOverlay" onClick={() => setIsStudentsOpen(false)}
+                        <div id="CourceDetailSectionAddModalOverlay" onClick={() => handleCloseStudentModal()}
                              style={{zIndex: 999}}>
                             <div id="CourceDetailSectionAddModalContent" onClick={(e) => e.stopPropagation()}>
                                 {["userName", "mail", "name", "lastName", "middleName", "phone", "password"].map((field) => (
@@ -744,12 +924,13 @@ function AdminPanel() {
                                                                     : field === "phone"
                                                                         ? "телефон"
                                                                         : "пароль"}...`}
-                                                value={teacherData[field]}
-                                                onChange={(e) => handleTeacherInputChange(field, e.target.value)}
+                                                value={studentData[field]}  // Используем studentData[field] для каждого поля
+                                                onChange={(e) => handleStudentInputChange(field, e.target.value)}  // Обновляем конкретное поле
                                             />
                                         </div>
                                     </div>
                                 ))}
+
                                 <div style={{padding: "0px"}}>
                                     <label htmlFor="dropdown"
                                            style={{display: "block", marginBottom: "10px", fontFamily: "IgraSans"}}>
@@ -757,8 +938,9 @@ function AdminPanel() {
                                     </label>
                                     <select
                                         id="group"
+                                        id="CourceDetailSectionAddModalInputCourseInputDropDown"
                                         name="group"
-                                        value={studentData.group}
+                                        value={studentData.group || ""}  // Используем || "" для дефолтного значения
                                         onChange={(e) =>
                                             setStudentData({
                                                 ...studentData,
@@ -766,7 +948,6 @@ function AdminPanel() {
                                             })
                                         }
                                     >
-                                        <option value="">Выберите группу</option>
                                         {groups.map((group) => (
                                             <option key={group.id} value={group.id}>
                                                 {group.name}
@@ -775,23 +956,28 @@ function AdminPanel() {
                                     </select>
                                 </div>
 
-
                                 <div id="CourseAddSubmit">
-                                    <button id="CourseAddSubmitButton" onClick={() => {
-                                        setIsStudentsOpen(false);
-                                    }}
-                                            style={{cursor: "pointer"}}>Добавить
+                                    <button
+                                        id="CourseAddSubmitButton"
+                                        onClick={() => {
+                                            isEditMode ? UpdateStudent() : AddStudent();
+                                            setIsStudentsOpen(false);
+                                        }}
+                                        style={{cursor: "pointer"}}
+                                    >
+                                        {isEditMode ? "Изменить" : "Добавить"}
                                     </button>
                                 </div>
                             </div>
                         </div>
                     )}
 
+
                 </div>
 
             </div>
 
-
+            {error && <ErrorModal errorMessage={error} onClose={closeErrorModal}/>}
         </div>
     );
 }

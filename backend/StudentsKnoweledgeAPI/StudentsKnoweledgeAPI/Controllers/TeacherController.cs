@@ -43,11 +43,16 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // Создаем нового учителя
             var newTeacher = new Teacher
             {
                 UserName = request.UserName,
+                Mail = request.Mail,  // Предполагаем, что поле Email есть у Teacher
+                Name = request.Name,
+                LastName = request.LastName,
+                MiddleName = request.MiddleName,
+                Phone = request.Phone,
                 Role = UserRole.Teacher
-                
             };
 
             var result = await _userManager.CreateAsync(newTeacher, request.Password);
@@ -55,7 +60,8 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
 
-            return Ok(new { message = "Teacher created successfully.", teacherId = newTeacher.Id });
+            // Возвращаем созданного учителя
+            return Ok(newTeacher);
         }
 
         [HttpPost("bulk")]
@@ -113,18 +119,51 @@ namespace StudentsKnoweledgeAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTeacher(string id, [FromBody] UpdateTeacherRequest request)
         {
-            var teacher = await _context.Teachers.Include(t => t.Courses).FirstOrDefaultAsync(t => t.Id == id);
+            var teacher = await _context.Teachers.Include(t => t.Courses)
+                                                   .FirstOrDefaultAsync(t => t.Id == id);
 
             if (teacher == null)
                 return NotFound(new { message = "Teacher not found." });
 
+            // Обновляем обычные поля
             teacher.UserName = request.UserName ?? teacher.UserName;
+            teacher.Mail = request.Mail ?? teacher.Mail;
+            teacher.Name = request.Name ?? teacher.Name;
+            teacher.LastName = request.LastName ?? teacher.LastName;
+            teacher.MiddleName = request.MiddleName ?? teacher.MiddleName;
+            teacher.Phone = request.Phone ?? teacher.Phone;
 
+            // Если передан новый пароль, обновляем его через UserManager
+            if (!string.IsNullOrEmpty(request.Password))
+            {
+                var user = await _userManager.FindByIdAsync(teacher.Id); // Найти пользователя по Id
+
+
+
+                if (user == null)
+                    return NotFound(new { message = "User not found." });
+
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                var result = await _userManager.ResetPasswordAsync(user, token, request.Password);
+
+
+                if (!result.Succeeded)
+                {
+                    return BadRequest(new { message = "Failed to change password.", errors = result.Errors });
+                }
+
+            }
+
+            // Обновляем сущность преподавателя
             _context.Entry(teacher).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Teacher updated successfully.", teacher });
+            return Ok(teacher);
         }
+
+
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeacher(string id)

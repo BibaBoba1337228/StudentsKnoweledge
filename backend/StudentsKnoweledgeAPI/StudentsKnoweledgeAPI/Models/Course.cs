@@ -5,8 +5,11 @@ namespace StudentsKnoweledgeAPI.Models
     public class Course
     {
         public int Id { get; set; }
+
+        [Required]
         public string Name { get; set; } = string.Empty;
 
+        [Required]
         [Range(1, 12, ErrorMessage = "Semester must be between 1 and 12.")]
         public int Semester { get; set; } = 1;
 

@@ -358,6 +358,22 @@
   },
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
+    "Method": "GetTaskMaterialsByCourseId",
+    "RelativePath": "api/Course/{courseId}/TaskMaterials",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
     "Method": "GetTeachersByCourseId",
     "RelativePath": "api/Course/{courseId}/Teachers",
     "HttpMethod": "GET",
@@ -419,6 +435,22 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
+    "Method": "GetStudentAnswersByTaskMaterialId",
+    "RelativePath": "api/Course/TaskMaterials/{materialId}/StudentAnswers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "materialId",
         "Type": "System.Int32",
         "IsRequired": true
       }

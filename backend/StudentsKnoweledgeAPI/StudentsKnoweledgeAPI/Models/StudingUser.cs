@@ -1,7 +1,10 @@
-﻿namespace StudentsKnoweledgeAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace StudentsKnoweledgeAPI.Models
 {
     public class StudingUser : AppUser
     {
+        [EmailAddress(ErrorMessage = "Неверный формат email")]
         public string Mail { get; set; }
         public string Name { get; set; }
         public string MiddleName { get; set; }

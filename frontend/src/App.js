@@ -74,7 +74,6 @@ function App() {
                 {
                     path: "/system/admin",
                     element: <AdminPanel></AdminPanel>,
-                    loader: adminPanelLoader,
                     errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                 },
                 {

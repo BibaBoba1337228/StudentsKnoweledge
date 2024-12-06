@@ -50,6 +50,11 @@ namespace StudentsKnoweledgeAPI.Controllers
             var newStudent = new Student
             {
                 UserName = request.UserName,
+                Mail = request.Mail,  // Добавили email
+                Name = request.Name,  // Добавили имя
+                LastName = request.LastName,  // Добавили фамилию
+                MiddleName = request.MiddleName,  // Добавили отчество
+                Phone = request.Phone,  // Добавили телефон
                 Role = UserRole.Student,
                 Group = group
             };
@@ -59,8 +64,9 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
 
-            return Ok(new { message = "Student created successfully.", studentId = newStudent.Id });
+            return Ok(newStudent);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateStudent(string id, [FromBody] UpdateStudentRequest request)

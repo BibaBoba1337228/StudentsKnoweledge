@@ -24,3 +24,5 @@ export async function fetchWithAuth(url, options = {}) {
         console.error('Ошибка при выполнении запроса:', error);
     }
 }
+
+
