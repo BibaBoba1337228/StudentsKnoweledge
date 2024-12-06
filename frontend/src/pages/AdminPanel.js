@@ -48,11 +48,6 @@ function AdminPanel() {
         setError(null); // Закрытие модального окна
     };
 
-    useEffect(() => {
-        console.log(error)// Передаем setError в errorHandler
-
-    }, [error]);
-
 
     const [teacherData, setTeacherData] = useState({
         userName: "",
@@ -144,6 +139,7 @@ function AdminPanel() {
                 setIsTeachersOpen(true);
                 break;
             case "Студенты":
+                GetStudents();
                 GetGroups();
                 setIsStudentsOpen(true);
                 break;
@@ -186,6 +182,12 @@ function AdminPanel() {
         const sem = semester % 2 === 0 ? "лето" : "осень"; // Если четное число, то лето, если нечетное - осень
         return `${year} курс ${semester} семестр`;
     };
+
+    useEffect(() => {
+        if (isStudentsOpen) {
+            GetGroups(); // Функция для загрузки списка групп
+        }
+    }, [isStudentsOpen]);
 
 
     const GetCourses = async () => {
@@ -391,6 +393,8 @@ function AdminPanel() {
     };
 
     const AddStudent = async () => {
+
+        console.log(studentData, "Студент на добавление")
         await fetchWithErrorHandling(
             "https://localhost:7065/api/Student/",
             {
@@ -410,7 +414,9 @@ function AdminPanel() {
     };
 
     const UpdateStudent = async () => {
-        const updatedStudent = {id: selectedStudentId, ...teacherData};
+        const updatedStudent = {id: selectedStudentId, ...studentData};
+
+        console.log("Обновленный студент", updatedStudent);
         await fetchWithErrorHandling(
             `https://localhost:7065/api/Student/${selectedStudentId}`,
             {
@@ -424,7 +430,7 @@ function AdminPanel() {
             (updatedStudentData) => {
                 setStudents((prevStudents) =>
                     prevStudents.map((student) =>
-                        student.id === selectedTeacherId ? updatedStudentData : student
+                        student.id === selectedStudentId ? updatedStudentData : student
                     )
                 );
                 setIsStudentsOpen(false);
@@ -708,11 +714,10 @@ function AdminPanel() {
                                                          middleName: student.middleName,
                                                          phone: student.phone,
                                                          password: student.password,
-                                                         groupId: student.group?.id,
+                                                         groupId: student.groupId,
 
                                                      });
 
-                                                     console.log(student.group?.id)
                                                      setSelectedStudentId(student.id);
                                                      setIsStudentsOpen(true);
                                                  }}/>
@@ -940,13 +945,14 @@ function AdminPanel() {
                                         id="group"
                                         id="CourceDetailSectionAddModalInputCourseInputDropDown"
                                         name="group"
-                                        value={studentData.group || ""}  // Используем || "" для дефолтного значения
+                                        value={studentData.groupId || 1}  // Используем || "" для дефолтного значения
                                         onChange={(e) =>
-                                            setStudentData({
-                                                ...studentData,
-                                                group: e.target.value,
-                                            })
+                                            setStudentData((prevData) => ({
+                                                ...prevData,
+                                                groupId: Number(e.target.value), // Обновляем groupId корректно
+                                            }))
                                         }
+
                                     >
                                         {groups.map((group) => (
                                             <option key={group.id} value={group.id}>

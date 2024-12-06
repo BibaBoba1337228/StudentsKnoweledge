@@ -11,6 +11,7 @@ import CheckBoxUncheckedIcon from '../assets/icons/unchecked_checkbox.svg'
 import CheckBoxСheckedIcon from '../assets/icons/checked_checkbox.svg'
 import {ClipLoader} from "react-spinners";
 import {fetchWithAuth} from "../api/fetchWithAuth";
+import {ErrorHandler, ErrorModal, fetchWithErrorHandling} from "../components/ErrorHandler";
 
 
 function MyCourses() {
@@ -48,28 +49,19 @@ function MyCourses() {
         return `${middleInitial} ${nameInitial} ${lastNameInitial}`.trim();
     };
 
+    const [error, setError] = useState(null); // Состояние для ошибки
+    const errorHandler = new ErrorHandler(setError);
 
-    const handleAddButtonClickTeachers = () => {
-        if (showCheckboxes) {
-            // Если чекбоксы уже показаны, закрыть модалку
-            setIsTeachersOpen(false);
-            setShowCheckboxes(false);
-        } else {
-            // Показать чекбоксы
-            setShowCheckboxes(true);
-        }
+    useEffect(() => {
+        errorHandler.setErrorCallback(setError); // Передаем setError в errorHandler
+
+    }, []);
+
+
+    const closeErrorModal = () => {
+        setError(null); // Закрытие модального окна
     };
 
-    const handleAddButtonClickGroups = () => {
-        if (showCheckboxes) {
-            // Если чекбоксы уже показаны, закрыть модалку
-            setIsGroupsOpen(false);
-            setShowCheckboxes(false);
-        } else {
-            // Показать чекбоксы
-            setShowCheckboxes(true);
-        }
-    };
 
     const WipeAll = () => {
         setIsTeachersOpen(false);
@@ -80,84 +72,58 @@ function MyCourses() {
 
     const fetchCourseTeachers = async () => {
         setLoadingTeachers(true);
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/Teachers`);
-            if (!response.ok) {
-                throw new Error("Не удалось загрузить преподавателей курса");
-            }
-            const teachersData = await response.json();
-            setCourseTeachers(teachersData); // Загружаем преподавателей, которые уже есть в курсе
-        } catch (error) {
-            console.error(error);
-            alert("Ошибка при загрузке преподавателей курса");
-        } finally {
-            setLoadingTeachers(false);
-        }
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Course/${courseId}/Teachers`,
+            {method: "GET", credentials: "include"},
+            (teachersData) => setCourseTeachers(teachersData),
+
+            errorHandler
+        )
+        setLoadingTeachers(false);
+
     };
 
     const fetchCourseGroups = async () => {
-        setLoadingTeachers(true);
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/Groups`);
-            if (!response.ok) {
-                throw new Error("Не удалось загрузить группы курса");
-            }
-            const groupsData = await response.json();
-            setCourseGroups(groupsData);
-        } catch (error) {
-            console.error(error);
-            alert("Ошибка при загрузке групп курса");
-        } finally {
-            setLoadingGroups(false);
-        }
+        setLoadingGroups(true);
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Course/${courseId}/Groups`,
+            {method: "GET", credentials: "include"},
+            (groupsData) => setCourseGroups(groupsData),
+
+            errorHandler
+        )
+        setLoadingGroups(false);
+
     };
 
     // Запрос на всех преподавателей для добавления (второй GET запрос)
     const fetchAllGroups = async () => {
-        setLoadingTeachers(true);
-        try {
-            const response = await fetchWithAuth('https://localhost:7065/api/Group');
-            if (!response.ok) {
-                throw new Error("Не удалось загрузить все группы");
-            }
+        setLoadingGroups(true);
+        await fetchWithErrorHandling(
+            'https://localhost:7065/api/Group',
+            {method: "GET", credentials: "include"},
+            (allGroups) => setGroups(allGroups.filter((group) =>
+                !courseGroups.some((courseGroup) => courseGroup.id === group.id))),
+            errorHandler
+        )
+        setLoadingGroups(false);
 
-            const allGroups = await response.json();
 
-            const filteredGroups = allGroups.filter((group) =>
-                !courseGroups.some((courseGroup) => courseGroup.id === group.id)
-            );
-
-            setGroups(filteredGroups);
-        } catch (error) {
-            console.error(error);
-            alert("Ошибка при загрузке преподавателей");
-        } finally {
-            setLoadingGroups(false);
-        }
     };
 
-    // Запрос на всех преподавателей для добавления (второй GET запрос)
+
     const fetchAllTeachers = async () => {
         setLoadingTeachers(true);
-        try {
-            const response = await fetchWithAuth('https://localhost:7065/api/Teacher');
-            if (!response.ok) {
-                throw new Error("Не удалось загрузить всех преподавателей");
-            }
+        await fetchWithErrorHandling(
+            'https://localhost:7065/api/Teacher',
+            {method: "GET", credentials: "include"},
+            (allTeachers) => setTeachers(allTeachers.filter((teacher) =>
+                    !courseTeachers.some((courseTeacher) => courseTeacher.id === teacher.id)),
 
-            const allTeachers = await response.json();
+                errorHandler
+            ))
+        setLoadingTeachers(false);
 
-            const filteredTeachers = allTeachers.filter((teacher) =>
-                !courseTeachers.some((courseTeacher) => courseTeacher.id === teacher.id)
-            );
-
-            setTeachers(filteredTeachers);
-        } catch (error) {
-            console.error(error);
-            alert("Ошибка при загрузке преподавателей");
-        } finally {
-            setLoadingTeachers(false);
-        }
     };
 
     // Обработчик выбора преподавателей
@@ -188,34 +154,23 @@ function MyCourses() {
             return;
         }
 
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/AddTeachers`, {
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Course/${courseId}/AddTeachers`,
+            {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(selectedTeacherIds),
-            });
+            },
+            (addedTeachers) => setCourseTeachers((prevTeachers) => [...prevTeachers, ...addedTeachers]),
 
+            errorHandler
+        )
+        setIsTeachersOpen(false)
+        setSelectedTeacherIds([])
 
-            if (!response.ok) {
-                throw new Error("Ошибка при добавлении преподавателей");
-            }
-
-            const addedTeachers = await response.json();
-
-            // Обновляем состояние курса с новыми преподавателями
-            setCourseTeachers((prevTeachers) => [...prevTeachers, ...addedTeachers]);
-
-
-            // Закрытие модалки после успешного добавления
-            setIsTeachersOpen(false);
-            setSelectedTeacherIds([]); // Очистить выбранные ID
-        } catch (error) {
-            console.error("Ошибка при добавлении преподавателей:", error);
-            alert("Не удалось добавить преподавателей. Попробуйте снова.");
-        }
     };
 
     const handleAddGroups = async () => {
@@ -224,37 +179,27 @@ function MyCourses() {
             return;
         }
 
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/AddGroups`, {
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Course/${courseId}/AddGroups`,
+            {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(selectedGroupsIds),
-            });
+            },
+            (addedGroups) => setCourseGroups((prevGroups) => [...prevGroups, ...addedGroups]),
 
+            errorHandler
+        )
 
-            if (!response.ok) {
-                throw new Error("Ошибка при добавлении групп");
-            }
+        setIsGroupsOpen(false);
+        setSelectedGroupsIds([]);
 
-            const addedGroups = await response.json();
-
-            // Обновляем состояние курса с новыми преподавателями
-            setCourseGroups((prevGroups) => [...prevGroups, ...addedGroups]);
-
-
-            // Закрытие модалки после успешного добавления
-            setIsGroupsOpen(false);
-            setSelectedGroupsIds([]); // Очистить выбранные ID
-        } catch (error) {
-            console.error("Ошибка при добавлении групп:", error);
-            alert("Не удалось добавить группы. Попробуйте снова.");
-        }
     };
 
-    // Загружаем преподавателей курса при первом рендере
+
     useEffect(() => {
         fetchCourseTeachers();
     }, [courseId]);
@@ -269,75 +214,62 @@ function MyCourses() {
             return;
         }
 
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/Sections`, {
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Course/${courseId}/Sections`,
+            {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({name: sectionName}),
-            });
+            },
+            (newSection) => setSections((prevSections) => [...prevSections, newSection]),
 
-            if (!response.ok) {
-                throw new Error("Ошибка при добавлении раздела");
-            }
+            errorHandler
+        )
 
-            const newSection = await response.json();
-            setSections((prevSections) => [...prevSections, newSection]);
-            setSectionName('');
-            setIsSectionOpen(false);
-        } catch (error) {
-            console.log(error);
-            console.error("Ошибка при отправке запроса:", error);
-            alert("Не удалось добавить раздел. Попробуйте снова.");
-        }
+        setSectionName('');
+        setIsSectionOpen(false);
+
     };
 
     const handleRemoveTeacher = async (teacherId) => {
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/RemoveTeacher/${teacherId}`, {
+
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Course/${courseId}/RemoveTeacher/${teacherId}`,
+            {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            });
+            },
+            null,
 
-            if (!response.ok) {
-                throw new Error("Ошибка при удалении преподавателя");
-            }
+            errorHandler
+        )
 
-            // Удаление преподавателя из текущего списка
-            setCourseTeachers((prevTeachers) => prevTeachers.filter(teacher => teacher.id !== teacherId));
+        setCourseTeachers((prevTeachers) => prevTeachers.filter(teacher => teacher.id !== teacherId))
 
-        } catch (error) {
-            console.error("Ошибка при удалении преподавателя:", error);
-            alert("Не удалось удалить преподавателя. Попробуйте снова.");
-        }
     };
 
     const handleRemoveGroup = async (groupId) => {
-        try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/RemoveGroup/${groupId}`, {
+
+        await fetchWithErrorHandling(
+            `https://localhost:7065/api/Course/${courseId}/RemoveGroup/${groupId}`,
+            {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            });
+            },
+            null,
+            errorHandler
+        )
 
-            if (!response.ok) {
-                throw new Error("Ошибка при удалении группы");
-            }
-
-            // Удаление преподавателя из текущего списка
-            setCourseGroups((prevGroups) => prevGroups.filter(group => group.id !== groupId));
-
-        } catch (error) {
-            console.error("Ошибка при удалении группы:", error);
-            alert("Не удалось удалить группу. Попробуйте снова.");
-        }
+        setCourseGroups((prevGroups) => prevGroups.filter(group => group.id !== groupId))
     };
 
 
@@ -519,7 +451,7 @@ function MyCourses() {
                                                     <div className="CourseContactsInfoBlockHeaderWithChatsImage"
                                                          onClick={() => navigate('/system/profile/profileid')}
                                                          style={{cursor: "pointer"}}>
-                                                        {teacher.name}
+                                                        {formatTeacherName(teacher.middleName, teacher.name, teacher.lastName)}
                                                     </div>
                                                     <label className="custom-checkbox">
                                                         <input
@@ -682,6 +614,8 @@ function MyCourses() {
                     </div>
                 </div>
             )}
+
+            {error && <ErrorModal errorMessage={error} onClose={closeErrorModal}/>}
 
         </div>
     );

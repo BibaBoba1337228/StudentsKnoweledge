@@ -43,9 +43,11 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+
+
             var group = await _context.Groups.FindAsync(request.GroupId);
             if (group == null)
-                return BadRequest(new { message = "Group not found." });
+                return BadRequest(new { message = "Group not found. "+request.GroupId });
 
             var newStudent = new Student
             {
@@ -76,9 +78,10 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (student == null)
                 return NotFound(new { message = "Student not found." });
 
-            if (request.GroupId.HasValue)
+
+            if (request.GroupId > 0)
             {
-                var group = await _context.Groups.FindAsync(request.GroupId.Value);
+                var group = await _context.Groups.FindAsync(request.GroupId);
                 if (group == null)
                     return BadRequest(new { message = "Group not found." });
 
@@ -86,12 +89,42 @@ namespace StudentsKnoweledgeAPI.Controllers
             }
 
             student.UserName = request.UserName ?? student.UserName;
+            student.Mail = request.Mail ?? student.Mail;
+            student.Name = request.Name ?? student.Name;
+            student.LastName = request.LastName ?? student.LastName;
+            student.MiddleName = request.MiddleName ?? student.MiddleName;
+            student.Phone = request.Phone ?? student.Phone;
 
+            if (!string.IsNullOrEmpty(request.Password))
+            {
+                var user = await _userManager.FindByIdAsync(student.Id);
+
+
+
+                if (user == null)
+                    return NotFound(new { message = "User not found." });
+
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                var result = await _userManager.ResetPasswordAsync(user, token, request.Password);
+
+
+                if (!result.Succeeded)
+                {
+                    return BadRequest(new { message = "Failed to change password.", errors = result.Errors });
+                }
+
+            }
+
+            // Mark the student entity as modified
             _context.Entry(student).State = EntityState.Modified;
+
+            // Save changes to the database
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Student updated successfully.", student });
+            return Ok(student);
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(string id)

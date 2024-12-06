@@ -66,7 +66,7 @@ export class ErrorHandler {
 
             console.error(error);
             // Проверяем, является ли ошибка объектом Response
-            if (error) {
+            if (error instanceof Response) {
                 error.json().then((errorDetails) => {
                     if (errorDetails.errors) {
                         // Ошибки валидации
@@ -81,20 +81,20 @@ export class ErrorHandler {
                         errorMessage = `Ошибка: ${JSON.stringify(errorDetails)}`;
                     }
 
-
                     // Устанавливаем ошибку в состояние
                     this.setError(errorMessage);
                 }).catch(() => {
                     // Если не удается распарсить JSON, обрабатываем как обычную ошибку
                     this.setError(`Неизвестная ошибка с кодом ${error.status}`);
                 });
-            } else {
+            } else if (error instanceof Error) {
                 // Обработка ошибок на уровне сети или JavaScript ошибок
                 errorMessage = `Системная ошибка: ${error.message}`;
                 this.setError(errorMessage);
+            } else {
+                // Ошибка неизвестного типа
+                this.setError(`Неизвестный тип ошибки: ${JSON.stringify(error)}`);
             }
-
-
         } else {
             console.error("setError не определено, ошибка не будет установлена.");
         }
@@ -102,19 +102,31 @@ export class ErrorHandler {
 }
 
 // Функция для универсальной обработки ошибок
-export async function fetchWithErrorHandling(url, options, callback, errorHandler) {
+export async function fetchWithErrorHandling(url, options, callback = null, errorHandler = null) {
     try {
         const response = await fetch(url, options);
         if (response.ok) {
             const data = await response.json();
-            callback(data); // Обработка успешного ответа
+            // Вызываем callback, если он был передан
+            if (callback) {
+                callback(data);
+            }
         } else {
-
-            errorHandler.handleError(response); // Обработка ошибки ответа
+            // Если errorHandler передан, обрабатываем ошибку, иначе выводим в консоль
+            if (errorHandler) {
+                errorHandler.handleError(response);
+            } else {
+                console.error("Error response:", response);
+            }
         }
     } catch (error) {
-
-        errorHandler.handleError(error); // Обработка ошибки сети
+        // Если errorHandler передан, обрабатываем ошибку, иначе выводим в консоль
+        if (errorHandler) {
+            errorHandler.handleError(error);
+        } else {
+            console.error("Network error:", error);
+        }
     }
 }
+
 
