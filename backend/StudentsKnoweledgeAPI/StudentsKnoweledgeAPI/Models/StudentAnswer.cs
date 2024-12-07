@@ -18,6 +18,14 @@
 
         public DateTime AnswerTime { get; set; }
 
+        public DateTime MarkTime { get; set; }
+
+        public string TeacherId { get; set; }
+
+        public string Comment { get; set; }
+
+
+
         
     }
 }

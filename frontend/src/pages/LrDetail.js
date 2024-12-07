@@ -53,11 +53,7 @@ function LrDetail() {
                     </div>
 
                     <div className="LrDetailInfoBlock">
-
-                        <div className="LrDetailTextBlock">
-                            <div className="LrDetailInfoBlockHeader">Состояние ответа:</div>
-                            <div className="LrDetailInfoBlockInfo">Отправлено на проверку</div>
-                        </div>
+                        
 
                         <div className="LrDetailTextBlock">
                             <div className="LrDetailInfoBlockHeader">Оставшееся время:</div>

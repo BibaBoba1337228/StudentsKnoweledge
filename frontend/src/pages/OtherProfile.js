@@ -58,24 +58,7 @@ function OtherProfile() {
                         </div>
 
                     </div>
-
-                    <div className="OtherProfileInfoBlock">
-
-                        <div className="OtherProfileTextBlock">
-                            <div className="OtherProfileInfoBlockHeader">Страна:</div>
-                            <div className="OtherProfileInfoBlockInfo">Россия</div>
-                        </div>
-
-                    </div>
-
-                    <div className="OtherProfileInfoBlock">
-
-                        <div className="OtherProfileTextBlock">
-                            <div className="OtherProfileInfoBlockHeader">Город:</div>
-                            <div className="OtherProfileInfoBlockInfo">Рыбинск</div>
-                        </div>
-
-                    </div>
+                    
 
                     <div className="OtherProfileInfoBlock">
 

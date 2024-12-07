@@ -53,24 +53,7 @@ function MyProfile() {
                         </div>
 
                     </div>
-
-                    <div className="MyProfileInfoBlock">
-
-                        <div className="MyProfileTextBlock">
-                            <div className="MyProfileInfoBlockHeader">Страна:</div>
-                            <div className="MyProfileInfoBlockInfo">Россия</div>
-                        </div>
-
-                    </div>
-
-                    <div className="MyProfileInfoBlock">
-
-                        <div className="MyProfileTextBlock">
-                            <div className="MyProfileInfoBlockHeader">Город:</div>
-                            <div className="MyProfileInfoBlockInfo">Рыбинск</div>
-                        </div>
-
-                    </div>
+                    
 
                     <div className="MyProfileInfoBlock">
 
