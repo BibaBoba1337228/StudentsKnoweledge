@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
 using StudentsKnoweledgeAPI.RequestsTemplates;
+using StudentsKnoweledgeAPI.RequestsTemplates.DTO;
 
 namespace StudentsKnoweledgeAPI.Controllers
 {
@@ -21,18 +22,16 @@ namespace StudentsKnoweledgeAPI.Controllers
         {
             var materials = await _context.Materials
                 .Where(m => m.SectionId == sectionId)
-                .Select(m => new
-                {
-                    m.Id,
-                    m.Title,
-                    m.SectionId,
-                    m.IsVisible,
-                    Type = m.Type 
-                })
+                .Include(m => m.Section)
                 .ToListAsync();
 
-            return Ok(materials);
+            // Преобразуем материалы в более конкретные типы
+            var result = materials.Select(m => MapMaterialToSpecificType(m)).ToList();
+
+            return Ok(result);
         }
+
+
 
         [HttpPut("{materialId}/Visibility")]
         public async Task<IActionResult> ToggleMaterialVisibility(int sectionId, int materialId, [FromBody] bool isVisible)
@@ -187,6 +186,55 @@ namespace StudentsKnoweledgeAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Material deleted successfully." });
+        }
+
+        private object MapMaterialToSpecificType(Material material)
+        {
+            switch (material)
+            {
+                case FileMaterial fileMaterial:
+                    return new
+                    {
+                        fileMaterial.Id,
+                        fileMaterial.Title,
+                        fileMaterial.SectionId,
+                        fileMaterial.IsVisible,
+                        fileMaterial.Type,
+                        fileMaterial.FilePath
+                    };
+                case TextContentMaterial textContentMaterial:
+                    return new
+                    {
+                        textContentMaterial.Id,
+                        textContentMaterial.Title,
+                        textContentMaterial.SectionId,
+                        textContentMaterial.IsVisible,
+                        textContentMaterial.Type,
+                        textContentMaterial.Content
+                    };
+                case TaskMaterial taskMaterial:
+                    return new
+                    {
+                        taskMaterial.Id,
+                        taskMaterial.Title,
+                        taskMaterial.SectionId,
+                        taskMaterial.IsVisible,
+                        taskMaterial.Type,
+                        taskMaterial.Description,
+                        taskMaterial.OpenTime,
+                        taskMaterial.Deadline,
+                        taskMaterial.Grade
+                    };
+                default:
+                    return new
+                    {
+                        material.Id,
+                        material.Title,
+                        material.SectionId,
+                        material.IsVisible,
+                        material.Type
+                    };
+            }
         }
     }
 }

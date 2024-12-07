@@ -67,11 +67,11 @@ function App() {
                                     errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                                 },
                                 {
-                                    path: "/system/courses/course/:courseId/task/manage",
+                                    path: "/system/courses/course/:courseId/task/:taskId/manage",
                                     element: <LrManage></LrManage>
                                 },
                                 {
-                                    path: "/system/courses/course/:courseId/task/edit",
+                                    path: "/system/courses/course/:courseId/task/:taskId/edit",
                                     element: <ChangeTask></ChangeTask>
                                 },
                                 {
@@ -79,7 +79,7 @@ function App() {
                                     element: <AllSendendTasks></AllSendendTasks>
                                 },
                                 {
-                                    path: "/system/courses/course/:courseId/task/",
+                                    path: "/system/courses/course/:courseId/task/:taskId",
                                     element: <LrDetail></LrDetail>
                                 },
                                 {

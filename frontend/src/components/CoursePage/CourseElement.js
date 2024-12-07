@@ -29,6 +29,8 @@ const CourseElement = ({data, setData}) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
+    console.log(data);
+
     const handleDelete = async (sectionId) => {
         try {
             const response = await fetch(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}`, {
@@ -36,7 +38,7 @@ const CourseElement = ({data, setData}) => {
             });
 
             if (response.ok) {
-                // Удаляем секцию из локальных данных
+
                 setData(prevData => prevData.filter(section => section.id !== sectionId));
             } else {
                 console.error('Ошибка удаления секции');
@@ -64,6 +66,7 @@ const CourseElement = ({data, setData}) => {
                     {section.materials.map((material) => (
                         <AccordionSubItem
                             key={material.id}
+                            id={material.id}
                             icon={iconMapping[material.type] || other}
                             title={material.title}
                             link={material.link || ""}
@@ -72,8 +75,13 @@ const CourseElement = ({data, setData}) => {
                             sectionId={section.id}
                             materialId={material.id}
                             setData={setData}
+                            type={material.type}
+                            filePath={material.filePath}
+                            content={material.content}
+
                         />
                     ))}
+
                 </AccordionItem>
             ))}
         </div>
@@ -218,8 +226,22 @@ const AccordionItem = ({
 };
 
 
-const AccordionSubItem = ({icon, title, link, isVisible, courseId, sectionId, materialId, setData}) => {
+const AccordionSubItem = ({
+                              id,
+                              icon,
+                              title,
+                              link,
+                              isVisible,
+                              courseId,
+                              sectionId,
+                              materialId,
+                              setData,
+                              type,
+                              filePath,
+                              content
+                          }) => {
     const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleVisibility = async () => {
         try {
@@ -228,9 +250,7 @@ const AccordionSubItem = ({icon, title, link, isVisible, courseId, sectionId, ma
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(
-                    !isVisible
-                ),
+                body: JSON.stringify(!isVisible),
             });
 
             if (response.ok) {
@@ -254,14 +274,38 @@ const AccordionSubItem = ({icon, title, link, isVisible, courseId, sectionId, ma
         }
     };
 
+    const handleItemClick = () => {
+        if (type === "File" && filePath) {
+            // Формируем ссылку и открываем в новом окне
+            const fullPath = `https://localhost:7065/${filePath}`;
+            console.log(`Открываю файл по пути ${fullPath}`);
+            window.open(fullPath, "_blank");
+        } else if (type === "TextContent") {
+            setIsModalOpen(true); // Открываем модалку для типа TextContent
+        } else if (type === "Task") {
+            console.log(`Это не файл кажется`);
+            // Переходим по внутренней ссылке
+            navigate(`/system/courses/course/${courseId}/task/${id}`);
+        }
+    };
+
+    const handleEditClick = () => {
+
+        navigate(`/system/courses/course/${courseId}/task/${id}/edit`);
+
+    };
+
+    const closeModal = () => setIsModalOpen(false);
+
     return (
         <div className="accordion-sub-item" style={{cursor: "pointer"}}>
-            <div style={{display: "flex", alignItems: "center"}} onClick={() => link && navigate(link)}>
+            <div style={{display: "flex", alignItems: "center"}} onClick={handleItemClick}>
                 <img src={icon} style={{width: '20px'}} alt="Sub Item Icon"/>
                 <div className="accordion-sub-item-text">{title}</div>
             </div>
             <div style={{display: "flex", alignItems: "center", marginRight: "10px"}}>
-                <button style={{marginRight: '20px', all: "unset"}}>
+                <button style={{marginRight: '20px', all: "unset"}}
+                        onClick={handleEditClick}>
                     <img src={pencil} alt="Edit Icon" style={{marginRight: '20px', width: '20px'}}/>
                 </button>
                 <button style={{marginRight: '20px', all: "unset"}} onClick={toggleVisibility}>
@@ -272,8 +316,45 @@ const AccordionSubItem = ({icon, title, link, isVisible, courseId, sectionId, ma
                     <img src={cross} alt="Delete Icon" style={{marginRight: '20px', width: '20px'}}/>
                 </button>
             </div>
+
+            {/* Модалка для отображения текста */}
+            {isModalOpen && (
+                <div
+                    onClick={closeModal}
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        zIndex: 1000
+                    }}
+                >
+                    <div
+                        onClick={(e) => e.stopPropagation()}  // Останавливаем событие клика, чтобы не закрыть при клике по контенту
+                        style={{
+                            backgroundColor: "#F2E8C9",
+                            padding: "20px",
+                            borderRadius: "15px",
+                            width: "80%",
+                            maxWidth: "600px",
+                            maxHeight: "80%",
+                            overflowY: "auto",
+                            position: "relative"
+                        }}
+                    >
+                        <h2>{title}</h2>
+                        <p>{content}</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
+
 
 export default CourseElement;

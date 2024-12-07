@@ -77,6 +77,40 @@ namespace StudentsKnoweledgeAPI.Controllers
         
         }
 
+        [HttpGet("{courseId}/TaskMaterials")]
+        public async Task<IActionResult> GetTaskMaterialsByCourseId(int courseId)
+        {
+            // Получаем все секции, связанные с курсом
+            var sections = await _context.Sections
+                .Where(s => s.CourseId == courseId)
+                .ToListAsync();
+
+            if (sections == null || !sections.Any())
+                return NotFound(new { message = "No sections found for the given course." });
+
+            // Получаем ID всех секций
+            var sectionIds = sections.Select(s => s.Id).ToList();
+
+            // Находим все TaskMaterial, связанные с этими секциями
+            var taskMaterials = await _context.Materials
+                .OfType<TaskMaterial>()
+                .Where(m => sectionIds.Contains(m.SectionId))
+                .Select(m => new
+                {
+                    m.Id,
+                    m.Title,
+                    m.Description,
+                    m.OpenTime,
+                    m.Deadline,
+                    m.Grade,
+                    SectionName = m.Section.Name
+                })
+                .ToListAsync();
+
+            return Ok(taskMaterials);
+        }
+
+
 
 
         [HttpPut("{courseId}/Sections/{sectionId}/Visibility")]
@@ -374,24 +408,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Course deleted successfully." });
         }
 
-        [HttpGet("{courseId}/TaskMaterials")]
-        public async Task<IActionResult> GetTaskMaterialsByCourseId(int courseId)
-        {
-            var course = await _context.Courses
-                .Include(c => c.Sections)  // Include sections related to the course
-                .ThenInclude(s => s.Materials)  // Include materials for each section
-                .FirstOrDefaultAsync(c => c.Id == courseId);
-
-            if (course == null)
-                return NotFound(new { message = "Course not found." });
-
-            // Get all TaskMaterials from the sections
-            var taskMaterials = course.Sections
-                .SelectMany(s => s.Materials.OfType<TaskMaterial>())  // Flatten the materials from all sections
-                .ToList();
-
-            return Ok(taskMaterials);
-        }
 
         [HttpGet("TaskMaterials/{materialId}/StudentAnswers")]
         public async Task<IActionResult> GetStudentAnswersByTaskMaterialId(int materialId)
