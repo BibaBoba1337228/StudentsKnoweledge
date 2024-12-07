@@ -52,20 +52,32 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPut("{courseId}/Sections/{sectionId}")]
-        public async Task<IActionResult> UpdateSection(int courseId, int sectionId, [FromBody] Section updatedSection)
+        public async Task<IActionResult> UpdateSection(int courseId, int sectionId, [FromBody] UpdateSectionRequest updatedSection)
         {
+            if (updatedSection == null || string.IsNullOrWhiteSpace(updatedSection.Name))
+            {
+                return BadRequest(new { message = "Invalid request data." });
+            }
+
             var section = await _context.Sections.FirstOrDefaultAsync(s => s.Id == sectionId && s.CourseId == courseId);
 
             if (section == null)
+            {
                 return NotFound(new { message = "Section not found." });
+            }
 
+            // Обновление имени секции
             section.Name = updatedSection.Name;
 
-            _context.Entry(section).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Section updated successfully.", section });
+                _context.Entry(section).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return Ok(section);
+        
         }
+
+
 
         [HttpPut("{courseId}/Sections/{sectionId}/Visibility")]
         public async Task<IActionResult> ToggleSectionVisibility(int courseId, int sectionId, [FromBody] bool isVisible)

@@ -58,9 +58,39 @@ function App() {
                     children: [
                         {
                             path: "/system/courses/course/:courseId",
-                            loader: courseDetailLoader,
-                            element: <CourseDetail></CourseDetail>,
-                            errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                            element: <Outlet/>,
+                            children: [
+                                {
+                                    index: true,
+                                    element: <CourseDetail></CourseDetail>,
+                                    loader: courseDetailLoader,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/task/manage",
+                                    element: <LrManage></LrManage>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/task/edit",
+                                    element: <ChangeTask></ChangeTask>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/answers",
+                                    element: <AllSendendTasks></AllSendendTasks>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/task/",
+                                    element: <LrDetail></LrDetail>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/events/",
+                                    element: <AllEvents></AllEvents>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/marks",
+                                    element: <GroupMarks></GroupMarks>
+                                },
+                            ]
                         },
                         {
                             index: true,
@@ -68,6 +98,7 @@ function App() {
                             loader: myCourcesLoader,
                             errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                         },
+
                     ]
 
                 },
@@ -106,26 +137,13 @@ function App() {
                     element: <AllStudentMarksForCurrentSubject></AllStudentMarksForCurrentSubject>
 
                 },
-                {
-                    path: "/system/course/task",
-                    element: <LrDetail></LrDetail>
-                },
-                {
-                    path: "/system/course/marks",
-                    element: <GroupMarks></GroupMarks>
-                },
-                {
-                    path: "/system/course/task/change",
-                    element: <ChangeTask></ChangeTask>
-                },
+
+
                 {
                     path: "/system/course/test",
                     element: <TestDetail></TestDetail>
                 },
-                {
-                    path: "/system/course/answers",
-                    element: <AllSendendTasks></AllSendendTasks>
-                },
+
                 {
                     path: "/system/course/answers/students",
                     element: <AllSendendTasksFromStudent></AllSendendTasksFromStudent>
@@ -134,26 +152,8 @@ function App() {
                     path: "/system/course/answers/students/student",
                     element: <LrRate></LrRate>
                 },
+
                 {
-                    path: "/system/course/events",
-                    element: <AllEvents></AllEvents>
-                },
-                {
-                    path: "/system/course/task/manage",
-                    element: <LrManage></LrManage>
-                },
-                {
-                    path: "/system/course/test/manage",
-                    element: <TestDetail></TestDetail>
-                },
-                {
-                    path: "/system/course/test/complete",
-                    element: <DoingTest></DoingTest>
-                },
-                {
-                    path: "/system/course/test/overview",
-                    element: <TestOverview></TestOverview>
-                }, {
                     index: true,
                     element: <MyCourses/>,
 

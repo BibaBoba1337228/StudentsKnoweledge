@@ -302,13 +302,15 @@ function MyCourses() {
                                 style={{cursor: "pointer"}}>Группы
                         </button>
                         <button id="CourceDetailWorkButton"
-                                onClick={() => navigate('/system/course/answers')}
+                                onClick={() => navigate(`/system/courses/course/${courseId}/answers`)}
                                 style={{cursor: "pointer"}}>Работы
                         </button>
-                        <button id="CourceDetailEventsButton" onClick={() => navigate('/system/course/events')}
+                        <button id="CourceDetailEventsButton"
+                                onClick={() => navigate(`/system/courses/course/${courseId}/events`)}
                                 style={{cursor: "pointer"}}>События
                         </button>
-                        <button id="CourceDetailMarksButton" onClick={() => navigate('/system/course/marks')}
+                        <button id="CourceDetailMarksButton"
+                                onClick={() => navigate(`/system/courses/course/${courseId}/marks`)}
                                 style={{cursor: "pointer"}}>Успеваемость
                         </button>
 

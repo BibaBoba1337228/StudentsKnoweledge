@@ -92,6 +92,8 @@ const AccordionItem = ({
                            setData
                        }) => {
     const contentRef = useRef(null);
+    const [isEditing, setIsEditing] = useState(false);
+    const [newTitle, setNewTitle] = useState(title);
 
     const toggleVisibility = async () => {
         try {
@@ -100,18 +102,15 @@ const AccordionItem = ({
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(
-                    !isVisible
-                ),
+                body: JSON.stringify(!isVisible),
             });
 
             if (response.ok) {
-                // Обновляем локальные данные
                 setData(prevData => {
                     const updatedData = [...prevData];
                     updatedData.forEach(section => {
                         if (section.id === sectionId) {
-                            section.isVisible = !isVisible; // Обновляем состояние видимости секции
+                            section.isVisible = !isVisible;
                         }
                     });
                     return updatedData;
@@ -124,16 +123,71 @@ const AccordionItem = ({
         }
     };
 
+    const saveNewTitle = async () => {
+        try {
+            const response = await fetch(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({name: newTitle}),
+            });
+
+            if (response.ok) {
+                setData(prevData => {
+                    const updatedData = [...prevData];
+                    updatedData.forEach(section => {
+                        if (section.id === sectionId) {
+                            section.name = newTitle;
+                        }
+                    });
+                    return updatedData;
+                });
+                setIsEditing(false);
+            } else {
+                console.error('Ошибка сохранения нового названия');
+            }
+        } catch (error) {
+            console.error('Ошибка подключения к серверу:', error);
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            saveNewTitle();
+        }
+    };
 
     return (
         <div className="accordion-item">
             <div style={{display: "flex", alignItems: "center"}}>
                 <button className="accordion-header" onClick={onToggle}>
-                    <img src={isOpen ? OpenedIcon : ClosedIcon} alt="Opened Icon" style={{width: '25px'}}/>
-                    <div className="accordion-header-text">{title}</div>
+                    <img src={isOpen ? OpenedIcon : ClosedIcon} alt="Toggle Icon" style={{width: '25px'}}/>
+                    <div className="accordion-header-text">
+                        {isEditing ? (
+                            <input
+                                type="text"
+                                value={newTitle}
+                                onChange={(e) => setNewTitle(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                autoFocus
+                                style={{
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    padding: '4px 8px',
+                                    fontSize: '16px',
+                                }}
+                            />
+                        ) : (
+                            title
+                        )}
+                    </div>
                 </button>
                 <div style={{display: "flex", alignItems: "center", marginRight: "10px"}}>
-                    <button style={{marginRight: '20px', all: "unset"}}>
+                    <button
+                        style={{marginRight: '20px', all: "unset", cursor: "pointer"}}
+                        onClick={() => setIsEditing(true)}
+                    >
                         <img src={pencil} alt="Edit Icon" style={{marginRight: '20px', width: '20px'}}/>
                     </button>
                     <button style={{marginRight: '20px', all: "unset", cursor: "pointer"}} onClick={toggleVisibility}>
@@ -155,8 +209,6 @@ const AccordionItem = ({
                 <div ref={contentRef} className="accordion-inner-content">
                     {children}
                     <div id="CourceDetailButtonsContainer">
-                        <button id="CourceDetailItemCancelButton">Отменить</button>
-                        <button id="CourceDetailItemSaveButton">Сохранить</button>
                         <button id="CourceDetailItemAddButton">Добавить</button>
                     </div>
                 </div>
@@ -164,6 +216,7 @@ const AccordionItem = ({
         </div>
     );
 };
+
 
 const AccordionSubItem = ({icon, title, link, isVisible, courseId, sectionId, materialId, setData}) => {
     const navigate = useNavigate();
