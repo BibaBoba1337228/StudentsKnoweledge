@@ -22,19 +22,33 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // Find the user by username
             var user = await _userManager.FindByNameAsync(request.Username);
 
             if (user == null)
                 return Unauthorized(new { message = "Invalid username or password." });
 
+            // Check the user's password
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                return Ok(new { message = "Login successful." });
+
+
+                // Create the response object to send back to the client
+                var userResponse = new
+                {
+                    message = "Login successful.",
+                    user_id = user.Id,
+                    role = user.Role, // Assuming user has one role, otherwise adjust to fit your logic
+                };
+
+                return Ok(userResponse); // Send the user information along with the login success message
             }
 
+            // If login fails, return unauthorized error
             return Unauthorized(new { message = "Invalid username or password." });
         }
+
 
         [HttpGet("status")]
         public IActionResult Status()

@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {fetchWithAuth} from "../api/fetchWithAuth";
 
 // Компонент модалки для отображения ошибки
 export const ErrorModal = ({errorMessage, onClose}) => (
@@ -104,7 +105,7 @@ export class ErrorHandler {
 // Функция для универсальной обработки ошибок
 export async function fetchWithErrorHandling(url, options, callback = null, errorHandler = null) {
     try {
-        const response = await fetch(url, options);
+        const response = await fetchWithAuth(url, options);
         if (response.ok) {
             const data = await response.json();
             // Вызываем callback, если он был передан

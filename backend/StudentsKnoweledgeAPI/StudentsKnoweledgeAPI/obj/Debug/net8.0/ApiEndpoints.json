@@ -485,6 +485,27 @@
   },
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
+    "Method": "GetTaskMaterialById",
+    "RelativePath": "api/Course/{courseId}/Task/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
     "Method": "GetTaskMaterialsByCourseId",
     "RelativePath": "api/Course/{courseId}/TaskMaterials",
     "HttpMethod": "GET",
@@ -597,7 +618,7 @@
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.EventController",
     "Method": "GetAllEvents",
-    "RelativePath": "api/Event",
+    "RelativePath": "api/events/Event",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -607,14 +628,14 @@
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.EventController",
     "Method": "CreateEvent",
-    "RelativePath": "api/Event",
+    "RelativePath": "api/events/Event",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "newEvent",
-        "Type": "StudentsKnoweledgeAPI.Models.Event",
+        "Name": "request",
+        "Type": "StudentsKnoweledgeAPI.RequestsTemplates.CreateEventRequest",
         "IsRequired": true
       }
     ],
@@ -623,7 +644,7 @@
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.EventController",
     "Method": "GetEventById",
-    "RelativePath": "api/Event/{id}",
+    "RelativePath": "api/events/Event/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -639,7 +660,7 @@
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.EventController",
     "Method": "UpdateEvent",
-    "RelativePath": "api/Event/{id}",
+    "RelativePath": "api/events/Event/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -660,7 +681,7 @@
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.EventController",
     "Method": "DeleteEvent",
-    "RelativePath": "api/Event/{id}",
+    "RelativePath": "api/events/Event/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -796,6 +817,142 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.StudentAnswersController",
+    "Method": "GetAnswersByMaterialId",
+    "RelativePath": "api/Materials/{materialId}/StudentAnswers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "materialId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.StudentAnswersController",
+    "Method": "AddAnswer",
+    "RelativePath": "api/Materials/{materialId}/StudentAnswers",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "materialId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Files",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Comment",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.StudentAnswersController",
+    "Method": "GetAnswerByMaterialAndStudent",
+    "RelativePath": "api/Materials/{materialId}/StudentAnswers/{studentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "materialId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "studentId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.StudentAnswersController",
+    "Method": "DeleteAnswer",
+    "RelativePath": "api/Materials/{materialId}/StudentAnswers/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "materialId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.StudentAnswersController",
+    "Method": "UpdateGrade",
+    "RelativePath": "api/Materials/{materialId}/StudentAnswers/grade/{studentId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "materialId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "studentId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "grade",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "teacherId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.StudentAnswersController",
+    "Method": "UpdateAnswer",
+    "RelativePath": "api/Materials/{materialId}/StudentAnswers/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "materialId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Files",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Comment",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

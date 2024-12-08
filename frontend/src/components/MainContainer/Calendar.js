@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
     format,
     addMonths,
@@ -13,35 +13,78 @@ import ru from "date-fns/locale/ru";
 import LeftIcon from "../../assets/icons/left_icon.svg";
 import RightIcon from "../../assets/icons/right_icon.svg";
 import "../../styles/Calendar.css";
-import {useNavigate} from "react-router-dom"; // Подключение CSS
+import {useNavigate} from "react-router-dom";
+import {fetchWithAuth} from "../../api/fetchWithAuth"; // Подключение CSS
+
 
 function Calendar() {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(null);
+    const [events, setEvents] = useState([]);
+    const [filteredEvents, setFilteredEvents] = useState([]);
 
-    const specialDays = [new Date(2024, 9, 31), new Date(2024, 10, 1)];
+    const navigate = useNavigate();
 
-    const handlePrevMonth = () => setCurrentDate(subMonths(currentDate, 1));
-    const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
+    // Загрузка событий с сервера
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const response = await fetchWithAuth("https://localhost:7065/api/events/Event", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json(); // Преобразуем в JSON
+                setEvents(data);
+                console.log(data);
+            } catch (error) {
+                console.error("Error fetching events:", error);
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
+    // Получаем все события для текущего месяца
     const monthStart = startOfMonth(currentDate);
     const monthEnd = endOfMonth(currentDate);
     const days = eachDayOfInterval({start: monthStart, end: monthEnd});
     const startDayOfWeek = (getDay(monthStart) + 6) % 7;
 
-    const isSpecialDay = (day) =>
-        specialDays.some((specialDay) => isSameDay(specialDay, day));
+    // Функция для проверки, является ли день событием
+    const isEventDay = (day) => {
+        return events.some((event) =>
+            (isSameDay(day, new Date(event.openDate)) || isSameDay(day, new Date(event.closeDate)))
+        );
+    };
 
-    const navigate = useNavigate();
+    // Обработка перехода по месяцам
+    const handlePrevMonth = () => setCurrentDate(subMonths(currentDate, 1));
+    const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
+
+    // Обработка клика по дате
+    const handleDayClick = (day) => {
+        const filtered = events.filter(
+            (event) =>
+                isSameDay(day, new Date(event.openDate)) ||
+                isSameDay(day, new Date(event.closeDate))
+        );
+        setFilteredEvents(filtered);
+        setSelectedDate(day);
+    };
 
     return (
         <div className="calendar-container">
             {/* Навигация по месяцам */}
             <div className="calendar-navigation">
                 <img src={LeftIcon} alt="left" onClick={handlePrevMonth}/>
-                <p className="calendar-title">
-                    {format(currentDate, "LLLL yyyy", {locale: ru})}
-                </p>
+                <p className="calendar-title">{format(currentDate, "LLLL yyyy", {locale: ru})}</p>
                 <img src={RightIcon} alt="right" onClick={handleNextMonth}/>
             </div>
 
@@ -62,8 +105,8 @@ function Calendar() {
                 {days.map((day) => (
                     <div
                         key={day}
-                        className={`calendar-day ${isSpecialDay(day) ? "special" : ""}`}
-                        onClick={() => isSpecialDay(day) && setSelectedDate(day)}
+                        className={`calendar-day ${isEventDay(day) ? "special" : ""}`}
+                        onClick={() => handleDayClick(day)}
                     >
                         {format(day, "d")}
                     </div>
@@ -74,35 +117,29 @@ function Calendar() {
             {selectedDate && (
                 <div className="modal-overlay" onClick={() => setSelectedDate(null)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <div className="modal-date">
-                            {format(selectedDate, "dd.MM.yyyy")}
-                        </div>
+                        <div className="modal-date">{format(selectedDate, "dd.MM.yyyy")}</div>
                         <div id="ChatDelimiter"></div>
                         <div style={{marginTop: "10px"}}>
-                            <div className="modal-entry" onClick={() => {
-                                setSelectedDate(null);
-                                navigate('/system/course/task')
-                            }}
-                                 style={{cursor: "pointer"}}>
-                                <div>ТП 2к3с - ЛР1</div>
-                                <div>до 01.11.2024</div>
-                            </div>
-                            <div className="modal-entry" onClick={() => {
-                                setSelectedDate(null);
-                                navigate('/system/course/task')
-                            }}
-                                 style={{cursor: "pointer"}}>
-                                <div>ТП 2к3с - ЛР2</div>
-                                <div>открывается сегодня в 11:59</div>
-                            </div>
-                            <div className="modal-entry" onClick={() => {
-                                setSelectedDate(null);
-                                navigate('/system/course/task')
-                            }}
-                                 style={{cursor: "pointer"}}>
-                                <div>ТП 2к3с - ЛР3</div>
-                                <div>закрывается сегодня</div>
-                            </div>
+                            {filteredEvents.map((event) => (
+                                <div
+                                    key={event.id}
+                                    className="modal-entry"
+                                    onClick={() => {
+                                        setSelectedDate(null);
+                                        navigate(event.url);
+                                    }}
+                                    style={{cursor: "pointer"}}
+                                >
+                                    <div>{event.name}</div>
+                                    <div>
+                                        {isSameDay(new Date(event.openDate), selectedDate)
+                                            ? `открывается ${format(new Date(event.openDate), "dd.MM.yyyy")}`
+                                            : isSameDay(new Date(event.closeDate), selectedDate)
+                                                ? `закрывается ${format(new Date(event.closeDate), "dd.MM.yyyy")}`
+                                                : ""}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

@@ -1,88 +1,37 @@
 import '../styles/AllStudentTasks.css'
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import {useLoaderData, useNavigate, useParams} from "react-router-dom";
 
 
 function AllSendendTasks() {
 
+    const data = useLoaderData()
+    const {courseId} = useParams();
+
     const navigate = useNavigate();
     return (
         <div id="AllSendendTasksWrapper">
-
-
             <div id="AllSendendTasksContainer">
-
                 <div id="AllSendendTasksHeaderContainer">
-
                     <div id="AllSendendTasksHeader">Проверить работу</div>
                     <div id="AllSendendTasksDelimiter"></div>
                 </div>
 
                 <div id="AllSendendTasksCourceContainer">
-
-                    <div className="AllSendendTasksInfoBlock"
-                         onClick={() => navigate('/system/course/answers/students')}
-                         style={{cursor: "pointer"}}>
-
-                        <div className="AllSendendTasksTextBlock">
-                            <div className="AllSendendTasksInfoBlockHeader">Лабораторная работа №1</div>
+                    {data.map((task) => (
+                        <div
+                            key={task.id}
+                            className="AllSendendTasksInfoBlock"
+                            onClick={() => navigate(`/system/courses/course/${courseId}/task/${task.id}/answers/students`)} // Adjust the path as necessary
+                            style={{cursor: "pointer"}}
+                        >
+                            <div className="AllSendendTasksTextBlock">
+                                <div className="AllSendendTasksInfoBlockHeader">{task.title}</div>
+                            </div>
                         </div>
-
-                    </div>
-
-                    <div className="AllSendendTasksInfoBlock">
-
-                        <div className="AllSendendTasksTextBlock">
-                            <div className="AllSendendTasksInfoBlockHeader">Лабораторная работа №2</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllSendendTasksInfoBlock">
-
-                        <div className="AllSendendTasksTextBlock">
-                            <div className="AllSendendTasksInfoBlockHeader">Лабораторная работа №3</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllSendendTasksInfoBlock">
-
-                        <div className="AllSendendTasksTextBlock">
-                            <div className="AllSendendTasksInfoBlockHeader">Лабораторная работа №4</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllSendendTasksInfoBlock">
-
-                        <div className="AllSendendTasksTextBlock">
-                            <div className="AllSendendTasksInfoBlockHeader">Лабораторная работа №5</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllSendendTasksInfoBlock">
-
-                        <div className="AllSendendTasksTextBlock">
-                            <div className="AllSendendTasksInfoBlockHeader">Лабораторная работа №6</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllSendendTasksInfoBlock">
-
-                        <div className="AllSendendTasksTextBlock">
-                            <div className="AllSendendTasksInfoBlockHeader">Лабораторная работа №7</div>
-                        </div>
-
-                    </div>
-
-
+                    ))}
                 </div>
-
             </div>
-
         </div>
     );
 }

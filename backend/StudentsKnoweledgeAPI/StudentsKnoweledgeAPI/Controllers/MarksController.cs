@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
 using StudentsKnoweledgeAPI.RequestsTemplates;
@@ -9,6 +10,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MarksController: ControllerBase
     {
 

@@ -20,9 +20,12 @@
 
         public DateTime MarkTime { get; set; }
 
-        public string TeacherId { get; set; }
 
-        public string Comment { get; set; }
+        public string TeacherId { get; set; } = "";
+
+        public string TeacherFIO { get; set; } = "";
+
+        public string Comment { get; set; } = "";
 
 
 

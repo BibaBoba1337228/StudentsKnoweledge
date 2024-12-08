@@ -33,6 +33,11 @@ import {mainPageLoader} from "./api/loaders/MainPageLoader";
 import {myCourcesLoader} from "./api/loaders/MyCourcesLoader";
 import {courseDetailLoader} from "./api/loaders/CourseDetailLoader";
 import {adminPanelLoader} from "./api/loaders/AdminPanelLoader";
+import {courseWorksLoader} from "./api/loaders/CourseWorksLoader";
+import {studentsWorksLoader} from "./api/loaders/StudentsWorksLoader";
+import ProtectedRoute from "./api/ProtectedRoute";
+import {lrDetailLoader} from "./api/loaders/LrDetailLoader";
+import {lrDetailLoader2} from "./api/loaders/LrDetailLoader2";
 
 
 function App() {
@@ -50,7 +55,11 @@ function App() {
         },
         {
             path: "/system",
-            element: <AuthorizedContainer/>,
+            element: (
+                <ProtectedRoute>
+                    <AuthorizedContainer/>
+                </ProtectedRoute>
+            ),
             children: [
                 {
                     path: "/system/courses/",
@@ -68,27 +77,42 @@ function App() {
                                 },
                                 {
                                     path: "/system/courses/course/:courseId/task/:taskId/manage",
-                                    element: <LrManage></LrManage>
+                                    element: <LrManage></LrManage>,
+                                    loader: lrDetailLoader2,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                                 },
                                 {
                                     path: "/system/courses/course/:courseId/task/:taskId/edit",
-                                    element: <ChangeTask></ChangeTask>
+                                    element: <ChangeTask></ChangeTask>,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                                 },
                                 {
                                     path: "/system/courses/course/:courseId/answers",
-                                    element: <AllSendendTasks></AllSendendTasks>
+                                    element: <AllSendendTasks></AllSendendTasks>,
+                                    loader: courseWorksLoader,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/task/:taskId/answers/students",
+                                    element: <AllSendendTasksFromStudent></AllSendendTasksFromStudent>,
+                                    loader: studentsWorksLoader,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                                 },
                                 {
                                     path: "/system/courses/course/:courseId/task/:taskId",
-                                    element: <LrDetail></LrDetail>
+                                    element: <LrDetail></LrDetail>,
+                                    loader: lrDetailLoader,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                                 },
                                 {
                                     path: "/system/courses/course/:courseId/events/",
-                                    element: <AllEvents></AllEvents>
+                                    element: <AllEvents></AllEvents>,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                                 },
                                 {
                                     path: "/system/courses/course/:courseId/marks",
-                                    element: <GroupMarks></GroupMarks>
+                                    element: <GroupMarks></GroupMarks>,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                                 },
                             ]
                         },
@@ -144,10 +168,7 @@ function App() {
                     element: <TestDetail></TestDetail>
                 },
 
-                {
-                    path: "/system/course/answers/students",
-                    element: <AllSendendTasksFromStudent></AllSendendTasksFromStudent>
-                },
+
                 {
                     path: "/system/course/answers/students/student",
                     element: <LrRate></LrRate>

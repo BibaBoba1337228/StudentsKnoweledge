@@ -1,6 +1,14 @@
 import '../styles/CourseDetail.css'
 import '../styles/fonts.css'
-import {createBrowserRouter, RouterProvider, Outlet, useNavigate, useLoaderData, useParams} from 'react-router-dom';
+import {
+    createBrowserRouter,
+    RouterProvider,
+    Outlet,
+    useNavigate,
+    useLoaderData,
+    useParams,
+    useLocation
+} from 'react-router-dom';
 import CourseElement from "../components/CoursePage/CourseElement";
 import React, {useEffect, useState} from "react";
 import ProfileIcon from "../assets/icons/profile_icon.svg";
@@ -20,6 +28,9 @@ function MyCourses() {
     const data = useLoaderData();
     console.log(data)
     const {courseId} = useParams(); // Получаем courseId из URL
+
+    const location = useLocation();
+    const courseName = location.state?.courseName;
 
     const navigate = useNavigate();
 
@@ -51,6 +62,14 @@ function MyCourses() {
 
     const [error, setError] = useState(null); // Состояние для ошибки
     const errorHandler = new ErrorHandler(setError);
+
+    const [role, setRole] = useState(null); // To store the role
+
+    useEffect(() => {
+        // Get role from localStorage
+        const storedRole = localStorage.getItem('role');
+        setRole(storedRole);  // Update role state
+    }, []);
 
     useEffect(() => {
         errorHandler.setErrorCallback(setError); // Передаем setError в errorHandler
@@ -281,7 +300,7 @@ function MyCourses() {
 
                 <div id="CourceDetailHeaderContainer">
 
-                    <div id="CourceDetailHeader">Технологии программирования</div>
+                    <div id="CourceDetailHeader">{courseName}</div>
                     <div id="CourceDetailDelimiter"></div>
                 </div>
 
@@ -289,40 +308,59 @@ function MyCourses() {
 
                     <div id="CourceDetailButtonsContainer">
 
-                        <button id="CourceDetailTeachersButton" onClick={() => {
-                            setIsTeachersOpen(true);
-                            fetchCourseTeachers();
-                        }}
-                                style={{cursor: "pointer"}}>Преподаватели
-                        </button>
-                        <button id="CourceDetailGroupsButton" onClick={() => {
-                            setIsGroupsOpen(true);
-                            fetchCourseGroups()
-                        }}
-                                style={{cursor: "pointer"}}>Группы
-                        </button>
-                        <button id="CourceDetailWorkButton"
-                                onClick={() => navigate(`/system/courses/course/${courseId}/answers`)}
-                                style={{cursor: "pointer"}}>Работы
-                        </button>
+
+                        {(role === "3" || role === "2") && (
+                            <button id="CourceDetailTeachersButton" onClick={() => {
+                                setIsTeachersOpen(true);
+                                fetchCourseTeachers();
+                            }}
+                                    style={{cursor: "pointer"}}>Преподаватели
+                            </button>
+                        )}
+
+
+                        {(role === "3" || role === "2") && (
+                            <button id="CourceDetailGroupsButton" onClick={() => {
+                                setIsGroupsOpen(true);
+                                fetchCourseGroups()
+                            }}
+                                    style={{cursor: "pointer"}}>Группы
+                            </button>
+                        )}
+
+                        {(role === "3" || role === "2") && (
+                            <button id="CourceDetailWorkButton"
+                                    onClick={() => navigate(`/system/courses/course/${courseId}/answers`)}
+                                    style={{cursor: "pointer"}}>Работы
+                            </button>
+                        )}
+
+
                         <button id="CourceDetailEventsButton"
                                 onClick={() => navigate(`/system/courses/course/${courseId}/events`)}
                                 style={{cursor: "pointer"}}>События
                         </button>
-                        <button id="CourceDetailMarksButton"
-                                onClick={() => navigate(`/system/courses/course/${courseId}/marks`)}
-                                style={{cursor: "pointer"}}>Успеваемость
-                        </button>
+
+                        {(role === "3" || role === "2") && (
+                            <button id="CourceDetailMarksButton"
+                                    onClick={() => navigate(`/system/courses/course/${courseId}/marks`)}
+                                    style={{cursor: "pointer"}}>Успеваемость
+                            </button>
+                        )}
+
 
                     </div>
                     <CourseElement data={sections} setData={setSections}></CourseElement>
 
-                    <div id="CourceDetailButtonsContainer">
+                    {(role === "3" || role === "2") && (
+                        <div id="CourceDetailButtonsContainer">
 
-                        <button id="CourceDetailAddButton" onClick={() => setIsSectionOpen(true)}
-                                style={{cursor: "pointer"}}>Добавить
-                        </button>
-                    </div>
+                            <button id="CourceDetailAddButton" onClick={() => setIsSectionOpen(true)}
+                                    style={{cursor: "pointer"}}>Добавить
+                            </button>
+                        </div>
+                    )}
+
 
                 </div>
 

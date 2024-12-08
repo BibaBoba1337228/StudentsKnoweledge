@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StudentsKnoweledgeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class NotificationController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;

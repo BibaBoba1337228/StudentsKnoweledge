@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
 using StudentsKnoweledgeAPI.RequestsTemplates;
 using StudentsKnoweledgeAPI.RequestsTemplates.DTO;
+using System.Security.Claims;
 
 namespace StudentsKnoweledgeAPI.Controllers
 {
     [Route("api/Section/{sectionId}/[controller]")]
     [ApiController]
+    [Authorize]
     public class MaterialController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -187,6 +190,12 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(new { message = "Material deleted successfully." });
         }
+
+       
+
+
+
+
 
         private object MapMaterialToSpecificType(Material material)
         {

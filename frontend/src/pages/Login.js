@@ -31,36 +31,30 @@ function Login() {
                 })
             });
 
-            console.log(login_response)
-
             if (login_response.status === 200) {
-                // const modules_response = await fetchWithAuth(`${process.env.REACT_APP_API_BASE_URL}/user/modules/`, {
-                //     method: 'GET',
-                //     credentials: "include",
-                // });
-                //
-                // const modules_data = await modules_response.json();
-                // localStorage.setItem('active_modules', JSON.stringify(modules_data));
-                //
-                // const data = await login_response.json();
-                // const {user_id, permissions, first_name, last_name, middle_name} = data;
-                // const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-                // const formattedName = `${capitalize(last_name)} ${capitalize(first_name).charAt(0)}. ${capitalize(middle_name).charAt(0)}.`;
-                // const moduleNames = permissions.map(perm => perm.module_name);
-                // localStorage.setItem('user_id', user_id);
-                // localStorage.setItem('moduleNames', moduleNames);
-                // localStorage.setItem('tenders_per_page', 12);
-                // localStorage.setItem('fio', JSON.stringify(formattedName));
+                const data = await login_response.json(); // Assuming this includes user info with the role
+
+                // Save relevant user information to localStorage
+                const {user_id, role, first_name, last_name, middle_name} = data;
+
+                // Format the user's name
+                const formattedName = `${first_name} ${last_name} ${middle_name}`;
+                localStorage.setItem('user_id', user_id);
+                localStorage.setItem('role', role); // Save role for access control
+                localStorage.setItem('fio', formattedName);
+
+                // Navigate to the courses page
                 navigate('/system/courses');
             } else {
-
+                // Handle errors (e.g., invalid credentials)
+                setIsErrorOpen(true);
+                setErrorText('Неверный логин или пароль. Попробуйте снова.');
             }
         } catch (error) {
             if (error.status === 401) {
                 setIsErrorOpen(true);
                 setErrorText('Неверный логин или пароль. Попробуйте снова.');
             }
-
         }
     };
 

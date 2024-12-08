@@ -75,7 +75,7 @@ function MyCourses() {
                         <div id="MyCourcesCourcesCardsContainer">
                             {data.map(course => (
                                 <div key={course.id} className="MyCourcesCourcesCard"
-                                     onClick={() => navigate(`/system/courses/course/${course.id}`)}
+                                     onClick={() => navigate(`/system/courses/course/${course.id}`, {state: {courseName: course.name}})}
                                      style={{cursor: "pointer"}}>
                                     <img className="MyCourcesCourcesCardBackground"
                                          loading="eager" src={getRandomBackground()}/>

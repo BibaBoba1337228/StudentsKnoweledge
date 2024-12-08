@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
 using StudentsKnoweledgeAPI.RequestsTemplates;
@@ -8,6 +9,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CourseController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -80,7 +82,6 @@ namespace StudentsKnoweledgeAPI.Controllers
         [HttpGet("{courseId}/TaskMaterials")]
         public async Task<IActionResult> GetTaskMaterialsByCourseId(int courseId)
         {
-            // Получаем все секции, связанные с курсом
             var sections = await _context.Sections
                 .Where(s => s.CourseId == courseId)
                 .ToListAsync();
@@ -88,10 +89,8 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (sections == null || !sections.Any())
                 return NotFound(new { message = "No sections found for the given course." });
 
-            // Получаем ID всех секций
             var sectionIds = sections.Select(s => s.Id).ToList();
 
-            // Находим все TaskMaterial, связанные с этими секциями
             var taskMaterials = await _context.Materials
                 .OfType<TaskMaterial>()
                 .Where(m => sectionIds.Contains(m.SectionId))
@@ -349,6 +348,68 @@ namespace StudentsKnoweledgeAPI.Controllers
             }
 
             return Ok(courses);
+        }
+
+
+        [HttpGet("{courseId}/Task/{id}")]
+        public async Task<IActionResult> GetTaskMaterialById(int courseId, int id)
+        {
+            // Поиск курса по courseId, включая его секции и материалы
+            var course = await _context.Courses
+                .Include(c => c.Sections)  // Включаем секции курса
+                .ThenInclude(s => s.Materials)  // Включаем материалы секций
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course == null)
+                return NotFound(new { message = "Course not found." });
+
+            // Ищем материал среди всех секций курса
+            var material = course.Sections
+                .SelectMany(s => s.Materials)  // Извлекаем все материалы из секций
+                .OfType<TaskMaterial>()  // Фильтруем по типу TaskMaterial
+                .FirstOrDefault(m => m.Id == id);
+
+            // Если материал не найден
+            if (material == null)
+                return NotFound(new { message = "Task material not found." });
+
+            // Извлекаем идентификатор студента из Identity
+            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // Retrieve the user ID
+
+            if (string.IsNullOrEmpty(studentId))
+                return Unauthorized(new { message = "Student ID not found in Identity." });
+
+            // Поиск ответа студента
+            var studentAnswer = await _context.StudentAnswers
+                .FirstOrDefaultAsync(sa => sa.MaterialId == id && sa.StudentId == studentId);
+
+            // Формируем объект результата
+            var result = new
+            {
+                material.Id,
+                material.Title,
+                material.Description,
+                material.Deadline,
+                material.Grade,
+                material.SectionId,
+                material.IsVisible,
+                material.Type,
+                StudentAnswer = studentAnswer != null
+                    ? new
+                    {
+                        studentAnswer.Id,
+                        studentAnswer.FilePath,
+                        studentAnswer.Grade,
+                        studentAnswer.AnswerTime,
+                        studentAnswer.MarkTime,
+                        studentAnswer.TeacherId,
+                        studentAnswer.TeacherFIO,
+                        studentAnswer.Comment
+                    }
+                    : null
+            };
+
+            return Ok(result);
         }
 
 

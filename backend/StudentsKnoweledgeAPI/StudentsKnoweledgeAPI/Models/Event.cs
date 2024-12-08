@@ -13,6 +13,10 @@
 
        public DateTime CloseDate { get; set; } 
 
+        public string Name { get; set; }
+
+        public int MaterialId { get; set; }
+
        public string URL { get; set; }
     }
 }

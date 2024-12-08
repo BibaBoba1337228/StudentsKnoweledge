@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import '../../styles/CourseElement.css';
 import ClosedIcon from '../../assets/icons/right_icon.svg';
 import OpenedIcon from '../../assets/icons/opened_icon.svg';
@@ -14,6 +14,7 @@ import eye from '../../assets/icons/eye.svg';
 import crossedEye from '../../assets/icons/crossed_eye.svg';
 import cross from '../../assets/icons/cross.svg';
 import {useNavigate, useParams} from "react-router-dom";
+import {fetchWithAuth} from "../../api/fetchWithAuth";
 
 const iconMapping = {
     "File": lab,
@@ -33,7 +34,7 @@ const CourseElement = ({data, setData}) => {
 
     const handleDelete = async (sectionId) => {
         try {
-            const response = await fetch(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}`, {
+            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}`, {
                 method: 'DELETE',
             });
 
@@ -102,10 +103,17 @@ const AccordionItem = ({
     const contentRef = useRef(null);
     const [isEditing, setIsEditing] = useState(false);
     const [newTitle, setNewTitle] = useState(title);
+    const [role, setRole] = useState(null); // To store the role
+
+    useEffect(() => {
+        // Get role from localStorage
+        const storedRole = localStorage.getItem('role');
+        setRole(storedRole);  // Update role state
+    }, []);
 
     const toggleVisibility = async () => {
         try {
-            const response = await fetch(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}/Visibility`, {
+            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}/Visibility`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +141,7 @@ const AccordionItem = ({
 
     const saveNewTitle = async () => {
         try {
-            const response = await fetch(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}`, {
+            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -192,19 +200,31 @@ const AccordionItem = ({
                     </div>
                 </button>
                 <div style={{display: "flex", alignItems: "center", marginRight: "10px"}}>
-                    <button
-                        style={{marginRight: '20px', all: "unset", cursor: "pointer"}}
-                        onClick={() => setIsEditing(true)}
-                    >
-                        <img src={pencil} alt="Edit Icon" style={{marginRight: '20px', width: '20px'}}/>
-                    </button>
-                    <button style={{marginRight: '20px', all: "unset", cursor: "pointer"}} onClick={toggleVisibility}>
-                        <img src={isVisible ? eye : crossedEye} alt="View Icon"
-                             style={{marginRight: '20px', width: '20px'}}/>
-                    </button>
-                    <button style={{all: "unset", cursor: "pointer"}} onClick={onDelete}>
-                        <img src={cross} alt="Delete Icon" style={{marginRight: '20px', width: '20px'}}/>
-                    </button>
+
+                    {(role === "3" || role === "2") && (
+                        <button
+                            style={{marginRight: '20px', all: "unset", cursor: "pointer"}}
+                            onClick={() => setIsEditing(true)}
+                        >
+                            <img src={pencil} alt="Edit Icon" style={{marginRight: '20px', width: '20px'}}/>
+                        </button>
+                    )}
+
+                    {(role === "3" || role === "2") && (
+                        <button style={{marginRight: '20px', all: "unset", cursor: "pointer"}}
+                                onClick={toggleVisibility}>
+                            <img src={isVisible ? eye : crossedEye} alt="View Icon"
+                                 style={{marginRight: '20px', width: '20px'}}/>
+                        </button>
+                    )}
+
+                    {(role === "3" || role === "2") && (
+                        <button style={{all: "unset", cursor: "pointer"}} onClick={onDelete}>
+                            <img src={cross} alt="Delete Icon" style={{marginRight: '20px', width: '20px'}}/>
+                        </button>
+                    )}
+
+
                 </div>
             </div>
             <div
@@ -216,9 +236,13 @@ const AccordionItem = ({
             >
                 <div ref={contentRef} className="accordion-inner-content">
                     {children}
-                    <div id="CourceDetailButtonsContainer">
-                        <button id="CourceDetailItemAddButton">Добавить</button>
-                    </div>
+
+                    {(role === "3" || role === "2") && (
+                        <div id="CourceDetailButtonsContainer">
+                            <button id="CourceDetailItemAddButton">Добавить</button>
+                        </div>
+                    )}
+
                 </div>
             </div>
         </div>
@@ -242,11 +266,20 @@ const AccordionSubItem = ({
                           }) => {
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [role, setRole] = useState(null);
+    const [taskData, setTaskData] = useState(null);
+
+    useEffect(() => {
+        // Get role from localStorage
+        const storedRole = localStorage.getItem('role');
+        setRole(storedRole);
+    }, []);
 
     const toggleVisibility = async () => {
         try {
-            const response = await fetch(`https://localhost:7065/api/Section/${sectionId}/Material/${materialId}/Visibility`, {
+            const response = await fetchWithAuth(`https://localhost:7065/api/Section/${sectionId}/Material/${materialId}/Visibility`, {
                 method: 'PUT',
+
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -254,13 +287,12 @@ const AccordionSubItem = ({
             });
 
             if (response.ok) {
-                // Обновляем локальные данные
                 setData(prevData => {
                     const updatedData = [...prevData];
                     updatedData.forEach(section => {
                         section.materials.forEach(material => {
                             if (material.id === materialId) {
-                                material.isVisible = !isVisible; // Обновляем состояние видимости
+                                material.isVisible = !isVisible;
                             }
                         });
                     });
@@ -274,25 +306,22 @@ const AccordionSubItem = ({
         }
     };
 
-    const handleItemClick = () => {
+    const handleItemClick = async () => {
         if (type === "File" && filePath) {
-            // Формируем ссылку и открываем в новом окне
             const fullPath = `https://localhost:7065/${filePath}`;
             console.log(`Открываю файл по пути ${fullPath}`);
             window.open(fullPath, "_blank");
         } else if (type === "TextContent") {
-            setIsModalOpen(true); // Открываем модалку для типа TextContent
+            setIsModalOpen(true);
         } else if (type === "Task") {
-            console.log(`Это не файл кажется`);
-            // Переходим по внутренней ссылке
-            navigate(`/system/courses/course/${courseId}/task/${id}`);
+            navigate(`/system/courses/course/${courseId}/task/${id}`); // Pass data to the LrDetail component via navigation
+
+
         }
     };
 
     const handleEditClick = () => {
-
         navigate(`/system/courses/course/${courseId}/task/${id}/edit`);
-
     };
 
     const closeModal = () => setIsModalOpen(false);
@@ -303,50 +332,40 @@ const AccordionSubItem = ({
                 <img src={icon} style={{width: '20px'}} alt="Sub Item Icon"/>
                 <div className="accordion-sub-item-text">{title}</div>
             </div>
-            <div style={{display: "flex", alignItems: "center", marginRight: "10px"}}>
-                <button style={{marginRight: '20px', all: "unset"}}
-                        onClick={handleEditClick}>
-                    <img src={pencil} alt="Edit Icon" style={{marginRight: '20px', width: '20px'}}/>
-                </button>
-                <button style={{marginRight: '20px', all: "unset"}} onClick={toggleVisibility}>
-                    <img src={isVisible ? eye : crossedEye} alt="View Icon"
-                         style={{marginRight: '20px', width: '20px'}}/>
-                </button>
-                <button style={{all: "unset"}}>
-                    <img src={cross} alt="Delete Icon" style={{marginRight: '20px', width: '20px'}}/>
-                </button>
-            </div>
 
-            {/* Модалка для отображения текста */}
+            {(role === "3" || role === "2") && (
+                <div style={{display: "flex", alignItems: "center", marginRight: "10px"}}>
+                    <button style={{marginRight: '20px', all: "unset"}} onClick={handleEditClick}>
+                        <img src={pencil} alt="Edit Icon" style={{marginRight: '20px', width: '20px'}}/>
+                    </button>
+                    <button style={{marginRight: '20px', all: "unset"}} onClick={toggleVisibility}>
+                        <img src={isVisible ? eye : crossedEye} alt="View Icon"
+                             style={{marginRight: '20px', width: '20px'}}/>
+                    </button>
+                    <button style={{all: "unset"}}>
+                        <img src={cross} alt="Delete Icon" style={{marginRight: '20px', width: '20px'}}/>
+                    </button>
+                </div>
+            )}
+
+            {/* Modal for TextContent */}
             {isModalOpen && (
-                <div
-                    onClick={closeModal}
-                    style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        zIndex: 1000
-                    }}
-                >
-                    <div
-                        onClick={(e) => e.stopPropagation()}  // Останавливаем событие клика, чтобы не закрыть при клике по контенту
-                        style={{
-                            backgroundColor: "#F2E8C9",
-                            padding: "20px",
-                            borderRadius: "15px",
-                            width: "80%",
-                            maxWidth: "600px",
-                            maxHeight: "80%",
-                            overflowY: "auto",
-                            position: "relative"
-                        }}
-                    >
+                <div onClick={closeModal} style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 1000
+                }}>
+                    <div onClick={(e) => e.stopPropagation()} style={{
+                        backgroundColor: "#F2E8C9", padding: "20px", borderRadius: "15px", width: "80%",
+                        maxWidth: "600px", maxHeight: "80%", overflowY: "auto", position: "relative"
+                    }}>
                         <h2>{title}</h2>
                         <p>{content}</p>
                     </div>

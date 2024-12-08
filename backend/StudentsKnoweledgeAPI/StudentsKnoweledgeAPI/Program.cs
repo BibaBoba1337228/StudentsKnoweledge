@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.OpenApi.Models;
+using StudentsKnoweledgeAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,11 @@ builder.Services.AddCors(options =>
     });
 });
 
+//builder.Services.AddSwaggerGen(options =>
+//{
+//    options.OperationFilter<FileUploadOperationFilter>();
+//});
+
 
 
 
@@ -63,6 +70,10 @@ app.UseStaticFiles(new StaticFileOptions
     FileProvider = new PhysicalFileProvider(filesPath),
     RequestPath = "/files" 
 });
+
+
+
+
 
 if (app.Environment.IsDevelopment())
 {

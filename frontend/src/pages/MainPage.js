@@ -1,25 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from "react";
 import {useLoaderData, useNavigate} from "react-router-dom";
-import {fetchWithAuth} from "../api/fetchWithAuth";
 
 function MainPage() {
-
-    const data = useLoaderData();
-    const navigate = useNavigate(); // Хук для навигации
+    const loaderData = useLoaderData();
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true); // Локальное состояние загрузки
 
     useEffect(() => {
-        console.log("Это дата", data)
-        if (data?.username) {
-            navigate("/system/courses/");
+        if (loaderData.status === 200) {
+            // Если авторизация успешна, перенаправляем
+            navigate("/system/courses");
+        } else {
+            // Если не авторизован, перенаправляем на логин
+            navigate("/login");
         }
-    }, [data, navigate]);
+        setIsLoading(false); // Завершаем загрузку
+    }, [loaderData, navigate]);
 
+    if (isLoading) {
+        return (
+            <div>
+                <h1>Загрузка...</h1>
+            </div>
+        );
+    }
 
-    return (
-        <div>
-
-        </div>
-    );
+    return null; // Во время проверки ничего не рендерим
 }
 
 export default MainPage;
