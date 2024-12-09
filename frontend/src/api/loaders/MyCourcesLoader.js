@@ -21,6 +21,7 @@ export async function myCourcesLoader() {
     if (response.status === 401) {
         throw {status: 401, message: "Unauthorized"};
     }
+    
 
     throw {status: response.status, message: response.statusText};
 }

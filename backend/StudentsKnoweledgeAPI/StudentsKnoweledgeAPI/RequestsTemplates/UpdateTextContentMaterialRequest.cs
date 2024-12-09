@@ -1,5 +1,9 @@
 ﻿namespace StudentsKnoweledgeAPI.RequestsTemplates
 {
-    public class UpdateTextContentMaterialRequest : CreateTextContentMaterialRequest { }
+    public class UpdateTextContentMaterialRequest
+    {
+        public string? Title { get; set; }
+        public string? Content { get; set; }
+    }
 
 }

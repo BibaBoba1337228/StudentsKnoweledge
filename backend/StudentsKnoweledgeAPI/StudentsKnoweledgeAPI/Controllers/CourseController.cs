@@ -342,10 +342,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 .Where(c => c.Groups.Any(g => g.Students.Any(s => s.Id.ToString() == userId)) || c.Teachers.Any(t => t.Id.ToString() == userId))
                 .ToListAsync();
 
-            if (!courses.Any())
-            {
-                return NotFound(new { message = "No courses found for the user." });
-            }
 
             return Ok(courses);
         }
@@ -486,6 +482,72 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(studentAnswers);
         }
+
+        [HttpGet("{courseId}/File/{id}")]
+        public async Task<IActionResult> GetFileMaterialById(int courseId, int id)
+        {
+            var course = await _context.Courses
+                .Include(c => c.Sections)
+                .ThenInclude(s => s.Materials)
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course == null)
+                return NotFound(new { message = "Course not found." });
+
+            var material = course.Sections
+                .SelectMany(s => s.Materials)
+                .OfType<FileMaterial>()
+                .FirstOrDefault(m => m.Id == id);
+
+            if (material == null)
+                return NotFound(new { message = "File material not found." });
+
+            var result = new
+            {
+                material.Id,
+                material.Title,
+                material.SectionId,
+                material.IsVisible,
+                material.Type,
+                material.FilePath
+            };
+
+            return Ok(result);
+        }
+
+        [HttpGet("{courseId}/TextContent/{id}")]
+        public async Task<IActionResult> GetTextContentMaterialById(int courseId, int id)
+        {
+            var course = await _context.Courses
+                .Include(c => c.Sections)
+                .ThenInclude(s => s.Materials)
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course == null)
+                return NotFound(new { message = "Course not found." });
+
+            var material = course.Sections
+                .SelectMany(s => s.Materials)
+                .OfType<TextContentMaterial>()
+                .FirstOrDefault(m => m.Id == id);
+
+            if (material == null)
+                return NotFound(new { message = "Text content material not found." });
+
+            var result = new
+            {
+                material.Id,
+                material.Title,
+                material.SectionId,
+                material.IsVisible,
+                material.Type,
+                material.Content
+            };
+
+            return Ok(result);
+        }
+
+
 
     }
 }

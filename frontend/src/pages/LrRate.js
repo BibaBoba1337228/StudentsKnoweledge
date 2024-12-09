@@ -1,13 +1,41 @@
-import React from 'react';
-import {Navigate, Outlet, Route, Routes, useNavigate} from 'react-router-dom';
+import React, {useState} from 'react';
+import {Navigate, Outlet, Route, Routes, useLoaderData, useLocation, useNavigate, useParams} from 'react-router-dom';
 import '../styles/LrRate.css';
 import lab from '../assets/icons/lab.svg'
 
 
 function LrRate() {
 
-
+    const {courseId, taskId} = useParams();
     const navigate = useNavigate();
+    const taskData = useLoaderData();
+
+    const location = useLocation();
+
+    const lrdata = location.state?.data;
+    console.log(lrdata)
+
+    const [data, setData] = useState(taskData); // Используем состояние для управления данными
+    const [isDeleting, setIsDeleting] = useState(false); // Состояние загрузки для кнопки "Удалить"
+
+    if (!data) {
+        return <div>Задание не найдено</div>;
+    }
+
+    const {title, description, deadline, grade, studentAnswer} = lrdata;
+
+    const deadlineDate = new Date(deadline);
+    const currentDate = new Date();
+    let timeDifference = deadlineDate - currentDate;
+
+    if (timeDifference < 0) {
+        timeDifference = "Просрочено";
+    } else {
+        const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        timeDifference = `${daysLeft} дней, ${hoursLeft} часов, ${minutesLeft} минут`;
+    }
 
     return (
         <div id="LrRateWrapper">
@@ -15,11 +43,6 @@ function LrRate() {
 
             <div id="LrRateContainer">
 
-                <div id="LrRateHeaderContainer">
-
-                    <div id="LrRateHeader">Лабораторная работа №1</div>
-                    <div id="LrRateDelimiter"></div>
-                </div>
 
                 <div id="LrRateCourceContainer">
 
@@ -27,7 +50,8 @@ function LrRate() {
 
                         <div className="LrRateTextBlock">
                             <div className="LrRateInfoBlockHeader">Срок сдачи:</div>
-                            <div className="LrRateInfoBlockInfo">25.03.2024 15:59</div>
+                            <div
+                                className="LrRateInfoBlockInfo">{deadline ? new Date(deadline).toLocaleString() : "Отсутствует"}</div>
                         </div>
 
                     </div>
@@ -36,8 +60,7 @@ function LrRate() {
 
                         <div className="LrRateTextBlock">
                             <div className="LrRateInfoBlockHeader">Описание:</div>
-                            <div className="LrRateInfoBlockInfo">Реализовать нужно только пункты 1.1-1.3 из
-                                методички
+                            <div className="LrRateInfoBlockInfo">{description || "Отсутствует"}
                             </div>
                         </div>
 
@@ -47,7 +70,7 @@ function LrRate() {
 
                         <div className="LrRateTextBlock">
                             <div className="LrRateInfoBlockHeader">Максимальный балл:</div>
-                            <div className="LrRateInfoBlockInfo">5</div>
+                            <div className="LrRateInfoBlockInfo">{grade || "Отсутствует"}</div>
                         </div>
 
                     </div>
@@ -57,19 +80,24 @@ function LrRate() {
 
                         <div className="LrRateTextBlock">
                             <div className="LrRateInfoBlockHeader">Оставшееся время:</div>
-                            <div className="LrRateInfoBlockInfo">2 дня 12 часов 35 минут</div>
+                            <div className="LrRateInfoBlockInfo">{timeDifference || "Отсутствует"}</div>
                         </div>
 
                         <div className="LrRateTextBlock">
                             <div className="LrRateInfoBlockHeader">Последнее изменение:</div>
-                            <div className="LrRateInfoBlockInfo">5 часов назад</div>
+                            <div
+                                className="LrRateInfoBlockInfo">{studentAnswer?.answerTime ? new Date(studentAnswer.answerTime).toLocaleString() : "Нет ответа"}</div>
                         </div>
 
                         <div className="LrRateTextBlock">
                             <div className="LrRateInfoBlockHeader">Ответ в виде файла:</div>
                             <div className="LrRateInfoBlockInfoWithImage">
-                                <img src={lab} style={{width: '20px'}}/>
-                                ЛР№1_ЕрофеевАА.docx
+                                {studentAnswer?.filePath && (
+                                    <img src={lab} style={{width: '20px'}} alt="Файл"/>
+                                )}
+                                {studentAnswer?.filePath
+                                    ? studentAnswer.filePath.match(/[^\\]+$/)?.[0]
+                                    : "Ответ отсутствует"}
                             </div>
                         </div>
 
@@ -108,7 +136,7 @@ function LrRate() {
                         </button>
 
 
-                        <button id="LrRateDeleteButton" onClick={() => navigate('/system/course/answers/students')}
+                        <button id="LrRateDeleteButton" onClick={() => navigate(-1)}
                                 style={{cursor: "pointer"}}>
                             Назад
                         </button>

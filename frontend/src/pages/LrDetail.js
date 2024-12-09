@@ -109,6 +109,12 @@ function LrDetail() {
                         </div>
 
                         <div className="LrDetailTextBlock">
+                            <div className="LrDetailInfoBlockHeader">Последнее изменение:</div>
+                            <div
+                                className="LrDetailInfoBlockInfo">{studentAnswer?.answerTime ? new Date(studentAnswer.answerTime).toLocaleString() : "Нет ответа"}</div>
+                        </div>
+
+                        <div className="LrDetailTextBlock">
                             <div className="LrDetailInfoBlockHeader">Ответ в виде файла:</div>
                             <div className="LrDetailInfoBlockInfoWithImage">
                                 {studentAnswer?.filePath && (
@@ -148,6 +154,12 @@ function LrDetail() {
                             <div className="LrDetailInfoBlockHeader">Оценил:</div>
                             <div
                                 className="LrDetailInfoBlockInfo">{studentAnswer?.teacherFIO ? studentAnswer.teacherFIO : "Не оценено"}</div>
+                        </div>
+
+                        <div className="LrDetailTextBlock">
+                            <div className="LrDetailInfoBlockHeader">Комментарий к оценке:</div>
+                            <div
+                                className="LrDetailInfoBlockInfo">{studentAnswer?.teacherComment ? studentAnswer.teacherComment : "Комментарий отсутствует"}</div>
                         </div>
 
 

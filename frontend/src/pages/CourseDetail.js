@@ -309,7 +309,7 @@ function MyCourses() {
                     <div id="CourceDetailButtonsContainer">
 
 
-                        {(role === "3" || role === "2") && (
+                        {(role === "3") && (
                             <button id="CourceDetailTeachersButton" onClick={() => {
                                 setIsTeachersOpen(true);
                                 fetchCourseTeachers();

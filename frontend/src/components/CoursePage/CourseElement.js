@@ -105,6 +105,8 @@ const AccordionItem = ({
     const [newTitle, setNewTitle] = useState(title);
     const [role, setRole] = useState(null); // To store the role
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         // Get role from localStorage
         const storedRole = localStorage.getItem('role');
@@ -174,6 +176,12 @@ const AccordionItem = ({
         }
     };
 
+    const handleAdd = () => {
+        navigate(`/system/courses/course/${courseId}/task/add`, {
+            state: {sectionId},
+        });
+    }
+
     return (
         <div className="accordion-item">
             <div style={{display: "flex", alignItems: "center"}}>
@@ -238,7 +246,7 @@ const AccordionItem = ({
                     {children}
 
                     {(role === "3" || role === "2") && (
-                        <div id="CourceDetailButtonsContainer">
+                        <div id="CourceDetailButtonsContainer" onClick={handleAdd} style={{cursor: "pointer"}}>
                             <button id="CourceDetailItemAddButton">Добавить</button>
                         </div>
                     )}
@@ -314,6 +322,7 @@ const AccordionSubItem = ({
         } else if (type === "TextContent") {
             setIsModalOpen(true);
         } else if (type === "Task") {
+            if (role === "3" || role === "2") return;
             navigate(`/system/courses/course/${courseId}/task/${id}`); // Pass data to the LrDetail component via navigation
 
 
@@ -321,7 +330,25 @@ const AccordionSubItem = ({
     };
 
     const handleEditClick = () => {
-        navigate(`/system/courses/course/${courseId}/task/${id}/edit`);
+
+        if (type === "Task") {
+            navigate(`/system/courses/course/${courseId}/task/${id}/edit`, {
+                state: {sectionId},
+            });
+        }
+
+        if (type === "File") {
+            navigate(`/system/courses/course/${courseId}/file/${id}/edit`, {
+                state: {sectionId},
+            });
+        }
+
+        if (type === "TextContent") {
+            navigate(`/system/courses/course/${courseId}/textcontent/${id}/edit`, {
+                state: {sectionId},
+            });
+        }
+
     };
 
     const closeModal = () => setIsModalOpen(false);

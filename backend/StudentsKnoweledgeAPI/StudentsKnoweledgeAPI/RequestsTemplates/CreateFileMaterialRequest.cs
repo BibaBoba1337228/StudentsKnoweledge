@@ -3,6 +3,7 @@
     public class CreateFileMaterialRequest
     {
         public string Title { get; set; }
-        public string FilePath { get; set; }
+
+        public IEnumerable<IFormFile> Files { get; set; } // Поддержка множественной загрузки файлов
     }
 }

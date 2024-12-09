@@ -95,23 +95,42 @@ namespace StudentsKnoweledgeAPI.Controllers
             _context.Entry(material).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Task material updated successfully.", material });
+            return Ok(material);
         }
 
 
         // ----- Управление файлами -----
 
         [HttpPost("File")]
-        public async Task<IActionResult> CreateFileMaterial(int sectionId, [FromBody] CreateFileMaterialRequest request)
+        public async Task<IActionResult> CreateFileMaterial(int sectionId, [FromForm] CreateFileMaterialRequest request)
         {
             var section = await _context.Sections.FindAsync(sectionId);
             if (section == null)
                 return NotFound(new { message = "Section not found." });
 
+            var filePaths = new List<string>();
+
+            // Обработка файлов
+            foreach (var file in request.Files)
+            {
+                if (file.Length == 0)
+                    continue;
+
+                var filePath = Path.Combine("files", "materials", sectionId.ToString(), file.FileName);
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                filePaths.Add(filePath);
+            }
+
             var newMaterial = new FileMaterial
             {
                 Title = request.Title,
-                FilePath = request.FilePath,
+                FilePath = string.Join(";", filePaths), // Сохраняем пути к файлам в одну строку
                 SectionId = sectionId
             };
 
@@ -122,20 +141,71 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPut("File/{id}")]
-        public async Task<IActionResult> UpdateFileMaterial(int sectionId, int id, [FromBody] UpdateFileMaterialRequest request)
+        public async Task<IActionResult> UpdateFileMaterial(int sectionId, int id, [FromForm] UpdateFileMaterialRequest request)
         {
-            var material = await _context.Materials.OfType<FileMaterial>().FirstOrDefaultAsync(m => m.Id == id && m.SectionId == sectionId);
+            // Fetch the material first, without specifying 'OfType<FileMaterial>'
+            var material = await _context.Materials
+                .Where(m => m.Id == id && m.SectionId == sectionId)
+                .FirstOrDefaultAsync();
+
+            // If material is not found, return 404
             if (material == null)
                 return NotFound(new { message = "File material not found." });
 
-            material.Title = request.Title ?? material.Title;
-            material.FilePath = request.FilePath ?? material.FilePath;
+            // Attempt to cast it to a FileMaterial
+            var fileMaterial = material as FileMaterial;
 
-            _context.Entry(material).State = EntityState.Modified;
+            // If the material is not of type FileMaterial, return 404
+            if (fileMaterial == null)
+                return NotFound(new { message = "File material not found." });
+
+            var filePaths = fileMaterial.FilePath?.Split(";").ToList() ?? new List<string>();
+
+            // If there are files to be updated
+            if (request.Files != null && request.Files.Any())
+            {
+                // Remove old files
+                foreach (var oldFilePath in filePaths)
+                {
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                }
+
+                filePaths.Clear(); // Clear the old file paths
+
+                // Process the new files
+                foreach (var file in request.Files)
+                {
+                    if (file.Length == 0)
+                        continue;
+
+                    var filePath = Path.Combine("files", "materials", sectionId.ToString(), file.FileName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    filePaths.Add(filePath);
+                }
+            }
+
+            // Update material properties
+            fileMaterial.Title = request.Title ?? fileMaterial.Title;
+            fileMaterial.FilePath = string.Join(";", filePaths);
+
+            // Mark material as modified
+            _context.Entry(fileMaterial).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "File material updated successfully.", material });
         }
+
+
+
 
 
         // ----- Управление текст блоками -----

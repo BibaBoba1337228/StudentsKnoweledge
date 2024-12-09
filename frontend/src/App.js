@@ -38,6 +38,13 @@ import {studentsWorksLoader} from "./api/loaders/StudentsWorksLoader";
 import ProtectedRoute from "./api/ProtectedRoute";
 import {lrDetailLoader} from "./api/loaders/LrDetailLoader";
 import {lrDetailLoader2} from "./api/loaders/LrDetailLoader2";
+import LrEdit from "./pages/LrEdit";
+import {lrEditLoader} from "./api/loaders/LrEditLoader";
+import FileEdit from "./pages/FileEdit";
+import {fileDetailLoader} from "./api/loaders/FileEditLoader";
+import TextContentEdit from "./pages/TextContentEdit";
+import {textEditDetailLoader} from "./api/loaders/textEditLoader";
+import {lrRateLoader} from "./api/loaders/LrRateLoader";
 
 
 function App() {
@@ -83,6 +90,24 @@ function App() {
                                 },
                                 {
                                     path: "/system/courses/course/:courseId/task/:taskId/edit",
+                                    element: <LrEdit></LrEdit>,
+                                    loader: lrEditLoader,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/file/:taskId/edit",
+                                    element: <FileEdit></FileEdit>,
+                                    loader: fileDetailLoader,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/textcontent/:taskId/edit",
+                                    element: <TextContentEdit></TextContentEdit>,
+                                    loader: textEditDetailLoader,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/task/add",
                                     element: <ChangeTask></ChangeTask>,
                                     errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                                 },
@@ -102,6 +127,12 @@ function App() {
                                     path: "/system/courses/course/:courseId/task/:taskId",
                                     element: <LrDetail></LrDetail>,
                                     loader: lrDetailLoader,
+                                    errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                                },
+                                {
+                                    path: "/system/courses/course/:courseId/task/:taskId/rate",
+                                    element: <LrRate></LrRate>,
+                                    loader: lrRateLoader,
                                     errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                                 },
                                 {
@@ -168,11 +199,6 @@ function App() {
                     element: <TestDetail></TestDetail>
                 },
 
-
-                {
-                    path: "/system/course/answers/students/student",
-                    element: <LrRate></LrRate>
-                },
 
                 {
                     index: true,
