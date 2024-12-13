@@ -42,7 +42,7 @@ function ChangeTask() {
                     return;
                 }
 
-                url = `https://localhost:7065/api/Section/${sectionId}/Material/File`;
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${sectionId}/Material/File`;
                 const formData = new FormData();
                 formData.append("Title", title);
                 formData.append("Files", file);
@@ -61,7 +61,7 @@ function ChangeTask() {
                     return;
                 }
 
-                url = `https://localhost:7065/api/Section/${sectionId}/Material/Task`;
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${sectionId}/Material/Task`;
                 body = {
                     title,
                     description,
@@ -85,7 +85,7 @@ function ChangeTask() {
                     return;
                 }
 
-                url = `https://localhost:7065/api/Section/${sectionId}/Material/TextContent`;
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${sectionId}/Material/TextContent`;
                 body = {
                     title,
                     content,

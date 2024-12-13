@@ -19,7 +19,7 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const login_response = await fetchWithAuth(`https://localhost:7065/api/Login/login`, {
+            const login_response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Login/login`, {
                 method: 'POST',
                 credentials: "include",
                 headers: {

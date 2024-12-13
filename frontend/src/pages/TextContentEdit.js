@@ -51,7 +51,7 @@ function LrManage() {
             };
 
             const method = 'PUT'; // Use PUT for update
-            const url = `https://localhost:7065/api/Section/${sectionId}/Material/TextContent/${taskId}`; // Updated API endpoint
+            const url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${sectionId}/Material/TextContent/${taskId}`; // Updated API endpoint
 
             const response = await fetchWithAuth(url, {
                 method: method,

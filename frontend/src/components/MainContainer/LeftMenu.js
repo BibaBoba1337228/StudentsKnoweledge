@@ -33,7 +33,7 @@ function LeftMenu({onMenuToggle}) {
 
     const handleLogoutClick = async (e) => {
         try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Login/logout`, {
+            const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Login/logout`, {
                 method: 'GET',
                 credentials: "include",
                 headers: {

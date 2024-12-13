@@ -1,6 +1,6 @@
 import {fetchWithAuth} from "../fetchWithAuth";
 
-export async function courseDetailLoader({params}) {
+export async function chatLoader({params}) {
     const {courseId} = params; // Извлекаем courseId из параметров маршрута
 
     // Запрос на получение секций курса

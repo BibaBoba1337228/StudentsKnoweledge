@@ -7,7 +7,7 @@ import Background4 from '../../assets/images/card_background_4.svg'
 
 export async function myCourcesLoader() {
 
-    const response = await fetchWithAuth(`https://localhost:7065/api/Course/UserCourses`, {
+    const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/UserCourses`, {
         method: "GET",
         credentials: "include",
     });

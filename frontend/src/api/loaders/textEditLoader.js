@@ -5,7 +5,7 @@ export async function textEditDetailLoader({params}) {
 
     const {courseId, taskId} = params;
 
-    const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/TextContent/${taskId}`, {
+    const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/TextContent/${taskId}`, {
         method: "GET",
         credentials: "include",
     });

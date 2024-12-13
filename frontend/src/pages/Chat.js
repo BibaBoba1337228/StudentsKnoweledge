@@ -1,10 +1,11 @@
 import '../styles/Chat.css'
 import '../styles/fonts.css'
-import {createBrowserRouter, RouterProvider, Outlet, useNavigate} from 'react-router-dom';
+import {createBrowserRouter, RouterProvider, Outlet, useNavigate, useParams} from 'react-router-dom';
 import clip from '../assets/icons/clip.svg'
 
 
-function MyCourses() {
+function Chat() {
+    const {chatId} = useParams();
 
     const navigate = useNavigate();
 
@@ -135,4 +136,4 @@ function MyCourses() {
     );
 }
 
-export default MyCourses;
+export default Chat;

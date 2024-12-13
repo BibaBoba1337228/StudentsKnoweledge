@@ -4,7 +4,7 @@ export async function studentsWorksLoader({params}) {
 
     const {taskId} = params;
 
-    const response = await fetchWithAuth(`https://localhost:7065/api/Materials/${taskId}/StudentAnswers`, {
+    const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Materials/${taskId}/StudentAnswers`, {
         method: "GET",
         credentials: "include",
     });

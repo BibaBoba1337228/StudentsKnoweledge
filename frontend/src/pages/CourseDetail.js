@@ -92,7 +92,7 @@ function MyCourses() {
     const fetchCourseTeachers = async () => {
         setLoadingTeachers(true);
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Course/${courseId}/Teachers`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/Teachers`,
             {method: "GET", credentials: "include"},
             (teachersData) => setCourseTeachers(teachersData),
 
@@ -105,7 +105,7 @@ function MyCourses() {
     const fetchCourseGroups = async () => {
         setLoadingGroups(true);
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Course/${courseId}/Groups`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/Groups`,
             {method: "GET", credentials: "include"},
             (groupsData) => setCourseGroups(groupsData),
 
@@ -119,7 +119,7 @@ function MyCourses() {
     const fetchAllGroups = async () => {
         setLoadingGroups(true);
         await fetchWithErrorHandling(
-            'https://localhost:7065/api/Group',
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Group`,
             {method: "GET", credentials: "include"},
             (allGroups) => setGroups(allGroups.filter((group) =>
                 !courseGroups.some((courseGroup) => courseGroup.id === group.id))),
@@ -134,7 +134,7 @@ function MyCourses() {
     const fetchAllTeachers = async () => {
         setLoadingTeachers(true);
         await fetchWithErrorHandling(
-            'https://localhost:7065/api/Teacher',
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher`,
             {method: "GET", credentials: "include"},
             (allTeachers) => setTeachers(allTeachers.filter((teacher) =>
                     !courseTeachers.some((courseTeacher) => courseTeacher.id === teacher.id)),
@@ -174,7 +174,7 @@ function MyCourses() {
         }
 
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Course/${courseId}/AddTeachers`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/AddTeachers`,
             {
                 method: 'POST',
                 credentials: 'include',
@@ -199,7 +199,7 @@ function MyCourses() {
         }
 
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Course/${courseId}/AddGroups`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/AddGroups`,
             {
                 method: 'POST',
                 credentials: 'include',
@@ -234,7 +234,7 @@ function MyCourses() {
         }
 
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Course/${courseId}/Sections`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/Sections`,
             {
                 method: 'POST',
                 credentials: 'include',
@@ -256,7 +256,7 @@ function MyCourses() {
     const handleRemoveTeacher = async (teacherId) => {
 
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Course/${courseId}/RemoveTeacher/${teacherId}`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/RemoveTeacher/${teacherId}`,
             {
                 method: 'DELETE',
                 credentials: 'include',
@@ -276,7 +276,7 @@ function MyCourses() {
     const handleRemoveGroup = async (groupId) => {
 
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Course/${courseId}/RemoveGroup/${groupId}`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/RemoveGroup/${groupId}`,
             {
                 method: 'DELETE',
                 credentials: 'include',
@@ -447,7 +447,7 @@ function MyCourses() {
                                                     <div style={{
                                                         width: '80px',
                                                         height: "120px",
-                                                        backgroundImage: `url(https://localhost:7065/${teacher.profilePictureUrl})`,
+                                                        backgroundImage: `url(https://${process.env.REACT_APP_API_BASE_URL}/${teacher.profilePictureUrl})`,
                                                         backgroundSize: 'contain',
                                                         backgroundPosition: 'center',
                                                         backgroundRepeat: 'no-repeat',
@@ -482,7 +482,7 @@ function MyCourses() {
                                                 <div style={{
                                                     width: '80px',
                                                     height: "120px",
-                                                    backgroundImage: `url(https://localhost:7065/${teacher.profilePictureUrl})`,
+                                                    backgroundImage: `url(https://${process.env.REACT_APP_API_BASE_URL}/${teacher.profilePictureUrl})`,
                                                     backgroundSize: 'contain',
                                                     backgroundPosition: 'center',
                                                     backgroundRepeat: 'no-repeat',

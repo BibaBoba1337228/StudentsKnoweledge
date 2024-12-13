@@ -158,6 +158,21 @@ function App() {
 
                 },
                 {
+                    path: "/system/chats",
+                    element: <Outlet/>,
+                    children: [
+                        {
+                            index: true,
+                            element: <MyChats></MyChats>,
+                        },
+                        {
+                            path: "/system/chats/:chatId",
+                            element: <Chat></Chat>,
+                        },
+                    ]
+                },
+
+                {
                     path: "/system/admin",
                     element: <AdminPanel></AdminPanel>,
                     errorElement: <LoginErrorBoundary></LoginErrorBoundary>
@@ -166,15 +181,9 @@ function App() {
                     path: "/system/profile",
                     element: <MyProfile></MyProfile>,
                 },
-                {
-                    path: "/system/chats",
-                    element: <MyChats></MyChats>,
-                },
 
-                {
-                    path: "/system/chats/chat",
-                    element: <Chat></Chat>,
-                },
+
+
                 {
                     path: "/system/findcontacts",
                     element: <FindContacts></FindContacts>

@@ -5,7 +5,7 @@ export async function lrDetailLoader2({params}) {
 
     const {courseId, taskId} = params;
 
-    const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/Task/${taskId}`, {
+    const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/Task/${taskId}`, {
         method: "GET",
         credentials: "include",
     });

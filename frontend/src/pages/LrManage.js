@@ -56,7 +56,7 @@ function LrManage() {
 
             const method = taskDetails.studentAnswer ? 'PUT' : 'POST'; // Используем PUT для обновления, POST для создания
 
-            const url = taskDetails.studentAnswer ? `https://localhost:7065/api/Materials/${taskDetails.id}/StudentAnswers/update` : `https://localhost:7065/api/Materials/${taskDetails.id}/StudentAnswers/`;
+            const url = taskDetails.studentAnswer ? `https://${process.env.REACT_APP_API_BASE_URL}/api/Materials/${taskDetails.id}/StudentAnswers/update` : `https://${process.env.REACT_APP_API_BASE_URL}/api/Materials/${taskDetails.id}/StudentAnswers/`;
 
 
             const response = await fetchWithFormAuth(url, {

@@ -34,7 +34,7 @@ const CourseElement = ({data, setData}) => {
 
     const handleDelete = async (sectionId) => {
         try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}`, {
+            const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/Sections/${sectionId}`, {
                 method: 'DELETE',
             });
 
@@ -115,7 +115,7 @@ const AccordionItem = ({
 
     const toggleVisibility = async () => {
         try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}/Visibility`, {
+            const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/Sections/${sectionId}/Visibility`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ const AccordionItem = ({
 
     const saveNewTitle = async () => {
         try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Course/${courseId}/Sections/${sectionId}`, {
+            const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/Sections/${sectionId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -285,7 +285,7 @@ const AccordionSubItem = ({
 
     const toggleVisibility = async () => {
         try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Section/${sectionId}/Material/${materialId}/Visibility`, {
+            const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${sectionId}/Material/${materialId}/Visibility`, {
                 method: 'PUT',
 
                 headers: {
@@ -316,7 +316,7 @@ const AccordionSubItem = ({
 
     const handleItemClick = async () => {
         if (type === "File" && filePath) {
-            const fullPath = `https://localhost:7065/${filePath}`;
+            const fullPath = `https://${process.env.REACT_APP_API_BASE_URL}/${filePath}`;
             console.log(`Открываю файл по пути ${fullPath}`);
             window.open(fullPath, "_blank");
         } else if (type === "TextContent") {

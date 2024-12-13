@@ -9,7 +9,7 @@ function ProtectedRoute({children}) {
     useEffect(() => {
         async function checkAuthorization() {
             try {
-                const response = await fetchWithAuth("https://localhost:7065/api/Login/status", {
+                const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Login/status`, {
                     method: "GET",
                     credentials: "include",
                 });

@@ -22,7 +22,7 @@ function RightMenu() {
     useEffect(() => {
         const fetchRecentEvents = async () => {
             try {
-                const response = await fetchWithAuth("https://localhost:7065/api/events/Event", {
+                const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/events/Event`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

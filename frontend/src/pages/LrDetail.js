@@ -38,7 +38,7 @@ function LrDetail() {
             setIsDeleting(true);
 
             const response = await fetchWithAuth(
-                `https://localhost:7065/api/Materials/${data.id}/StudentAnswers/delete`,
+                `https://${process.env.REACT_APP_API_BASE_URL}/api/Materials/${data.id}/StudentAnswers/delete`,
                 {method: 'DELETE'}
             );
 

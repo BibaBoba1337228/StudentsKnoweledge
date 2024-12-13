@@ -192,7 +192,7 @@ function AdminPanel() {
 
     const GetCourses = async () => {
         await fetchWithErrorHandling(
-            "https://localhost:7065/api/Course/",
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/`,
             {method: "GET", credentials: "include"},
             (courses) => setCources(courses),
             errorHandler
@@ -201,7 +201,7 @@ function AdminPanel() {
 
     const GetGroups = async () => {
         await fetchWithErrorHandling(
-            "https://localhost:7065/api/Group/",
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/`,
             {method: "GET", credentials: "include"},
             (groups) => setGroups(groups),
             errorHandler
@@ -210,7 +210,7 @@ function AdminPanel() {
 
     const GetTeachers = async () => {
         await fetchWithErrorHandling(
-            "https://localhost:7065/api/Teacher/",
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher/`,
             {method: "GET", credentials: "include"},
             (teachers) => setTeachers(teachers),
             errorHandler
@@ -219,7 +219,7 @@ function AdminPanel() {
 
     const GetStudents = async () => {
         await fetchWithErrorHandling(
-            "https://localhost:7065/api/Student/",
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Student/`,
             {method: "GET", credentials: "include"},
             (students) => setStudents(students),
             errorHandler
@@ -228,7 +228,7 @@ function AdminPanel() {
 
     const DeleteEntity = async (entityType, entityId, setter) => {
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/${entityType}/${entityId}`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/${entityType}/${entityId}`,
             {
                 method: "DELETE",
                 credentials: "include",
@@ -245,7 +245,7 @@ function AdminPanel() {
         };
 
         await fetchWithErrorHandling(
-            "https://localhost:7065/api/Course",  // Эндпоинт для добавления нового курса
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course`,  // Эндпоинт для добавления нового курса
             {
                 method: "POST",
                 credentials: "include",
@@ -272,7 +272,7 @@ function AdminPanel() {
         console.log("Выбранный ID", selectedCourseId)
 
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Course/${selectedCourseId}`,  // Эндпоинт для обновления существующего курса
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${selectedCourseId}`,  // Эндпоинт для обновления существующего курса
             {
                 method: "PUT",
                 credentials: "include",
@@ -301,7 +301,7 @@ function AdminPanel() {
         };
 
         await fetchWithErrorHandling(
-            "https://localhost:7065/api/Group/",
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/`,
             {
                 method: "POST",
                 credentials: "include",
@@ -321,7 +321,7 @@ function AdminPanel() {
     const UpdateGroup = async () => {
         const updatedGroup = {id: selectedGroupId, name: groupName};
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Group/${selectedGroupId}`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/${selectedGroupId}`,
             {
                 method: "PUT",
                 credentials: "include",
@@ -348,7 +348,7 @@ function AdminPanel() {
 
     const AddTeacher = async () => {
         await fetchWithErrorHandling(
-            "https://localhost:7065/api/Teacher/",
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher/`,
             {
                 method: "POST",
                 credentials: "include",
@@ -368,7 +368,7 @@ function AdminPanel() {
     const UpdateTeacher = async () => {
         const updatedTeacher = {id: selectedTeacherId, ...teacherData};
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Teacher/${selectedTeacherId}`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher/${selectedTeacherId}`,
             {
                 method: "PUT",
                 credentials: "include",
@@ -396,7 +396,7 @@ function AdminPanel() {
 
         console.log(studentData, "Студент на добавление")
         await fetchWithErrorHandling(
-            "https://localhost:7065/api/Student/",
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Student/`,
             {
                 method: "POST",
                 credentials: "include",
@@ -418,7 +418,7 @@ function AdminPanel() {
 
         console.log("Обновленный студент", updatedStudent);
         await fetchWithErrorHandling(
-            `https://localhost:7065/api/Student/${selectedStudentId}`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Student/${selectedStudentId}`,
             {
                 method: "PUT",
                 credentials: "include",

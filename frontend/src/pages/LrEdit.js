@@ -43,7 +43,7 @@ function LrEdit() {
         }
 
         try {
-            const response = await fetchWithAuth(`https://localhost:7065/api/Section/${sectionId}/Material/Task/${taskId}`, {
+            const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${sectionId}/Material/Task/${taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
