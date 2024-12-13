@@ -45,7 +45,8 @@ import {fileDetailLoader} from "./api/loaders/FileEditLoader";
 import TextContentEdit from "./pages/TextContentEdit";
 import {textEditDetailLoader} from "./api/loaders/textEditLoader";
 import {lrRateLoader} from "./api/loaders/LrRateLoader";
-
+import {chatLoader} from "./api/loaders/ChatLoader";
+import {chatsListLoader} from "./api/loaders/ChatsListLoader";
 
 function App() {
     const router = createBrowserRouter([
@@ -164,10 +165,14 @@ function App() {
                         {
                             index: true,
                             element: <MyChats></MyChats>,
+                            loader: chatsListLoader,
+                            errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                         },
                         {
                             path: "/system/chats/:chatId",
                             element: <Chat></Chat>,
+                            loader: chatLoader,
+                            errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                         },
                     ]
                 },

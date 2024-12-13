@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
 using StudentsKnoweledgeAPI.RequestsTemplates;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace StudentsKnoweledgeAPI.Controllers
 {
@@ -21,30 +22,79 @@ namespace StudentsKnoweledgeAPI.Controllers
             _context = context;
         }
 
-        // Получить все чаты
+        // Получить все чаты пользователя
         [HttpGet]
         public async Task<IActionResult> GetAllChats()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { message = "User is not authenticated." });
+            }
+
             var chats = await _context.Chats
-                .Include(c => c.Users)
                 .Include(c => c.Messages)
+                .Where(c => c.User1Id == userId || c.User2Id == userId)
                 .ToListAsync();
-            return Ok(chats);
+
+
+            var chatsPrepared = chats.Select(c =>
+            {
+                var otherUserId = c.User1Id == userId? c.User2Id : c.User1Id;
+                var otherUser = _context.StudingUsers.FirstOrDefault((u) => u.Id == otherUserId);
+
+                var lastMessage = c.Messages
+                    .OrderByDescending(m => m.SendDate)
+                    .FirstOrDefault();
+
+                return new
+                {
+                    Id = c.Id,
+                    Interlocutor = otherUser == null? null : new {
+                        Id = otherUser.Id,
+                        Fio = $"{otherUser.LastName} {otherUser.Name[0]}. {otherUser.MiddleName[0]}."
+                    },
+                    LastMessage = lastMessage
+                };
+            }).ToList();
+
+            return Ok(chatsPrepared);
         }
 
         // Получить чат по ID
         [HttpGet("{id}")]
         public async Task<IActionResult> GetChatById(int id)
         {
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { message = "User is not authenticated." });
+            }
+
             var chat = await _context.Chats
-                .Include(c => c.Users)
                 .Include(c => c.Messages)
+                .Where(c => c.User1Id == userId || c.User2Id == userId)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (chat == null)
                 return NotFound(new { message = "Chat not found." });
 
-            return Ok(chat);
+            var otherUserId = chat.User1Id == userId ? chat.User2Id : chat.User1Id;
+            var otherUser = _context.StudingUsers.FirstOrDefault((u) => u.Id == otherUserId);
+
+            var preparedChat = new
+            {
+                id = chat.Id,
+                interlocutor = otherUser == null ? null : new
+                {
+                    Id = otherUser.Id,
+                    Fio = $"{otherUser.LastName} {otherUser.Name[0]}. {otherUser.MiddleName[0]}."
+                },
+                messages = chat.Messages
+            };
+
+            return Ok(preparedChat);
         }
 
         // Создать новый чат
@@ -60,8 +110,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             var chat = new Chat
             {
                 User1Id = request.User1Id,
-                User2Id = request.User2Id,
-                Users = new List<StudingUser> { user1 as StudingUser, user2 as StudingUser }
+                User2Id = request.User2Id
             };
 
             _context.Chats.Add(chat);

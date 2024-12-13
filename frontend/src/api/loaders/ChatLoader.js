@@ -1,47 +1,22 @@
 import {fetchWithAuth} from "../fetchWithAuth";
 
 export async function chatLoader({params}) {
-    const {courseId} = params; // Извлекаем courseId из параметров маршрута
+    const {chatId} = params;
 
-    // Запрос на получение секций курса
-    const sectionsResponse = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/Sections`, {
+    const chatResponse = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Chat/${chatId}`, {
         method: "GET",
         credentials: "include",
     });
 
-    if (sectionsResponse.status === 401) {
+    if (chatResponse.status === 401) {
         throw {status: 401, message: "Unauthorized"};
     }
 
-    if (!sectionsResponse.ok) {
-        throw {status: sectionsResponse.status, message: sectionsResponse.statusText};
+    if (!chatResponse.ok) {
+        throw {status: chatResponse.status, message: chatResponse.statusText};
     }
 
-    const sections = await sectionsResponse.json();
+    const chat = await chatResponse.json();
 
-    // Для каждой секции выполняем запрос на материалы
-    const sectionsWithMaterials = await Promise.all(
-        sections.map(async (section) => {
-            const materialsResponse = await fetchWithAuth(
-                `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${section.id}/Material`,
-                {
-                    method: "GET",
-                    credentials: "include",
-                }
-            );
-
-            if (materialsResponse.ok) {
-                const materials = await materialsResponse.json();
-                return {...section, materials}; // Добавляем материалы к секции
-            } else {
-                console.error(
-                    `Failed to fetch materials for section ${section.id}: ${materialsResponse.statusText}`
-                );
-                return {...section, materials: []}; // Если запрос на материалы не удался
-            }
-        })
-    );
-
-    // Возвращаем секции с материалами
-    return sectionsWithMaterials;
+    return chat;
 }

@@ -1,14 +1,15 @@
 import '../styles/Chat.css'
 import '../styles/fonts.css'
-import {createBrowserRouter, RouterProvider, Outlet, useNavigate, useParams} from 'react-router-dom';
+import {createBrowserRouter, RouterProvider, Outlet, useNavigate, useParams, useLoaderData} from 'react-router-dom';
 import clip from '../assets/icons/clip.svg'
 
 
 function Chat() {
     const {chatId} = useParams();
+    const chat = useLoaderData();
 
-    const navigate = useNavigate();
 
+    console.log(chat);
     return (
         <div id="ChatWrapper">
 

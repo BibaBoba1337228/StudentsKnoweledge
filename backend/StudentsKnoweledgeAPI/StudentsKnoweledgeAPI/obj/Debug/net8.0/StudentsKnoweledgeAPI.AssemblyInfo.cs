@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StudentsKnoweledgeAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b69e03b3481a9e4cb76071fb797cb05de6f86724")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea9a9e19feb88922ff330eba8bc3c40e460ef3fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("StudentsKnoweledgeAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StudentsKnoweledgeAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

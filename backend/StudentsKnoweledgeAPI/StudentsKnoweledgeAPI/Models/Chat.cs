@@ -11,8 +11,5 @@
 
         public ICollection<Message> Messages { get; set; } = new List<Message>();
 
-        public ICollection<StudingUser> Users { get; set; } = new List<StudingUser>();
-
-
     }
 }

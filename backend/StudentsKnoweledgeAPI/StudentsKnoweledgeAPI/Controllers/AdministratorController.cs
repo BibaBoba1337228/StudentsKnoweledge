@@ -9,7 +9,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class AdministratorController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;

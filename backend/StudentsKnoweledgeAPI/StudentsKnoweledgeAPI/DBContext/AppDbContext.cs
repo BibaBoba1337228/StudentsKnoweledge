@@ -7,6 +7,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Student> Students { get; set; }
     public DbSet<Teacher> Teachers { get; set; }
     public DbSet<Administrator> Administrators { get; set; }
+    public DbSet<StudingUser> StudingUsers { get; set; }
     public DbSet<Group> Groups { get; set; }
     public DbSet<Course> Courses { get; set; }
     public DbSet<Section> Sections { get; set; }
@@ -67,11 +68,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
                 .HasValue<TaskMaterial>("Task")
                 .HasValue<FileMaterial>("File")
                 .HasValue<TextContentMaterial>("TextContent");
-
-        modelBuilder.Entity<Chat>()
-            .HasMany(c => c.Users)
-            .WithMany(u => u.Chats)
-            .UsingEntity(j => j.ToTable("ChatUsers"));
+            
 
         modelBuilder.Entity<Message>()
             .HasOne(m => m.Chat)
@@ -116,9 +113,6 @@ public class AppDbContext : IdentityDbContext<AppUser>
             .WithMany(u => u.Notifications)
             .HasForeignKey(n => n.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-
-
-
 
     }
 }
