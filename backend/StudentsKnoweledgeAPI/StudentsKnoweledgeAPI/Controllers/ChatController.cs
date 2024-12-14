@@ -5,6 +5,7 @@ using StudentsKnoweledgeAPI.Models;
 using StudentsKnoweledgeAPI.RequestsTemplates;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.AspNetCore.SignalR;
 
 namespace StudentsKnoweledgeAPI.Controllers
 {
@@ -15,11 +16,13 @@ namespace StudentsKnoweledgeAPI.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly AppDbContext _context;
+        private readonly IHubContext<ChatHub> _hubContext;
 
-        public ChatController(UserManager<AppUser> userManager, AppDbContext context)
+        public ChatController(UserManager<AppUser> userManager, AppDbContext context, IHubContext<ChatHub> hubContext)
         {
             _userManager = userManager;
             _context = context;
+            _hubContext = hubContext;
         }
 
         // Получить все чаты пользователя
@@ -150,7 +153,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(messages);
         }
 
-        // Отправить сообщение в чат
         [HttpPost("{chatId}/messages")]
         public async Task<IActionResult> SendMessage(int chatId, [FromBody] SendMessageRequest request)
         {
@@ -167,11 +169,19 @@ namespace StudentsKnoweledgeAPI.Controllers
                 ChatId = chatId,
                 Text = request.Text,
                 SenderId = request.SenderId,
-                Sender = sender as StudingUser
+                SendDate = DateTime.UtcNow
             };
 
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
+
+            await _hubContext.Clients.Group(chatId.ToString()).SendAsync("ReceiveMessage", new
+            {
+                Id = message.Id,
+                Text = message.Text,
+                SenderId = message.SenderId,
+                SendDate = message.SendDate
+            });
 
             return Ok(message);
         }

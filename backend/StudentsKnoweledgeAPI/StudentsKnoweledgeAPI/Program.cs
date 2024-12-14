@@ -5,6 +5,7 @@ using StudentsKnoweledgeAPI.Models;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using StudentsKnoweledgeAPI;
+using StudentsKnoweledgeAPI.RequestsTemplates;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,9 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/api/account/access-denied";
 });
 
+builder.Services.AddSignalR();
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
@@ -71,6 +75,7 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/files" 
 });
 
+app.MapHub<ChatHub>("/chatHub");
 
 
 

@@ -1,7 +1,8 @@
-import '../styles/Chat.css'
-import '../styles/fonts.css'
-import {createBrowserRouter, RouterProvider, Outlet, useNavigate, useParams, useLoaderData} from 'react-router-dom';
+import '../styles/Chat.css';
+import '../styles/fonts.css';
 import {useState, useRef, useEffect} from 'react';
+import {HubConnectionBuilder} from "@microsoft/signalr";
+import {useParams, useLoaderData} from 'react-router-dom';
 
 function Chat() {
     const {chatId} = useParams();
@@ -9,13 +10,59 @@ function Chat() {
     const [messages, setMessages] = useState(chat.messages || []); // сообщения
     const [newMessage, setNewMessage] = useState(''); // новое сообщение
     const messagesEndRef = useRef(null); // ссылка для прокрутки в конец чата
+    const [connection, setConnection] = useState(null); // SignalR соединение
+
+    // Настройка SignalR
+    useEffect(() => {
+        const connect = new HubConnectionBuilder()
+            .withUrl(`https://${process.env.REACT_APP_API_BASE_URL}/chatHub?chatId=${chatId}`)
+            .withAutomaticReconnect()
+            .build();
+
+        setConnection(connect);
+
+        connect.start()
+            .then(() => console.log("Connected to SignalR"))
+            .catch((err) => console.error("SignalR Connection Error: ", err));
+
+        return () => {
+            if (connection) {
+                connection.stop();
+            }
+        };
+    }, [chatId]);
+
+    // Обработка сообщений от SignalR
+    useEffect(() => {
+        if (connection) {
+            connection.on("ReceiveMessage", (message) => {
+                setMessages((prevMessages) => [...prevMessages, message]);
+            });
+
+            return () => {
+                connection.off("ReceiveMessage");
+            };
+        }
+    }, [connection]);
 
     // Функция для отправки сообщения
     const sendMessage = () => {
         if (newMessage.trim()) {
-            const updatedMessages = [...messages, {text: newMessage, date: new Date().toLocaleString(), fromMe: true}];
+            if (connection) {
+                connection.invoke("SendMessage", chatId, newMessage)
+                    .then(() => setNewMessage(""))
+                    .catch((err) => console.error("Message send error: ", err));
+            }
+
+            const updatedMessages = [
+                ...messages,
+                {
+                    text: newMessage,
+                    sendDate: new Date().toISOString(),
+                    senderId: localStorage.getItem("user_id"),
+                },
+            ];
             setMessages(updatedMessages);
-            setNewMessage('');
         }
     };
 
@@ -45,9 +92,10 @@ function Chat() {
                 <div id="ChatCourcesCardsWrapper">
                     <div id="ChatCourcesCardsContainer">
                         {messages.map((message, index) => (
-                            <div key={index} className={`ChatMessage ${message.fromMe ? 'fromMe' : ''}`}>
+                            <div key={index}
+                                 className={`ChatMessage ${message.senderId === localStorage.getItem("user_id") ? 'fromMe' : 'fromBro'}`}>
                                 <div className="ChatMessageText">{message.text}</div>
-                                <div className="ChatMessageDate">{message.date}</div>
+                                <div className="ChatMessageDate">{new Date(message.sendDate).toLocaleString()}</div>
                             </div>
                         ))}
 
