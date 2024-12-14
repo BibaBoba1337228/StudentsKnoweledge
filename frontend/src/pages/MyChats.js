@@ -12,7 +12,7 @@ function MyChats() {
     console.log(chats);
     useEffect(() => {
 
-        console.log("После рендера",chats);
+        console.log("После рендера", chats);
     }, [])
     return (
         <div id="MyChatsWrapper">
@@ -25,13 +25,16 @@ function MyChats() {
                 <div id="MyChatsCourceContainer">
                     {chats.map((chat) => (
 
-                        <div className="MyChatsInfoBlockWithChatsImage" onClick={() => navigate(`/system/chats/${chat.id}`)}
+                        <div className="MyChatsInfoBlockWithChatsImage"
+                             onClick={() => navigate(`/system/chats/${chat.id}`)}
                              style={{cursor: "pointer"}}>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                <img src={Chats} alt="Chats" style={{width: '80px'}}/>
+                                <img src={`https://${process.env.REACT_APP_API_BASE_URL}/${chat.interlocutor?.photo}`}
+                                     alt="Chats" style={{width: '80px'}}/>
 
                                 <div className="MyChatsTextBlockWithChatsImage">
-                                    <div className="MyChatsInfoBlockHeaderWithChatsImage">{chat.interlocutor?.fio || "ошибка загрузки пользователя"}</div>
+                                    <div
+                                        className="MyChatsInfoBlockHeaderWithChatsImage">{chat.interlocutor?.fio || "ошибка загрузки пользователя"}</div>
                                     <div className="MyChatsInfoBlockInfoWithChatsImage">
                                         {chat.lastMessage?.Text || "Здесь пока нет сообщений..."}
                                     </div>

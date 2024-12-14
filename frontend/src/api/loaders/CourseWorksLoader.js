@@ -4,7 +4,7 @@ export async function courseWorksLoader({params}) {
 
     const {courseId} = params;
 
-    const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/TaskMaterials`, {
+    const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/TaskMaterialsWithAnswers`, {
         method: "GET",
         credentials: "include",
     });

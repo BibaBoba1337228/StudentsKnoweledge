@@ -14,7 +14,7 @@ function GroupMarks() {
 
                 <div id="GroupMarksHeaderContainer">
 
-                    <div id="GroupMarksHeader">Успеваемость ПРИ-122 по "Технологии программрирования"</div>
+                    <div id="GroupMarksHeader">Успеваемость групп по курсу</div>
                     <div id="GroupMarksDelimiter"></div>
                 </div>
 
@@ -22,18 +22,6 @@ function GroupMarks() {
 
                     <GroupMarksTable></GroupMarksTable>
 
-                    <div id="GroupMarksManageButtons">
-
-                        <button id="GroupMarksChangeButton">
-                            Сохранить
-                        </button>
-
-
-                        <button id="GroupMarksDeleteButton">
-                            Редактировать
-                        </button>
-
-                    </div>
 
                 </div>
 

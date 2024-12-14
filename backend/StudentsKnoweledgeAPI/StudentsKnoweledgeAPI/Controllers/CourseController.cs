@@ -109,6 +109,100 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(taskMaterials);
         }
 
+        [HttpGet("{courseId}/TaskMaterialsWithAnswers")]
+        public async Task<IActionResult> GetTaskMaterialsWithAnswers(int courseId)
+        {
+            // Получаем секции, относящиеся к данному курсу
+            var sections = await _context.Sections
+                .Where(s => s.CourseId == courseId)
+                .ToListAsync();
+
+            if (sections == null || !sections.Any())
+                return NotFound(new { message = "No sections found for the given course." });
+
+            var sectionIds = sections.Select(s => s.Id).ToList();
+
+            // Получаем TaskMaterials, у которых есть ответы
+            var taskMaterialsWithAnswers = await _context.Materials
+                .OfType<TaskMaterial>()
+                .Where(m => sectionIds.Contains(m.SectionId) && _context.StudentAnswers.Any(a => a.MaterialId == m.Id))
+                .Select(m => new
+                {
+                    m.Id,
+                    m.Title,
+                    m.Description,
+                    m.OpenTime,
+                    m.Deadline,
+                    m.Grade,
+                    SectionName = m.Section.Name
+                })
+                .ToListAsync();
+
+            if (!taskMaterialsWithAnswers.Any())
+                return NotFound(new { message = "No task materials with answers found for the given course." });
+
+            return Ok(taskMaterialsWithAnswers);
+        }
+
+        [HttpGet("{courseId}/{groupId}/GroupMarks")]
+        public async Task<IActionResult> GetGroupMarks(int courseId ,int groupId)
+        {
+            // Получаем курс по id, который передается в запросе
+            var course = await _context.Courses
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course == null)
+                return NotFound(new { message = "Course not found." });
+
+            // Получаем студентов группы
+            var students = await _context.Students
+                .Where(s => s.GroupId == groupId)
+                .ToListAsync();
+
+            if (students == null || !students.Any())
+                return NotFound(new { message = "No students found for the given group." });
+
+            // Получаем все материалы для данного курса
+            var materials = await _context.Materials
+                .OfType<TaskMaterial>()
+                .Where(m => m.Section.CourseId == course.Id) // Фильтруем материалы по courseId
+                .ToListAsync();
+
+            if (materials == null || !materials.Any())
+                return NotFound(new { message = "No materials found for the given course." });
+
+            // Получаем ответы студентов на материалы
+            var studentAnswers = await _context.StudentAnswers
+                .Where(sa => students.Select(s => s.Id).Contains(sa.StudentId) && materials.Select(m => m.Id).Contains(sa.MaterialId))
+                .ToListAsync();
+
+            // Формируем данные о студентах и их оценках
+            var groupMarks = students.Select(student => new
+            {
+                StudentName = $"{student.MiddleName} {student.Name?[0]}. {student.LastName?[0]}.",
+                Scores = materials.Select(material =>
+                {
+                    var answer = studentAnswers.FirstOrDefault(a => a.MaterialId == material.Id && a.StudentId == student.Id);
+                    return answer?.Grade ?? 0; // Если ответа нет, считаем оценку равной 0
+                }).ToList(),
+                Total = materials.Sum(material =>
+                {
+                    var answer = studentAnswers.FirstOrDefault(a => a.MaterialId == material.Id && a.StudentId == student.Id);
+                    return answer?.Grade ?? 0;
+                })
+            }).ToList();
+
+            return Ok(new
+            {
+                Headers = materials.Select(m => m.Title).ToList(),
+                Students = groupMarks
+            });
+        }
+
+
+
+
+
 
 
 

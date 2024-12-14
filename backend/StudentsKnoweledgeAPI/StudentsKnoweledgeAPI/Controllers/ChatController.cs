@@ -52,7 +52,8 @@ namespace StudentsKnoweledgeAPI.Controllers
                     Id = c.Id,
                     Interlocutor = otherUser == null? null : new {
                         Id = otherUser.Id,
-                        Fio = $"{otherUser.LastName} {otherUser.Name[0]}. {otherUser.MiddleName[0]}."
+                        Fio = $"{otherUser.LastName} {otherUser.Name[0]}. {otherUser.MiddleName[0]}.",
+                        photo = otherUser.ProfilePictureUrl,
                     },
                     LastMessage = lastMessage
                 };

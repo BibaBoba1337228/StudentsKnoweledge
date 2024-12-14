@@ -233,6 +233,27 @@
   },
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
+    "Method": "GetGroupMarks",
+    "RelativePath": "api/Course/{courseId}/{groupId}/GroupMarks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "groupId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
     "Method": "AddGroupToCourse",
     "RelativePath": "api/Course/{courseId}/AddGroup/{groupId}",
     "HttpMethod": "POST",
@@ -529,6 +550,22 @@
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
     "Method": "GetTaskMaterialsByCourseId",
     "RelativePath": "api/Course/{courseId}/TaskMaterials",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
+    "Method": "GetTaskMaterialsWithAnswers",
+    "RelativePath": "api/Course/{courseId}/TaskMaterialsWithAnswers",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -959,14 +996,9 @@
         "IsRequired": true
       },
       {
-        "Name": "grade",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "teacherId",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "request",
+        "Type": "StudentsKnoweledgeAPI.RequestsTemplates.UpdateAnswerGrade",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

@@ -196,8 +196,11 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPut("grade/{studentId}")]
-        public async Task<IActionResult> UpdateGrade(int materialId, string studentId, [FromForm] int grade, [FromForm] string teacherId)
+        public async Task<IActionResult> UpdateGrade(int materialId, string studentId, [FromBody] UpdateAnswerGrade request)
         {
+
+            var teacherId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             // Находим ответ студента
             var answer = await _context.StudentAnswers
                 .FirstOrDefaultAsync(a => a.MaterialId == materialId && a.StudentId == studentId);
@@ -213,13 +216,14 @@ namespace StudentsKnoweledgeAPI.Controllers
                 return NotFound(new { message = "Teacher not found." });
 
             // Формируем ФИО учителя в нужном формате (middleName 1 буква, name 1 буква, lastName)
-            var teacherFIO = $"{teacher.MiddleName}. {teacher.Name[0]}. {teacher.LastName[0]}";
+            var teacherFIO = $"{teacher.MiddleName}. {teacher.Name[0]}. {teacher.LastName[0]}.";
 
             // Обновляем оценку
-            answer.Grade = grade; // Обновляем поле Grade (целое число)
+            answer.Grade = request.Grade ?? answer.Grade; // Обновляем поле Grade (целое число)
             answer.MarkTime = DateTime.UtcNow; // Устанавливаем время, когда была поставлена оценка
             answer.TeacherId = teacherId; // Устанавливаем идентификатор учителя
             answer.TeacherFIO = teacherFIO; // Устанавливаем ФИО учителя
+            answer.TeacherComment = request.TeacherComment ?? answer.TeacherComment;
 
             // Обновляем время последнего изменения
             answer.AnswerTime = DateTime.UtcNow;
@@ -228,7 +232,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             _context.Entry(answer).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Grade updated successfully.", answer });
+            return Ok(answer );
         }
 
 

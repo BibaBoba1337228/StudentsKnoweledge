@@ -70,6 +70,11 @@ function LrDetail() {
         timeDifference = `${daysLeft} дней, ${hoursLeft} часов, ${minutesLeft} минут`;
     }
 
+    const handeFileDownload = () => {
+        const fullPath = `https://${process.env.REACT_APP_API_BASE_URL}/${data?.filePath}`;
+        window.open(fullPath, "_blank");
+    }
+
     return (
         <div id="LrDetailWrapper" key={location.pathname}>
             <div id="LrDetailContainer">
@@ -116,7 +121,7 @@ function LrDetail() {
 
                         <div className="LrDetailTextBlock">
                             <div className="LrDetailInfoBlockHeader">Ответ в виде файла:</div>
-                            <div className="LrDetailInfoBlockInfoWithImage">
+                            <div className="LrDetailInfoBlockInfoWithImage" onClick={handeFileDownload}>
                                 {studentAnswer?.filePath && (
                                     <img src={lab} style={{width: '20px'}} alt="Файл"/>
                                 )}

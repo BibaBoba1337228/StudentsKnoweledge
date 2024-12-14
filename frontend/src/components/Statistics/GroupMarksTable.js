@@ -1,104 +1,154 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import {fetchWithAuth} from "../../api/fetchWithAuth";
+import * as XLSX from "xlsx";
+import {useParams} from "react-router-dom";
 
 const GroupMarksTable = () => {
-    const data = [
-        {name: "Ерофеев А.А", scores: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], total: 3},
-        {name: "Бабкевич А.Н.", scores: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1], total: 10},
-        {name: "Ерофеев А.А", scores: [7, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 1, 1, 1], total: 17},
-        {name: "Бабкевич А.Н.", scores: [22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 1, 1, 1], total: 24},
-        {name: "Ерофеев А.А", scores: [29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 1, 1, 1], total: 31},
-        {name: "Бабкевич А.Н.", scores: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], total: 3},
-        {name: "Ерофеев А.А", scores: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 1, 1, 1], total: 10},
-        {name: "Бабкевич А.Н.", scores: [7, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 1, 1, 1], total: 17},
-        {name: "Ерофеев А.А", scores: [22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 1, 1, 1], total: 24},
-        {name: "Бабкевич А.Н.", scores: [29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 1, 1, 1], total: 31},
-    ];
+    const [groupId, setGroupId] = useState("");
+    const [groups, setGroups] = useState([]);
+    const [tableData, setTableData] = useState([]);
+    const [headers, setHeaders] = useState([]);
+    const {courseId} = useParams();
 
-    const headers = [
-        "ФИО",
-        "ЛР1",
-        "ЛР2",
-        "ЛР3",
-        "ЛР4",
-        "ЛР5",
-        "ЛР6",
-        "ЛР7",
-        "ЛР8",
-        "ЛР9",
-        "P1",
-        "P2",
-        "P3",
-        "K1",
-        "K2",
-        "K3",
-        "Итог",
-    ];
+    useEffect(() => {
+        // Загружаем список групп
+        const fetchGroups = async () => {
+            const response = await fetchWithAuth(
+                `https://localhost:7065/api/Course/${courseId}/Groups`
+            );
+            const data = await response.json();
+            setGroups(data);
+        };
+        fetchGroups();
+    }, [courseId]);
+
+    const fetchMarks = async () => {
+        if (!groupId) return;
+
+        const response = await fetchWithAuth(
+            `https://localhost:7065/api/Course/${courseId}/${groupId}/GroupMarks`
+        );
+        const data = await response.json();
+
+        setHeaders(["ФИО", ...data.headers, "Итог"]);
+        setTableData(data.students);
+    };
+
+    const exportToExcel = () => {
+        const worksheetData = tableData.map((row) => ({
+            ФИО: row.studentName,
+            ...row.scores.reduce((acc, score, index) => {
+                acc[`Работа ${index + 1}`] = score;
+                return acc;
+            }, {}),
+            Итог: row.total,
+        }));
+
+        const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Успеваемость");
+        XLSX.writeFile(workbook, "GroupMarks.xlsx");
+    };
 
     return (
-        <table
-            style={{
-                borderCollapse: "collapse",
-                width: "100%",
-                textAlign: "center",
-                border: "1px solid #ddd",
-            }}
-        >
-            <thead>
-            <tr>
-                {headers.map((header, index) => (
-                    <th
-                        key={index}
-                        style={{
-                            border: "1px solid #ddd",
-                            padding: "8px",
-                            fontSize: "16px",
-                            fontFamily: "IgraSans",
-                        }}
+        <div className="groupMarksWrapper">
+            <div className="groupMarksContainer">
+
+                <div className="groupMarksHeaderContainer"
+                     style={{display: "flex", flexDirection: "column", width: "19%"}}>
+                    <select
+                        id="groupSelect"
+                        value={groupId}
+                        style={{marginBottom: "20px"}}
+                        onChange={(e) => setGroupId(e.target.value)}
                     >
-                        {header}
-                    </th>
-                ))}
-            </tr>
-            </thead>
-            <tbody>
-            {data.map((row, index) => (
-                <tr key={index}>
-                    <td
-                        style={{
-                            border: "1px solid #ddd",
-                            padding: "8px",
-                            fontFamily: "IgraSans",
-                        }}
-                    >
-                        {row.name}
-                    </td>
-                    {row.scores.map((score, scoreIndex) => (
-                        <td
-                            key={scoreIndex}
+                        <option value="">Выберите...</option>
+                        {groups.map((group) => (
+                            <option key={group.id} value={group.id}>
+                                {group.name}
+                            </option>
+                        ))}
+                    </select>
+                    <button id="GroupMarksChangeButton" style={{marginBottom: "40px"}} onClick={fetchMarks}>Показать
+                        успеваемость
+                    </button>
+                </div>
+
+                {tableData.length > 0 && (
+                    <div className="tableContainer">
+                        <table
                             style={{
+                                borderCollapse: "collapse",
+                                width: "100%",
+                                textAlign: "center",
                                 border: "1px solid #ddd",
-                                padding: "8px",
-                                fontFamily: "IgraSans",
                             }}
                         >
-                            {score}
-                        </td>
-                    ))}
-                    <td
-                        style={{
-                            border: "1px solid #ddd",
-                            padding: "8px",
-                            fontWeight: "bold",
-                            color: "red",
-                            fontFamily: "IgraSans",
-                        }}
-                    >
-                        {row.total}
-                    </td>
-                </tr>
-            ))}
-            </tbody>
-        </table>
+                            <thead>
+                            <tr>
+                                {headers.map((header, index) => (
+                                    <th
+                                        key={index}
+                                        style={{
+                                            border: "1px solid #ddd",
+                                            padding: "8px",
+                                            fontSize: "16px",
+                                            fontFamily: "IgraSans",
+                                        }}
+                                    >
+                                        {header}
+                                    </th>
+                                ))}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {tableData.map((row, index) => (
+                                <tr key={index}>
+                                    <td
+                                        style={{
+                                            border: "1px solid #ddd",
+                                            padding: "8px",
+                                            fontFamily: "IgraSans",
+                                        }}
+                                    >
+                                        {row.studentName}
+                                    </td>
+                                    {row.scores.map((score, scoreIndex) => (
+                                        <td
+                                            key={scoreIndex}
+                                            style={{
+                                                border: "1px solid #ddd",
+                                                padding: "8px",
+                                                fontFamily: "IgraSans",
+                                            }}
+                                        >
+                                            {score}
+                                        </td>
+                                    ))}
+                                    <td
+                                        style={{
+                                            border: "1px solid #ddd",
+                                            padding: "8px",
+                                            fontWeight: "bold",
+                                            color: "red",
+                                            fontFamily: "IgraSans",
+                                        }}
+                                    >
+                                        {row.total}
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                        <button id="GroupMarksChangeButton" style={{marginTop: "50px"}}
+                                onClick={exportToExcel}>Выгрузить в Excel
+                        </button>
+                    </div>
+                )}
+
+
+            </div>
+        </div>
     );
 };
 

@@ -10,7 +10,7 @@ function AllEvents() {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await fetchWithAuth("https://${process.env.REACT_APP_API_BASE_URL}/api/events/Event", {
+                const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/events/Event`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
