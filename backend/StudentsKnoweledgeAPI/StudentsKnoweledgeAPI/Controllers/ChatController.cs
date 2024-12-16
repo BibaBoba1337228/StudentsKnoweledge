@@ -153,6 +153,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(messages);
         }
 
+        // Отправить сообщение в чат
         [HttpPost("{chatId}/messages")]
         public async Task<IActionResult> SendMessage(int chatId, [FromBody] SendMessageRequest request)
         {

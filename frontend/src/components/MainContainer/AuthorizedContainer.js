@@ -14,7 +14,7 @@ import CourseElement from "../CoursePage/CourseElement";
 import TestDetail from "../../pages/TestDetail";
 import TestOverview from "../../pages/TestOverview";
 import Testik from "../../pages/DoingTest";
-import MyProfile from "../../pages/MyProfile";
+import MyProfile from "../../pages/StudingUserProfile";
 import OtherProfile from "../../pages/OtherProfile";
 import GroupMarksTable from "../Statistics/GroupMarksTable";
 import GroupMarks from "../../pages/GroupMarks";

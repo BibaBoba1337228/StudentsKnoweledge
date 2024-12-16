@@ -39,6 +39,8 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(student);
         }
 
+        
+
         [HttpPost]
         public async Task<IActionResult> CreateStudent([FromBody] CreateStudentRequest request)
         {
@@ -70,6 +72,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(newStudent);
         }
+
 
 
         [HttpPut("{id}")]

@@ -31,8 +31,6 @@ function AdminPanel() {
 
     const [courseName, setCourseName] = useState("");
     const [semester, setSemester] = useState(1);
-
-
     const [groupName, setGroupName] = useState("");
 
     const [error, setError] = useState(null); // Состояние для ошибки

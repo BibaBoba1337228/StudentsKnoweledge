@@ -1418,6 +1418,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.StudingUserController",
+    "Method": "GetStudentProfileById",
+    "RelativePath": "api/StudingUser/{id}/profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.TeacherController",
     "Method": "GetAllTeachers",
     "RelativePath": "api/Teacher",

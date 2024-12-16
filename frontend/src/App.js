@@ -9,7 +9,7 @@ import Login from "./pages/Login";
 import MyCourses from "./pages/MyCourses";
 import CourseDetail from "./pages/CourseDetail";
 import MyChats from "./pages/MyChats";
-import MyProfile from "./pages/MyProfile";
+import StudingUserProfile from "./pages/StudingUserProfile";
 import AllStudentMarks from "./pages/AllStudentMarks";
 import AllStudentMarksForCurrentSubject from "./pages/AllStudentMarksForCurrentSubject";
 import LrDetail from "./pages/LrDetail";
@@ -47,6 +47,8 @@ import {textEditDetailLoader} from "./api/loaders/textEditLoader";
 import {lrRateLoader} from "./api/loaders/LrRateLoader";
 import {chatLoader} from "./api/loaders/ChatLoader";
 import {chatsListLoader} from "./api/loaders/ChatsListLoader";
+import {studingUserProfileLoader} from "./api/loaders/StudingUserProfileLoader";
+
 
 function App() {
     const router = createBrowserRouter([
@@ -183,19 +185,20 @@ function App() {
                     errorElement: <LoginErrorBoundary></LoginErrorBoundary>
                 },
                 {
-                    path: "/system/profile",
-                    element: <MyProfile></MyProfile>,
+                    path: "/system/profile/:userId",
+                    element: <StudingUserProfile></StudingUserProfile>,
+                    loader: studingUserProfileLoader
                 },
-
+                // {
+                //     path: "/system/profile/profileid",
+                //     element: <OtherProfile></OtherProfile>
+                // },
 
                 {
                     path: "/system/findcontacts",
                     element: <FindContacts></FindContacts>
                 },
-                {
-                    path: "/system/profile/profileid",
-                    element: <OtherProfile></OtherProfile>
-                },
+
                 {
                     path: "/system/mymarks",
                     element: <AllStudentMarks></AllStudentMarks>,

@@ -111,6 +111,8 @@ export async function fetchWithErrorHandling(url, options, callback = null, erro
             // Вызываем callback, если он был передан
             if (callback) {
                 callback(data);
+            } else {
+                return data;
             }
         } else {
             // Если errorHandler передан, обрабатываем ошибку, иначе выводим в консоль

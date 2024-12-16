@@ -1,8 +1,9 @@
 import '../styles/Chat.css';
 import '../styles/fonts.css';
-import {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {HubConnectionBuilder} from "@microsoft/signalr";
 import {useParams, useLoaderData} from 'react-router-dom';
+import {ErrorHandler, ErrorModal, fetchWithErrorHandling} from "../components/ErrorHandler";
 
 function Chat() {
     const {chatId} = useParams();
@@ -11,6 +12,20 @@ function Chat() {
     const [newMessage, setNewMessage] = useState(''); // новое сообщение
     const messagesEndRef = useRef(null); // ссылка для прокрутки в конец чата
     const [connection, setConnection] = useState(null); // SignalR соединение
+
+
+    const [error, setError] = useState(null); // Состояние для ошибки
+    const errorHandler = new ErrorHandler(setError);
+    useEffect(() => {
+        errorHandler.setErrorCallback(setError); // Передаем setError в errorHandler
+
+    }, []);
+
+
+    const closeErrorModal = () => {
+        setError(null); // Закрытие модального окна
+    };
+
 
     // Настройка SignalR
     useEffect(() => {
@@ -36,7 +51,9 @@ function Chat() {
     useEffect(() => {
         if (connection) {
             connection.on("ReceiveMessage", (message) => {
-                setMessages((prevMessages) => [...prevMessages, message]);
+                if (message.senderId !== localStorage.getItem("user_id")) {
+                    setMessages((prevMessages) => [...prevMessages, message]);
+                }
             });
 
             return () => {
@@ -45,41 +62,55 @@ function Chat() {
         }
     }, [connection]);
 
-    // Функция для отправки сообщения
-    const sendMessage = () => {
+    const sendMessage = async () => {
         if (newMessage.trim()) {
-            if (connection) {
-                connection.invoke("SendMessage", chatId, newMessage)
-                    .then(() => setNewMessage(""))
-                    .catch((err) => console.error("Message send error: ", err));
-            }
 
+            let sendedMsg = {
+                text: newMessage,
+                sendDate: new Date().toISOString(),
+                senderId: localStorage.getItem("user_id"),
+                isReaded: false,
+            }
             const updatedMessages = [
                 ...messages,
-                {
-                    text: newMessage,
-                    sendDate: new Date().toISOString(),
-                    senderId: localStorage.getItem("user_id"),
-                },
+                sendedMsg,
             ];
             setMessages(updatedMessages);
+
+
+            const data = await fetchWithErrorHandling(
+                `https://${process.env.REACT_APP_API_BASE_URL}/api/Chat/${chatId}/messages`,
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        senderId: localStorage.getItem("user_id"),
+                        text: newMessage,
+                    }),
+                },
+                null,
+                errorHandler
+            );
+            if (data !== null) {
+                console.log(data);
+                sendedMsg.sendDate = data.sendDate;
+                sendedMsg.isReaded = data.isReaded;
+                sendedMsg.id = data.id;
+            }
         }
     };
 
-    // Функция для отправки сообщения при нажатии Enter
     const handleKeyDown = (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) { // Shift+Enter оставляет перенос строки
+        if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             sendMessage();
         }
     };
 
-    // Прокрутка к последнему сообщению при загрузке
     useEffect(() => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
         }
-    }, [messages]); // Прокручиваем при изменении списка сообщений
+    }, [messages]);
 
     return (
         <div id="ChatWrapper">
@@ -92,7 +123,7 @@ function Chat() {
                 <div id="ChatCourcesCardsWrapper">
                     <div id="ChatCourcesCardsContainer">
                         {messages.map((message, index) => (
-                            <div key={index}
+                            <div key={message.id}
                                  className={`ChatMessage ${message.senderId === localStorage.getItem("user_id") ? 'fromMe' : 'fromBro'}`}>
                                 <div className="ChatMessageText">{message.text}</div>
                                 <div className="ChatMessageDate">{new Date(message.sendDate).toLocaleString()}</div>
@@ -117,6 +148,7 @@ function Chat() {
                     </button>
                 </div>
             </div>
+            {error && <ErrorModal errorMessage={error} onClose={closeErrorModal}/>}
         </div>
     );
 }

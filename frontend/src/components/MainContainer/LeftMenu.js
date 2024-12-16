@@ -83,7 +83,7 @@ function LeftMenu({onMenuToggle}) {
             <div id="LeftMenuDownPagesContainer">
                 <div id="LeftMenuTopPages" className={isCollapsed ? 'collapsed' : ''}>
                     <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}
-                         onClick={() => navigate('/system/profile')}
+                         onClick={() => navigate(`/system/profile/${localStorage.getItem("user_id")}`)}
                          style={{cursor: "pointer"}}>
                         <img src={ProfileIcon} alt="Profile icon" style={{width: "20px"}}/>
                         {!isCollapsed && <p className="LeftMenuTopPageName">Профиль</p>}
