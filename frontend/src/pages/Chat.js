@@ -13,6 +13,11 @@ function Chat() {
     const messagesEndRef = useRef(null); // ссылка для прокрутки в конец чата
     const [connection, setConnection] = useState(null); // SignalR соединение
 
+    const [skip, setSkip] = useState(chat.messages.length);
+    const take = 20;
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+    const containerRef = useRef(null);
 
     const [error, setError] = useState(null); // Состояние для ошибки
     const errorHandler = new ErrorHandler(setError);
@@ -20,6 +25,8 @@ function Chat() {
         errorHandler.setErrorCallback(setError); // Передаем setError в errorHandler
 
     }, []);
+    console.log(chat);
+    console.log("Сообщения", messages);
 
 
     const closeErrorModal = () => {
@@ -52,7 +59,7 @@ function Chat() {
         if (connection) {
             connection.on("ReceiveMessage", (message) => {
                 if (message.senderId !== localStorage.getItem("user_id")) {
-                    setMessages((prevMessages) => [...prevMessages, message]);
+                    setMessages((prevMessages) => [message, ...prevMessages]);
                 }
             });
 
@@ -64,6 +71,10 @@ function Chat() {
 
     const sendMessage = async () => {
         if (newMessage.trim()) {
+            if (messagesEndRef.current) {
+                messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
+            }
+            setNewMessage("");
 
             let sendedMsg = {
                 text: newMessage,
@@ -72,8 +83,8 @@ function Chat() {
                 isReaded: false,
             }
             const updatedMessages = [
-                ...messages,
                 sendedMsg,
+                ...messages,
             ];
             setMessages(updatedMessages);
 
@@ -99,6 +110,48 @@ function Chat() {
         }
     };
 
+    const loadMessages = async () => {
+        if (loading) return;
+        setLoading(true);
+
+
+        const response = await fetchWithErrorHandling(
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Chat/${chatId}/messages?skip=${skip}&take=${take}`,
+            {
+                method: "GET",
+                credentials: "include",
+            },
+            null,
+            errorHandler
+        );
+        setMessages(prev => [...prev, ...response]);
+        setSkip(prev => prev + take);
+
+
+        if (response.length < take) {
+            setHasMore(false);
+        } else {
+            setHasMore(true);
+        }
+        setLoading(false);
+    };
+
+    const handleScroll = () => {
+        if (!hasMore || loading) {
+            return;
+        };
+
+        const element = containerRef.current;
+        console.log(element.scrollTop)
+        console.log(element.scrollHeight)
+        console.log(element.clientHeight)
+
+        if (element.scrollHeight + element.scrollTop < element.clientHeight * 1.2) {
+            console.log("ПУсти сука");
+            loadMessages();
+        }
+    };
+
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
@@ -106,11 +159,9 @@ function Chat() {
         }
     };
 
-    useEffect(() => {
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
-        }
-    }, [messages]);
+    // useEffect(() => {
+    //
+    // }, [messages]);
 
     return (
         <div id="ChatWrapper">
@@ -121,7 +172,11 @@ function Chat() {
                 </div>
 
                 <div id="ChatCourcesCardsWrapper">
-                    <div id="ChatCourcesCardsContainer">
+                    <div id="ChatCourcesCardsContainer"
+                         ref={containerRef}
+                         onScroll={handleScroll}>
+                        <div ref={messagesEndRef}/>
+
                         {messages.map((message, index) => (
                             <div key={message.id}
                                  className={`ChatMessage ${message.senderId === localStorage.getItem("user_id") ? 'fromMe' : 'fromBro'}`}>
@@ -130,8 +185,6 @@ function Chat() {
                             </div>
                         ))}
 
-                        {/* Элемент для прокрутки в конец чата */}
-                        <div ref={messagesEndRef}/>
                     </div>
                 </div>
 

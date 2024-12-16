@@ -6,6 +6,7 @@ using StudentsKnoweledgeAPI.RequestsTemplates;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.SignalR;
+using Azure.Core;
 
 namespace StudentsKnoweledgeAPI.Controllers
 {
@@ -65,9 +66,49 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(chatsPrepared);
         }
 
+        [HttpGet("user/{id}")]
+        public async Task<IActionResult> GetChatByUserId(string id)
+        {
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { message = "User is not authenticated." });
+            }
+
+            var interlocutor = await _context.StudingUsers.FirstOrDefaultAsync(u => u.Id == id);
+            if (interlocutor == null)
+                return NotFound("User not found");
+
+            var chat = await _context.Chats
+                .Include(c => c.Messages)
+                .Where(c => (c.User1Id == userId && c.User2Id == id) || (c.User1Id == id && c.User2Id == userId))
+                .FirstOrDefaultAsync();
+
+            if (chat == null)
+            {
+                chat = new Chat
+                {
+                    User1Id = userId,
+                    User2Id = id
+                };
+
+                _context.Chats.Add(chat);
+                await _context.SaveChangesAsync();
+            }
+
+
+            var preparedChat = new
+            {
+                id = chat.Id,
+            };
+
+            return Ok(preparedChat);
+        }
+
         // Получить чат по ID
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetChatById(int id)
+        public async Task<IActionResult> GetChatById(int id, [FromQuery] int take = 20)
         {
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -77,12 +118,21 @@ namespace StudentsKnoweledgeAPI.Controllers
             }
 
             var chat = await _context.Chats
-                .Include(c => c.Messages)
-                .Where(c => c.User1Id == userId || c.User2Id == userId)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             if (chat == null)
                 return NotFound(new { message = "Chat not found." });
+                
+            if (!(chat.User1Id == userId || chat.User2Id == userId))
+            {
+                return NotFound(new { message = "Chat not found." });
+            }
+
+            var messages = await _context.Messages
+                .Where(m => m.ChatId == id)
+                .OrderByDescending(m => m.SendDate)
+                .Take(take)
+                .ToListAsync();
 
             var otherUserId = chat.User1Id == userId ? chat.User2Id : chat.User1Id;
             var otherUser = _context.StudingUsers.FirstOrDefault((u) => u.Id == otherUserId);
@@ -127,10 +177,22 @@ namespace StudentsKnoweledgeAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteChat(int id)
         {
-            var chat = await _context.Chats.FindAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { message = "User is not authenticated." });
+            }
+
+            var chat = await _context.Chats.FirstOrDefaultAsync(c => c.Id == id);
+            
 
             if (chat == null)
                 return NotFound(new { message = "Chat not found." });
+
+            if (!(chat.User1Id == userId || chat.User2Id == userId))
+            {
+                return NotFound(new { message = "Chat not found." });
+            }
 
             _context.Chats.Remove(chat);
             await _context.SaveChangesAsync();
@@ -138,20 +200,20 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Chat deleted successfully." });
         }
 
-        // Получить сообщения чата
+        // Получить сообщения чата с пагинацией
         [HttpGet("{chatId}/messages")]
-        public async Task<IActionResult> GetMessagesByChatId(int chatId)
+        public async Task<IActionResult> GetMessagesByChatId(int chatId, [FromQuery] int skip = 0, [FromQuery] int take = 20)
         {
             var messages = await _context.Messages
                 .Where(m => m.ChatId == chatId)
-                .OrderBy(m => m.SendDate)
+                .OrderByDescending(m => m.SendDate)
+                .Skip(skip)
+                .Take(take)
                 .ToListAsync();
-
-            if (!messages.Any())
-                return NotFound(new { message = "No messages found for this chat." });
 
             return Ok(messages);
         }
+
 
         // Отправить сообщение в чат
         [HttpPost("{chatId}/messages")]

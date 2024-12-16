@@ -20,7 +20,8 @@ namespace StudentsKnoweledgeAPI.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("Teacher")]
+        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> GetMaterialsBySectionId(int sectionId)
         {
             var materials = await _context.Materials
@@ -34,6 +35,20 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("Student")]
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> GetVisibleMaterialsBySectionId(int sectionId)
+        {
+            var materials = await _context.Materials
+                .Where(m => m.SectionId == sectionId && m.IsVisible)
+                .Include(m => m.Section)
+                .ToListAsync();
+
+            // Преобразуем материалы в более конкретные типы
+            var result = materials.Select(m => MapMaterialToSpecificType(m)).ToList();
+
+            return Ok(result);
+        }
 
 
         [HttpPut("{materialId}/Visibility")]

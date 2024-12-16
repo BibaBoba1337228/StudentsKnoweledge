@@ -48,21 +48,34 @@
 }
 
 #ChatCourcesCardsWrapper {
-    height: 85vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-
+    max-height: calc(100vh - 10px - 54px - 1px - 40px - 35px);
+    overflow-y: hidden;
 }
+
+
 
 #ChatCourcesCardsContainer {
     display: flex;
-    margin-top: 40px;
-    gap: 30px; /* Отступ между картами по горизонтали и вертикали */
-    flex-direction: column;
-    width: 100%;
-    flex-wrap: wrap;
+    gap: 5px;
+    flex-direction: column-reverse;
+    width: calc(100% - 40px);
+    overflow-y: auto;
+    max-height: calc(100vh - 10px - 54px - 1px - 40px - 37px);
+    padding: 0 20px;
+    /*scrollbar-width: thin;*/
+}
 
+#ChatCourcesCardsContainer::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0);
+    width: 3px;
 
+    /*color:#f2f2f2;*/
+}
+
+#ChatCourcesCardsContainer::-webkit-scrollbar-thumb {
+    background-color: #d3d3d3;
+    border-radius: 10px;
+    /*color:#f2f2f2;*/
 }
 
 .ChatMessage {
@@ -75,7 +88,8 @@
     align-items: end;
     justify-content: space-between;
 
-    width: 45%;
+    width: 30%;
+    min-width: 250px;
 }
 
 .fromMe {

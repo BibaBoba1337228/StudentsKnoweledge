@@ -4,6 +4,7 @@ import '../styles/MyProfile.css';
 import profile from '../assets/images/profile.svg'
 import add from '../assets/icons/add.svg'
 import {ClipLoader} from "react-spinners";
+import {ErrorHandler, ErrorModal, fetchWithErrorHandling} from "../components/ErrorHandler";
 
 
 function StudingUserProfile() {
@@ -13,10 +14,35 @@ function StudingUserProfile() {
 
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const [userId, setUserId] = useState(localStorage.getItem("user_id"));
+    const [error, setError] = useState(null); // Состояние для ошибки
+    const errorHandler = new ErrorHandler(setError);
+    useEffect(() => {
+        errorHandler.setErrorCallback(setError); // Передаем setError в errorHandler
+
+    }, []);
+
+
+    const closeErrorModal = () => {
+        setError(null); // Закрытие модального окна
+    };
+
     console.log(userData);
     const toggleExpand = () => {
         setIsExpanded((prev) => !prev);
     };
+
+    const handleWriteMessageToUser = async () => {
+        const data = await fetchWithErrorHandling(`https://${process.env.REACT_APP_API_BASE_URL}/api/Chat/user/${userData.id}`,
+            {
+                method: "GET",
+                credentials: "include",
+            },
+            null,
+            errorHandler);
+        console.log(data);
+        navigate(`/system/chats/${data.id}`);
+    }
 
     return (
         <div id="MyProfileWrapper">
@@ -30,7 +56,7 @@ function StudingUserProfile() {
 
                 <div id="MyProfileHeaderContainer">
 
-                    <div id="MyProfileHeader">{userData.id === localStorage.getItem("user_id")? "Мой профиль": "Профиль пользователя"}</div>
+                    <div id="MyProfileHeader">{userData.id === userId? "Мой профиль": "Профиль пользователя"}</div>
                     <div id="MyProfileDelimiter"></div>
                 </div>
 
@@ -42,12 +68,24 @@ function StudingUserProfile() {
 
                         <div className="MyProfileTextBlockWithProfileImage">
                             <div className="MyProfileInfoBlockHeaderWithProfileImage">{userData.lastName} {userData.name[0]}.  {userData.middleName[0]}.</div>
-                            <div className="MyProfileInfoBlockInfoWithProfileImage"
-                                 onClick={() => navigate('/system/findcontacts')}
-                                 style={{cursor: "pointer"}}>
-                                Найти контакты
-                                <img src={add} alt="add" style={{width: '20px', marginLeft: '10px'}}/>
-                            </div>
+
+                            {userData.id === userId? (
+                                <div className="MyProfileInfoBlockInfoWithProfileImage"
+                                     onClick={() => navigate('/system/findcontacts')}
+                                     style={{cursor: "pointer"}}>
+                                    найти контакты
+                                    <img src={add} alt="add" style={{width: '20px', marginLeft: '10px'}}/>
+                                </div>
+
+                            ) : (
+                                <div className="MyProfileInfoBlockInfoWithProfileImage"
+                                     onClick={() => handleWriteMessageToUser()}
+                                     style={{cursor: "pointer"}}>
+                                    Написать сообщение
+                                </div>
+                            )}
+
+
                         </div>
 
                     </div>
@@ -101,7 +139,7 @@ function StudingUserProfile() {
 
             </div>)
             }
-
+            {error && <ErrorModal errorMessage={error} onClose={closeErrorModal}/>}
         </div>
     );
 }

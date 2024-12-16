@@ -36,7 +36,7 @@ function MyChats() {
                                     <div
                                         className="MyChatsInfoBlockHeaderWithChatsImage">{chat.interlocutor?.fio || "ошибка загрузки пользователя"}</div>
                                     <div className="MyChatsInfoBlockInfoWithChatsImage">
-                                        {chat.lastMessage?.Text || "Здесь пока нет сообщений..."}
+                                        {chat.lastMessage?.text || "Здесь пока нет сообщений..."}
                                     </div>
                                 </div>
                             </div>

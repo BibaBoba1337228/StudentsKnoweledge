@@ -4,7 +4,7 @@ export async function courseDetailLoader({params}) {
     const {courseId} = params; // Извлекаем courseId из параметров маршрута
 
     // Запрос на получение секций курса
-    const sectionsResponse = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/Sections`, {
+    const sectionsResponse = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${localStorage.getItem("role") === "1"? "Student": "Teacher"}/${courseId}/Sections`, {
         method: "GET",
         credentials: "include",
     });
@@ -23,7 +23,7 @@ export async function courseDetailLoader({params}) {
     const sectionsWithMaterials = await Promise.all(
         sections.map(async (section) => {
             const materialsResponse = await fetchWithAuth(
-                `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${section.id}/Material`,
+                `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${section.id}/Material/${localStorage.getItem("role") === "1"? "Student": "Teacher"}`,
                 {
                     method: "GET",
                     credentials: "include",

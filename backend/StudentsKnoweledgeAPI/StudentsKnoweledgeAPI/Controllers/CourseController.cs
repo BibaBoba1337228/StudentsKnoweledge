@@ -21,7 +21,8 @@ namespace StudentsKnoweledgeAPI.Controllers
 
         // ----- Управление разделами курса -----
 
-        [HttpGet("{courseId}/Sections")]
+        [Authorize(Roles = "Teacher, Admin")]
+        [HttpGet("Teacher/{courseId}/Sections")]
         public async Task<IActionResult> GetSectionsByCourseId(int courseId)
         {
             var course = await _context.Courses.Include(c => c.Sections).FirstOrDefaultAsync(c => c.Id == courseId);
@@ -31,6 +32,22 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(course.Sections);
         }
+
+
+        [HttpGet("Student/{courseId}/Sections")]
+        public async Task<IActionResult> GetVisibleSectionsByCourseId(int courseId)
+        {
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course == null)
+                return NotFound(new { message = "Course not found." });
+
+            var sections = await _context.Sections.Where(c => c.CourseId == courseId && c.IsVisible).ToListAsync();
+
+            return Ok(sections);
+        }
+
+
 
 
         [HttpPost("{courseId}/Sections")]
