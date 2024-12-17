@@ -1,11 +1,17 @@
 import '../styles/AllStudentMarks.css'
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import {useLoaderData, useNavigate, useParams} from "react-router-dom";
 
 
 function AllStudentMarks() {
 
     const navigate = useNavigate();
+
+    const data = useLoaderData();
+
+    const {userId} = useParams();
+
+
     return (
         <div id="AllStudentMarksWrapper">
 
@@ -20,132 +26,20 @@ function AllStudentMarks() {
 
                 <div id="AllStudentMarksCourceContainer">
 
-                    <div className="AllStudentMarksInfoBlock" onClick={() => navigate('/system/mymarks/subject')}
-                         style={{cursor: "pointer"}}>
 
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Технологии программирования</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
+                    {data.map((item, index) => (
+                        <div className="AllStudentMarksInfoBlock"
+                             onClick={() => navigate(`/system/profile/${userId}/mymarks/${item.id}`, {
+                                 state: {courseName: item.name},
+                             })}
+                             style={{cursor: "pointer"}}>
+
+                            <div className="AllStudentMarksTextBlock">
+                                <div className="AllStudentMarksInfoBlockHeader">{item.name}</div>
+                            </div>
+
                         </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Управление ланными</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Управление ланными</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Управление ланными</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Управление ланными</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Управление ланными</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Управление ланными</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Управление ланными</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Управление ланными</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Управление ланными</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Философия</div>
-                            <div className="AllStudentMarksInfoBlockInfo">92.5</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Тестирование ПО</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Графическое моделирование</div>
-                            <div className="AllStudentMarksInfoBlockInfo">-</div>
-                        </div>
-
-                    </div>
-
-                    <div className="AllStudentMarksInfoBlock">
-
-                        <div className="AllStudentMarksTextBlock">
-                            <div className="AllStudentMarksInfoBlockHeader">Основы алгоритмов</div>
-                            <div className="AllStudentMarksInfoBlockInfo">76.2</div>
-                        </div>
-
-                    </div>
+                    ))}
 
 
                 </div>

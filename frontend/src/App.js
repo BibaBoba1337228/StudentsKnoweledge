@@ -48,6 +48,8 @@ import {lrRateLoader} from "./api/loaders/LrRateLoader";
 import {chatLoader} from "./api/loaders/ChatLoader";
 import {chatsListLoader} from "./api/loaders/ChatsListLoader";
 import {studingUserProfileLoader} from "./api/loaders/StudingUserProfileLoader";
+import {myMarksLoader} from "./api/loaders/MyCourcesMarksLoader";
+import {myMarksCurrentSubjectLoader} from "./api/loaders/MyCourcesMarksCurrentSubjectLoader";
 
 
 function App() {
@@ -186,27 +188,34 @@ function App() {
                 },
                 {
                     path: "/system/profile/:userId",
-                    element: <StudingUserProfile></StudingUserProfile>,
-                    loader: studingUserProfileLoader
+                    element: <Outlet></Outlet>,
+                    children: [
+                        {
+                            index: true,
+                            element: <StudingUserProfile></StudingUserProfile>,
+                            loader: studingUserProfileLoader,
+                            errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                        },
+                        {
+                            path: "/system/profile/:userId/mymarks",
+                            element: <AllStudentMarks></AllStudentMarks>,
+                            loader: myMarksLoader,
+                            errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+                        },
+                        {
+                            path: "/system/profile/:userId/mymarks/:courseId",
+                            element: <AllStudentMarksForCurrentSubject></AllStudentMarksForCurrentSubject>,
+                            loader: myMarksCurrentSubjectLoader,
+                            errorElement: <LoginErrorBoundary></LoginErrorBoundary>
+
+                        },
+                    ],
+
                 },
-                // {
-                //     path: "/system/profile/profileid",
-                //     element: <OtherProfile></OtherProfile>
-                // },
 
                 {
                     path: "/system/findcontacts",
                     element: <FindContacts></FindContacts>
-                },
-
-                {
-                    path: "/system/mymarks",
-                    element: <AllStudentMarks></AllStudentMarks>,
-                },
-                {
-                    path: "/system/mymarks/subject",
-                    element: <AllStudentMarksForCurrentSubject></AllStudentMarksForCurrentSubject>
-
                 },
 
 

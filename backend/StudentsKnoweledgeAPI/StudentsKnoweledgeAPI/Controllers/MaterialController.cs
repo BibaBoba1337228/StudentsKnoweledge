@@ -21,7 +21,6 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpGet("Teacher")]
-        [Authorize(Roles = "Teacher, Admin")]
         public async Task<IActionResult> GetMaterialsBySectionId(int sectionId)
         {
             var materials = await _context.Materials
@@ -36,7 +35,6 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpGet("Student")]
-        [Authorize(Roles = "Student")]
         public async Task<IActionResult> GetVisibleMaterialsBySectionId(int sectionId)
         {
             var materials = await _context.Materials

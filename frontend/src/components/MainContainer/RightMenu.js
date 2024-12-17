@@ -10,6 +10,8 @@ function RightMenu() {
 
     const [recentEvents, setRecentEvents] = useState([]);
 
+    const [recentMessages, setRecentMessages] = useState([]);
+
     const navigate = useNavigate();
 
     const location = useLocation();
@@ -59,6 +61,34 @@ function RightMenu() {
         fetchRecentEvents();
     }, []);
 
+    useEffect(() => {
+        const fetchRecentMessages = async () => {
+            try {
+                const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Chat/recent-messages`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                console.log(data)
+
+
+                setRecentMessages(data);
+            } catch (error) {
+                console.error("Error fetching recent events:", error);
+            }
+        };
+
+        fetchRecentMessages();
+    }, []);
+
     return (
         <div id="RightMenuContainer">
 
@@ -97,48 +127,25 @@ function RightMenu() {
                 <h1 className="RightMenuSectionHeader">Последние сообщения</h1>
                 <div className="RightMenuSectionDelimiter"></div>
                 <div id="RightMenuSectionLastMessages">
-                    <div className="RightMenuSectionMessage">
 
-                        <h1 className="RightMenuSectionMessageHeader">Вершинин В.В.</h1>
-                        <div className="RightMenuSectionMessageDataAndDescription">
-                            <div className="RightMenuSectionMessageDescription">
-                                Всем 5 за курсовик
+
+                    {recentMessages.map((message, index) => (
+                        <div className="RightMenuSectionMessage">
+
+                            <h1 className="RightMenuSectionMessageHeader">{message.sender}</h1>
+                            <div className="RightMenuSectionMessageDataAndDescription">
+                                <div className="RightMenuSectionMessageDescription">
+                                    {message.text}
+                                </div>
+                                <div className="RightMenuSectionMessageData">
+                                    {new Date(message.sendDate).toLocaleString()}
+                                </div>
                             </div>
-                            <div className="RightMenuSectionMessageData">
-                                25.03.2024
-                            </div>
+
                         </div>
+                    ))}
 
-                    </div>
 
-
-                    <div className="RightMenuSectionMessage">
-
-                        <h1 className="RightMenuSectionMessageHeader">Вершинин В.В.</h1>
-                        <div className="RightMenuSectionMessageDataAndDescription">
-                            <div className="RightMenuSectionMessageDescription">
-                                Всем 5 за курсовик
-                            </div>
-                            <div className="RightMenuSectionMessageData">
-                                25.03.2024
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className="RightMenuSectionMessage">
-
-                        <h1 className="RightMenuSectionMessageHeader">Вершинин В.В.</h1>
-                        <div className="RightMenuSectionMessageDataAndDescription">
-                            <div className="RightMenuSectionMessageDescription">
-                                Всем 5 за курсовик
-                            </div>
-                            <div className="RightMenuSectionMessageData">
-                                25.03.2024
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
 
             </div>

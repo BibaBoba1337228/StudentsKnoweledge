@@ -145,7 +145,13 @@ namespace StudentsKnoweledgeAPI.Controllers
                     Id = otherUser.Id,
                     Fio = $"{otherUser.LastName} {otherUser.Name[0]}. {otherUser.MiddleName[0]}."
                 },
-                messages = chat.Messages
+                messages = messages.Select(message => new
+                {
+                    id = message.Id,
+                    sendDate = message.SendDate,
+                    text = message.Text,
+                    senderId = message.SenderId,
+                }).ToList()
             };
 
             return Ok(preparedChat);
@@ -278,6 +284,37 @@ namespace StudentsKnoweledgeAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Message deleted successfully." });
+        }
+
+        [HttpGet("recent-messages")]
+        public async Task<IActionResult> GetRecentMessages()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized(new { message = "User not authenticated." });
+
+            var recentMessages = await _context.Messages
+                .Where(m => m.SenderId != userId)
+                .Include(m => m.Sender)
+                .OrderByDescending(m => m.SendDate) 
+                .Take(3)                           
+                .ToListAsync();
+
+
+
+            if (!recentMessages.Any())
+                return NotFound(new { message = "No recent messages found." });
+            
+            var preparedMessages = recentMessages.Select(message => new
+            {
+                id = message.Id,
+                text = message.Text,
+                sendDate = message.SendDate,
+                sender = $"{message.Sender.LastName} {message.Sender.Name[0]}. {message.Sender.MiddleName[0]}." ,
+            }).ToList();
+
+            return Ok(preparedMessages);
         }
     }
 

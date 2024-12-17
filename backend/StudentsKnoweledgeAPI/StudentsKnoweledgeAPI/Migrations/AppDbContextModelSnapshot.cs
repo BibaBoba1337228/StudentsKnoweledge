@@ -226,6 +226,10 @@ namespace StudentsKnoweledgeAPI.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ProfilePictureUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -487,7 +491,6 @@ namespace StudentsKnoweledgeAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
@@ -556,10 +559,6 @@ namespace StudentsKnoweledgeAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfilePictureUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

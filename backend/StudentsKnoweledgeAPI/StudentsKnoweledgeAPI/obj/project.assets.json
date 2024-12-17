@@ -5345,19 +5345,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\andre\\.nuget\\packages\\": {}
+    "C:\\Users\\drocs\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\папочка с фаликами - бекап 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj",
+      "projectUniqueName": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj",
       "projectName": "StudentsKnoweledgeAPI",
-      "projectPath": "C:\\папочка с фаликами - бекап 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj",
-      "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-      "outputPath": "C:\\папочка с фаликами - бекап 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\obj\\",
+      "projectPath": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj",
+      "packagesPath": "C:\\Users\\drocs\\.nuget\\packages\\",
+      "outputPath": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\drocs\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

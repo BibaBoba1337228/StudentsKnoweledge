@@ -1,11 +1,15 @@
 import '../styles/AllStudentMarksForCurrentSubject.css'
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import {useLoaderData, useLocation, useNavigate, useParams} from "react-router-dom";
 
 
 function AllStudentMarksForCurrentSubject() {
 
     const navigate = useNavigate();
+    const {courseId} = useParams();
+    const data = useLoaderData();
+    const location = useLocation();
+    const state = location.state;
     return (
         <div id="AllStudentMarksForCurrentSubjectWrapper">
 
@@ -14,155 +18,26 @@ function AllStudentMarksForCurrentSubject() {
 
                 <div id="AllStudentMarksForCurrentSubjectHeaderContainer">
 
-                    <div id="AllStudentMarksForCurrentSubjectHeader">Мои оценки по "Технологии программирования"</div>
+                    <div id="AllStudentMarksForCurrentSubjectHeader">Мои оценки по {state.courseName}</div>
                     <div id="AllStudentMarksForCurrentSubjectDelimiter"></div>
                 </div>
 
                 <div id="AllStudentMarksForCurrentSubjectCourceContainer">
 
 
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock"
-                         onClick={() => navigate('/system/course/task')}
-                         style={{cursor: "pointer"}}>
+                    {data.map((item, index) => (
+                        <div className="AllStudentMarksForCurrentSubjectInfoBlock"
+                             onClick={() => navigate(`/system/courses/course/${courseId}/task/${item.material.id}`)}
+                             style={{cursor: "pointer"}}>
 
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №1
+                            <div className="AllStudentMarksForCurrentSubjectTextBlock">
+                                <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">{item.material.title}
+                                </div>
+                                <div
+                                    className="AllStudentMarksForCurrentSubjectInfoBlockInfo">{item.grade}/{item.material.grade}</div>
                             </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">10/10</div>
                         </div>
-                    </div>
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock"
-                         onClick={() => navigate('/system/course/test')}
-                         style={{cursor: "pointer"}}>
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">РК №1
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">5/10</div>
-                        </div>
-
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №3
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">9/10</div>
-                        </div>
-
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №4
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">4.5/10</div>
-                        </div>
-
-
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №5
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">1/10</div>
-                        </div>
-
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №6
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">10/10</div>
-                        </div>
-
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №7
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">-</div>
-                        </div>
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №1
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">10/10</div>
-                        </div>
-                    </div>
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №2
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">5/10</div>
-                        </div>
-
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №3
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">9/10</div>
-                        </div>
-
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №4
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">4.5/10</div>
-                        </div>
-
-
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №5
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">1/10</div>
-                        </div>
-
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №6
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">10/10</div>
-                        </div>
-
-                    </div>
-
-
-                    <div className="AllStudentMarksForCurrentSubjectInfoBlock">
-
-                        <div className="AllStudentMarksForCurrentSubjectTextBlock">
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockHeader">Лабораторная работа №7
-                            </div>
-                            <div className="AllStudentMarksForCurrentSubjectInfoBlockInfo">-</div>
-                        </div>
-                    </div>
+                    ))}
 
 
                 </div>

@@ -21,7 +21,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
         // ----- Управление разделами курса -----
 
-        [Authorize(Roles = "Teacher, Admin")]
         [HttpGet("Teacher/{courseId}/Sections")]
         public async Task<IActionResult> GetSectionsByCourseId(int courseId)
         {

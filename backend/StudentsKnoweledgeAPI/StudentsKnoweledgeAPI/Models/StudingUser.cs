@@ -10,7 +10,7 @@ namespace StudentsKnoweledgeAPI.Models
         public string MiddleName { get; set; }
         public string LastName { get; set; }
 
-        public string ProfilePictureUrl { get; set; } = "files/UserProfilePictures/default.svg";
+
         public string Phone { get; set; }
 
 

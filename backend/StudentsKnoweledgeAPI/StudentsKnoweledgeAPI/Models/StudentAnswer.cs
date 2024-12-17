@@ -25,7 +25,7 @@
 
         public string TeacherFIO { get; set; } = "";
 
-        public string Comment { get; set; } = "";
+        public string? Comment { get; set; } = "";
 
         public string TeacherComment { get; set; } = "";
 

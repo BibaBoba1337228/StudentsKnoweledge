@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Navigate, Outlet, Route, Routes, useLoaderData, useNavigate} from 'react-router-dom';
+import {Navigate, Outlet, Route, Routes, useLoaderData, useNavigate, useParams} from 'react-router-dom';
 import '../styles/MyProfile.css';
 import profile from '../assets/images/profile.svg'
 import add from '../assets/icons/add.svg'
 import {ClipLoader} from "react-spinners";
 import {ErrorHandler, ErrorModal, fetchWithErrorHandling} from "../components/ErrorHandler";
+import ProfileImage from "../components/Messenger/ProfileImage";
 
 
 function StudingUserProfile() {
@@ -52,92 +53,99 @@ function StudingUserProfile() {
                         <ClipLoader size={50} color={"#007BFF"} loading={isLoading}/>
                     </div>
                 ) :
-            (<div id="MyProfileContainer">
+                (<div id="MyProfileContainer">
 
-                <div id="MyProfileHeaderContainer">
+                    <div id="MyProfileHeaderContainer">
 
-                    <div id="MyProfileHeader">{userData.id === userId? "Мой профиль": "Профиль пользователя"}</div>
-                    <div id="MyProfileDelimiter"></div>
-                </div>
-
-                <div id="MyProfileCourceContainer">
-
-                    <div className="MyProfileInfoBlockWithProfileImage">
-
-                        <img src={`https://${process.env.REACT_APP_API_BASE_URL}/${userData.profilePictureUrl}`} alt="profile" style={{width: '120px'}}/>
-
-                        <div className="MyProfileTextBlockWithProfileImage">
-                            <div className="MyProfileInfoBlockHeaderWithProfileImage">{userData.lastName} {userData.name[0]}.  {userData.middleName[0]}.</div>
-
-                            {userData.id === userId? (
-                                <div className="MyProfileInfoBlockInfoWithProfileImage"
-                                     onClick={() => navigate('/system/findcontacts')}
-                                     style={{cursor: "pointer"}}>
-                                    найти контакты
-                                    <img src={add} alt="add" style={{width: '20px', marginLeft: '10px'}}/>
-                                </div>
-
-                            ) : (
-                                <div className="MyProfileInfoBlockInfoWithProfileImage"
-                                     onClick={() => handleWriteMessageToUser()}
-                                     style={{cursor: "pointer"}}>
-                                    Написать сообщение
-                                </div>
-                            )}
-
-
-                        </div>
-
+                        <div
+                            id="MyProfileHeader">{userData.id === userId ? "Мой профиль" : "Профиль пользователя"}</div>
+                        <div id="MyProfileDelimiter"></div>
                     </div>
 
-                    {
-                        (userData.role === 1) &&
-                        <div className="MyProfileInfoBlock">
-                            <div className="MyProfileTextBlock">
-                                <div className="MyProfileInfoBlockHeader">Группа:</div>
-                                <div className="MyProfileInfoBlockInfo">{userData.groupName}</div>
+                    <div id="MyProfileCourceContainer">
+
+                        <div className="MyProfileInfoBlockWithProfileImage">
+
+                            <ProfileImage
+                                initialPictureUrl={`https://${process.env.REACT_APP_API_BASE_URL}/files/${userData.profilePictureUrl}`}/>
+
+                            <div className="MyProfileTextBlockWithProfileImage">
+                                <div
+                                    className="MyProfileInfoBlockHeaderWithProfileImage">{userData.lastName} {userData.name[0]}. {userData.middleName[0]}.
+                                </div>
+
+                                {userData.id === userId ? (
+                                    <div className="MyProfileInfoBlockInfoWithProfileImage"
+                                         onClick={() => navigate('/system/findcontacts')}
+                                         style={{cursor: "pointer"}}>
+                                        найти контакты
+                                        <img src={add} alt="add" style={{width: '20px', marginLeft: '10px'}}/>
+                                    </div>
+
+                                ) : (
+                                    <div className="MyProfileInfoBlockInfoWithProfileImage"
+                                         onClick={() => handleWriteMessageToUser()}
+                                         style={{cursor: "pointer"}}>
+                                        Написать сообщение
+                                    </div>
+                                )}
+
+
                             </div>
 
                         </div>
-                    }
 
-
-                    <div className="MyProfileInfoBlock">
-                        <div className="MyProfileInfoBlockHeader">Учебные курсы</div>
-                        <ul style={{listStyle: "none", padding: 0}}>
-                            {userData.courses?.slice(0, isExpanded ? userData.courses.length : 4).map((course, index) => (
-                                <li key={course.id} className="MyProfileCourseInInfoBlock">
-                                    {course.name}
-                                </li>
-                            ))}
-                        </ul>
                         {
-                            (userData.courses.length > 4) &&
-                            <button
-                                onClick={toggleExpand}
-                                id="ExpandCourcesButton"
-                            >
-                                {isExpanded ? "Свернуть" : "Еще..."}
-                            </button>
+                            (userData.role === 1) &&
+                            <div className="MyProfileInfoBlock">
+                                <div className="MyProfileTextBlock">
+                                    <div className="MyProfileInfoBlockHeader">Группа:</div>
+                                    <div className="MyProfileInfoBlockInfo">{userData.groupName}</div>
+                                </div>
+
+                            </div>
                         }
-                    </div>
 
-                    {
-                        userData.id === localStorage.getItem("user_id") &&
-                        <div className="MyProfileInfoBlock" onClick={() => navigate('/system/mymarks')}
-                             style={{cursor: "pointer"}}>
 
-                            <div className="MyProfileTextBlock">
-                                <div className="MyProfileInfoBlockHeader" style={{textDecoration: "underline"}}>Оценки
+                        <div className="MyProfileInfoBlock">
+                            <div className="MyProfileInfoBlockHeader">Учебные курсы</div>
+                            <ul style={{listStyle: "none", padding: 0}}>
+                                {userData.courses?.slice(0, isExpanded ? userData.courses.length : 4).map((course, index) => (
+                                    <li key={course.id} className="MyProfileCourseInInfoBlock">
+                                        {course.name}
+                                    </li>
+                                ))}
+                            </ul>
+                            {
+                                (userData.courses.length > 4) &&
+                                <button
+                                    onClick={toggleExpand}
+                                    id="ExpandCourcesButton"
+                                >
+                                    {isExpanded ? "Свернуть" : "Еще..."}
+                                </button>
+                            }
+                        </div>
+
+                        {localStorage.getItem("role") === "1" && (
+                            userData.id === localStorage.getItem("user_id") &&
+                            <div className="MyProfileInfoBlock"
+                                 onClick={() => navigate(`/system/profile/${userId}/mymarks`)}
+                                 style={{cursor: "pointer"}}>
+
+                                <div className="MyProfileTextBlock">
+                                    <div className="MyProfileInfoBlockHeader"
+                                         style={{textDecoration: "underline"}}>Оценки
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        )
+                        }
 
 
-                </div>
+                    </div>
 
-            </div>)
+                </div>)
             }
             {error && <ErrorModal errorMessage={error} onClose={closeErrorModal}/>}
         </div>

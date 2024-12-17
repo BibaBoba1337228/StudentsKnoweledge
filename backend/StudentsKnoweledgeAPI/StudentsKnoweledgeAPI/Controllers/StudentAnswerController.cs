@@ -38,6 +38,22 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(answers);
         }
 
+        [HttpGet("{studentId}/courses/{courseId}")]
+        public async Task<IActionResult> GetAnswersByStudentAndCourse(string studentId, int courseId)
+        {
+            var answers = await _context.StudentAnswers
+                .Where(answer => answer.StudentId == studentId &&
+                                 answer.Material.Section.CourseId == courseId) // Используем courseId из маршрута
+                .Include(answer => answer.Material) // Подгружаем материал
+                .ToListAsync();
+
+            if (!answers.Any())
+                return NotFound(new { message = "No answers found for the specified course and student." });
+
+            return Ok(answers);
+        }
+
+
         // Получение ответа по ID материала и ID студента
         [HttpGet("{studentId}")]
         public async Task<IActionResult> GetAnswerByMaterialAndStudent(int materialId, string studentId)
@@ -253,6 +269,9 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return filePath;
         }
+
+
+
 
     }
 }
