@@ -26,8 +26,8 @@ function AdminPanel() {
     const [groups, setGroups] = useState([]);
     // const [teachers, setTeachers] = useState([]);
     // const [students, setStudents] = useState([]);
-    const [data, setData] = useState({data: [], totalCount: 0});
-    const [totalCount, setTotalCount] = useState(data.totalCount);
+    const [data, setData] = useState([]);
+    const [totalCount, setTotalCount] = useState(0);
 
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -57,6 +57,8 @@ function AdminPanel() {
     const closeErrorModal = () => {
         setError(null); // Закрытие модального окна
     };
+
+
 
 
     const [teacherData, setTeacherData] = useState({
@@ -264,7 +266,8 @@ function AdminPanel() {
                 null,
                 errorHandler
             );
-            setData(responseData);
+             console.log("Ложе в data", responseData.data);
+            setData(responseData.data);
             setTotalCount(responseData.totalCount);
             setTotalPages(Math.ceil(responseData.totalCount / Number(itemsPerPageRef.current.value)) || 1)
 
@@ -291,12 +294,15 @@ function AdminPanel() {
         }
         url = `${url}?page=${pageNumber}&limit=${pageSize}`
         if (url !== ""){
-            await fetchWithErrorHandling(
+            const responseData = await fetchWithErrorHandling(
                 url,
                 {method: "GET", credentials: "include"},
-                (students) => setData(students),
+                null,
                 errorHandler
             );
+            setData(responseData.data);
+            setTotalCount(responseData.totalCount);
+            setTotalPages(Math.ceil(responseData.totalCount / Number(itemsPerPageRef.current.value)) || 1)
             setCurrentPage(pageNumber);
         }
     }
@@ -616,7 +622,7 @@ function AdminPanel() {
 
                             <tbody style={{backgroundColor: '#FFEFEF'}}>
 
-                            {data?.data.map(course => (
+                            {data?.map(course => (
                                 <tr key={course.id}>
 
                                     <td id="AdminTableTd">{course.id}</td>
@@ -664,7 +670,7 @@ function AdminPanel() {
 
                             <tbody style={{backgroundColor: '#FFEFEF'}}>
 
-                            {data?.data.map(group => (
+                            {data?.map(group => (
                                 <tr key={group.id}>
                                     <td id="AdminTableTd">{group.id}</td>
                                     <td id="AdminTableTd">{group.name}</td>
@@ -709,7 +715,7 @@ function AdminPanel() {
                             </thead>
 
                             <tbody style={{backgroundColor: '#FFEFEF'}}>
-                            {data?.data.map(teacher => (
+                            {data?.map(teacher => (
                                 <tr key={teacher.id}>
                                     <td id="AdminTableTd">{teacher.id}</td>
                                     <td id="AdminTableTd">{teacher.userName}</td>
@@ -775,7 +781,7 @@ function AdminPanel() {
 
                             <tbody style={{backgroundColor: '#FFEFEF'}}>
 
-                            {data?.data.map(student => (
+                            {data?.map(student => (
                                 <tr key={student.id}>
                                     <td id="AdminTableTd">{student.id}</td>
                                     <td id="AdminTableTd">{student.userName}</td>

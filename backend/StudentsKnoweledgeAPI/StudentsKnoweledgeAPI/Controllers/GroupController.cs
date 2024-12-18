@@ -45,6 +45,25 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
 
+
+        [HttpGet("scrolled")]
+        public async Task<IActionResult> GetAllGroupsScrollWithSearch([FromQuery] int skip, [FromQuery] int take, [FromQuery] string searchQuery="")
+        {
+            var query = _context.Groups.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                query = query.Where(g => g.Name.Contains(searchQuery));
+            }
+            var groups = await query
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+
+            return Ok(groups);
+        }
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGroupById(int id)
         {

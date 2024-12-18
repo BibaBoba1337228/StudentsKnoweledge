@@ -10,7 +10,7 @@ import {
     useLocation
 } from 'react-router-dom';
 import CourseElement from "../components/CoursePage/CourseElement";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import ProfileIcon from "../assets/icons/profile_icon.svg";
 import SearchIcon from "../assets/icons/search.svg";
 import Chats from "../assets/images/profile.svg";
@@ -26,7 +26,6 @@ function MyCourses() {
 
 
     const data = useLoaderData();
-    console.log(data)
     const {courseId} = useParams(); // Получаем courseId из URL
 
     const location = useLocation();
@@ -34,13 +33,20 @@ function MyCourses() {
 
     const navigate = useNavigate();
 
+    const [groupsSearchQuery, setGroupsSearchQuery] = useState('');
+    const searchGroupsSearchQueryElement = useRef(null);
+
+
+    const [teachersSearchQuery, setTeachersSearchQuery] = useState('');
+    const searchTeachersSearchQueryElement = useRef(null);
+
     const [isTeachersOpen, setIsTeachersOpen] = useState(false);
     const [isGroupsOpen, setIsGroupsOpen] = useState(false);
     const [isSectionOpen, setIsSectionOpen] = useState(false);
     const [showCheckboxes, setShowCheckboxes] = useState(false);
     const [sections, setSections] = useState(data || []);
     const [sectionName, setSectionName] = useState('');
-
+    const [searchTimeout, setSearchTimeout] = useState(null);
 
     const [teachers, setTeachers] = useState([]);
     const [loadingTeachers, setLoadingTeachers] = useState(false);
@@ -51,6 +57,45 @@ function MyCourses() {
     const [loadingGroups, setLoadingGroups] = useState(false);
     const [selectedGroupsIds, setSelectedGroupsIds] = useState([]);
     const [courseGroups, setCourseGroups] = useState([]);
+
+
+    const take = 20;
+    const [hasMore, setHasMore] = useState(true);
+    const containerRef = useRef(null);
+    const refresh = useRef(true);
+
+
+    const handleGroupSearchChange = (event) => {
+        setGroupsSearchQuery(event.target.value);
+
+        if (searchTimeout) {
+            clearTimeout(searchTimeout);
+        }
+
+        refresh.current = true;
+        const timeout = setTimeout(() => {
+            fetchScrolledGroups();
+        }, 1000);
+
+        setSearchTimeout(timeout);
+
+
+    };
+
+    const handleTeachersSearchChange = (event) => {
+        setTeachersSearchQuery(event.target.value);
+
+        if (searchTimeout) {
+            clearTimeout(searchTimeout);
+        }
+
+        refresh.current = true;
+        const timeout = setTimeout(() => {
+            // fetchScrolledGroups(0, event.target.value);
+        }, 1000);
+
+        setSearchTimeout(timeout);
+    };
 
     const formatTeacherName = (middleName, name, lastName) => {
         const middleInitial = middleName ? middleName : '';
@@ -102,6 +147,8 @@ function MyCourses() {
 
     };
 
+
+
     const fetchCourseGroups = async () => {
         setLoadingGroups(true);
         await fetchWithErrorHandling(
@@ -115,18 +162,42 @@ function MyCourses() {
 
     };
 
-    // Запрос на всех преподавателей для добавления (второй GET запрос)
-    const fetchAllGroups = async () => {
+
+    const fetchScrolledGroups = async () => {
+        if (loadingGroups) return;
         setLoadingGroups(true);
-        await fetchWithErrorHandling(
-            `https://${process.env.REACT_APP_API_BASE_URL}/api/Group`,
+
+
+        const response =await fetchWithErrorHandling(
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${refresh.current? 0 : groups?.length || 0 }&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`,
             {method: "GET", credentials: "include"},
-            (allGroups) => setGroups(allGroups.filter((group) =>
-                !courseGroups.some((courseGroup) => courseGroup.id === group.id))),
+            null,
             errorHandler
         )
-        setLoadingGroups(false);
+        console.log(`https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${refresh.current? 0 : groups?.length || 0 }&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`)
+        console.log("Группы", response);
+        if (response && Array.isArray(response)) {
+            console.log("Буду устанавливать")
+            const newGroups = response
 
+            if (!refresh.current){
+                const filteredGroups = newGroups.filter(
+                    (group) =>
+                        !courseGroups.some((courseGroup) => courseGroup.id === group.id)
+                );
+                console.log(refresh.current);
+                setGroups((prevGroups) => [...prevGroups, ...filteredGroups]);
+            }else{
+                setGroups(newGroups);
+            }
+            refresh.current = false;
+
+            setHasMore(response.length >= take);
+        } else {
+            setHasMore(false);
+        }
+
+        setLoadingGroups(false);
 
     };
 
@@ -403,7 +474,11 @@ function MyCourses() {
                             <div id="CourseTeachersDetailHeaderAndSearchBarContainer">
                                 <div id="CourseTeachersHeader">Преподаватели</div>
                                 <div id="CourseTeachersSearchBar">
-                                    <input id="CourseTeachersSearchBarInput" placeholder="Поиск преподавателя"/>
+                                    <input id="CourseTeachersSearchBarInput" placeholder="Поиск преподавателя"
+                                           value={teachersSearchQuery}
+                                           onChange={handleTeachersSearchChange}
+                                           ref={searchTeachersSearchQueryElement}
+                                    />
                                     <img src={SearchIcon} alt="Иконка поиска" style={{width: '15px'}}/>
                                 </div>
                             </div>
@@ -540,7 +615,11 @@ function MyCourses() {
                             <div id="CourseTeachersDetailHeaderAndSearchBarContainer">
                                 <div id="CourseTeachersHeader">Группы</div>
                                 <div id="CourseTeachersSearchBar">
-                                    <input id="CourseTeachersSearchBarInput" placeholder="Поиск группы"/>
+                                    <input id="CourseTeachersSearchBarInput" placeholder="Поиск группы"
+                                           value={groupsSearchQuery}
+                                           onChange={handleGroupSearchChange}
+                                           ref = {searchGroupsSearchQueryElement}
+                                    />
                                     <img src={SearchIcon} alt="Иконка поиска" style={{width: '15px'}}/>
 
                                 </div>
@@ -557,7 +636,7 @@ function MyCourses() {
                                         style={{cursor: "pointer", backgroundColor: "#fff"}}
                                         onClick={() => {
                                             setShowCheckboxes(true);
-                                            fetchAllGroups();
+                                            fetchScrolledGroups();
                                         }}>Добавить
                                 </button>
                             </div>

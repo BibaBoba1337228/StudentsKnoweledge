@@ -30,7 +30,6 @@ const CourseElement = ({data, setData}) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
-    console.log(data);
 
     const handleDelete = async (sectionId) => {
         try {

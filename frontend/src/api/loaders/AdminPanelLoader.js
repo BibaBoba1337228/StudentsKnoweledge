@@ -2,7 +2,7 @@ import {fetchWithAuth} from "../fetchWithAuth";
 
 export async function adminPanelLoader() {
 
-    const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/paginated?page=1&limit=12}`, {
+    const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/`, {
         method: "GET",
         credentials: "include",
     });
