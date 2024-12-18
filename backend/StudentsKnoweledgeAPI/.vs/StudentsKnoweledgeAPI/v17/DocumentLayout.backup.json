@@ -210,18 +210,17 @@
               "IsPinned": true
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "dbo.Events [\u0414\u0430\u043D\u043D\u044B\u0435]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Events.sql",
-              "ToolTip": "dbo.Events [\u0414\u0430\u043D\u043D\u044B\u0435]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-12-18T20:33:06.892Z",
-              "EditorCaption": ""
-            },
-            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "dbo.Events.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Events.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Events.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-12-18T20:33:06.892Z"
             },
             {
               "$type": "Document",
@@ -233,8 +232,7 @@
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\GroupController.cs",
               "ViewState": "AgIAACMAAAAAAAAAAAAwwDEAAACSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T18:29:09.97Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-17T18:29:09.97Z"
             },
             {
               "$type": "Document",
@@ -246,8 +244,7 @@
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\EventController.cs",
               "ViewState": "AgIAADgAAAAAAAAAAAAwwEYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T18:28:48.331Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-17T18:28:48.331Z"
             },
             {
               "$type": "Document",
@@ -257,7 +254,7 @@
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
               "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
-              "ViewState": "AgIAANUAAAAAAAAAAAAgwO0AAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAANUAAAAAAAAAAAAgwOsAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-14T07:49:20.255Z",
               "EditorCaption": ""
@@ -317,8 +314,7 @@
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\MaterialController.cs",
               "ViewState": "AgIAAD8AAAAAAAAAAAAowEQAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T18:26:41.92Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-17T18:26:41.92Z"
             },
             {
               "$type": "Document",
@@ -330,8 +326,7 @@
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Material.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-07T16:23:26.872Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-07T16:23:26.872Z"
             },
             {
               "$type": "Document",
@@ -343,8 +338,7 @@
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\StudentAnswer.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAowBsAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T19:14:22.924Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-17T19:14:22.924Z"
             },
             {
               "$type": "Document",
@@ -356,8 +350,7 @@
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Course.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T15:25:45.459Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-16T15:25:45.459Z"
             },
             {
               "$type": "Document",

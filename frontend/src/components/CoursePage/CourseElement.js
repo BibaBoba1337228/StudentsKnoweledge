@@ -140,6 +140,7 @@ const AccordionItem = ({
         }
     };
 
+
     const saveNewTitle = async () => {
         try {
             const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${courseId}/Sections/${sectionId}`, {
@@ -313,6 +314,34 @@ const AccordionSubItem = ({
         }
     };
 
+    const handleDelete = async () => {
+        try {
+            const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${sectionId}/Material/${materialId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                setData(prevData => {
+                    const updatedData = prevData.map(section => {
+                        if (section.id === sectionId) {
+                            return {
+                                ...section,
+                                materials: section.materials.filter(material => material.id !== materialId),
+                            };
+                        }
+                        return section;
+                    });
+                    return updatedData;
+                });
+            } else {
+                console.error('Ошибка удаления материала');
+            }
+        } catch (error) {
+            console.error('Ошибка подключения к серверу:', error);
+        }
+    };
+
+
     const handleItemClick = async () => {
         if (type === "File" && filePath) {
             const fullPath = `https://${process.env.REACT_APP_API_BASE_URL}/${filePath}`;
@@ -368,7 +397,7 @@ const AccordionSubItem = ({
                         <img src={isVisible ? eye : crossedEye} alt="View Icon"
                              style={{marginRight: '20px', width: '20px'}}/>
                     </button>
-                    <button style={{all: "unset"}}>
+                    <button style={{all: "unset"}} onClick={handleDelete}>
                         <img src={cross} alt="Delete Icon" style={{marginRight: '20px', width: '20px'}}/>
                     </button>
                 </div>

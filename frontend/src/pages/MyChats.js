@@ -29,8 +29,9 @@ function MyChats() {
                              onClick={() => navigate(`/system/chats/${chat.id}`)}
                              style={{cursor: "pointer"}}>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                                <img src={`https://${process.env.REACT_APP_API_BASE_URL}/${chat.interlocutor?.photo}`}
-                                     alt="Chats" style={{width: '80px'}}/>
+                                <img
+                                    src={chat.interlocutor?.photo.includes('files') ? `https://${process.env.REACT_APP_API_BASE_URL}/${chat.interlocutor?.photo}` : `https://${process.env.REACT_APP_API_BASE_URL}/files/${chat.interlocutor?.photo}`}
+                                    alt="Chats" style={{width: '80px'}}/>
 
                                 <div className="MyChatsTextBlockWithChatsImage">
                                     <div

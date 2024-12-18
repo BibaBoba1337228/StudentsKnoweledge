@@ -18,7 +18,7 @@ function LrManage() {
     const [error, setError] = useState(null); // for error state
 
     const handleTitleChange = (e) => {
-        setTitle(e.target.innerText); // update title when content changes
+        setTitle(e.currentTarget.textContent);
     };
 
     const handleContentChange = (e) => {
@@ -83,7 +83,6 @@ function LrManage() {
                         contentEditable
                         suppressContentEditableWarning
                         onInput={handleTitleChange}
-                        dangerouslySetInnerHTML={{__html: title}}
                         disabled={isSaving}
                     />
                     <div id="LrManageDelimiter"></div>
