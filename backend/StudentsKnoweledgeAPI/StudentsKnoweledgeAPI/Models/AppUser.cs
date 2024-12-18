@@ -6,7 +6,7 @@ namespace StudentsKnoweledgeAPI.Models
     {
         public UserRole Role { get; set; }
 
-        public string ProfilePictureUrl { get; set; } = "files/UserProfilePictures/default.svg";
+        public string ProfilePictureUrl { get; set; } = "UserProfilePictures/default.svg";
     }
 }
 

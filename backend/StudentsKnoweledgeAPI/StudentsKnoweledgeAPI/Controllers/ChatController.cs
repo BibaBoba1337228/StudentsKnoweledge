@@ -18,12 +18,14 @@ namespace StudentsKnoweledgeAPI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly AppDbContext _context;
         private readonly IHubContext<ChatHub> _hubContext;
+        private readonly IHubContext<NotificationHub> _hubContext2;
 
-        public ChatController(UserManager<AppUser> userManager, AppDbContext context, IHubContext<ChatHub> hubContext)
+        public ChatController(UserManager<AppUser> userManager, AppDbContext context, IHubContext<ChatHub> hubContext, IHubContext<NotificationHub> hubContext2)
         {
             _userManager = userManager;
             _context = context;
             _hubContext = hubContext;
+            _hubContext2 = hubContext2;
         }
 
         // Получить все чаты пользователя
@@ -229,7 +231,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (chat == null)
                 return NotFound(new { message = "Chat not found." });
 
-            var sender = await _userManager.FindByIdAsync(request.SenderId);
+            var sender = await _context.StudingUsers.FindAsync(request.SenderId);
             if (sender == null)
                 return BadRequest(new { message = "Sender not found." });
 
@@ -251,6 +253,44 @@ namespace StudentsKnoweledgeAPI.Controllers
                 SenderId = message.SenderId,
                 SendDate = message.SendDate
             });
+
+            var chatHub = _hubContext.Clients.Group(chatId.ToString());
+            var connectedClientsCount = ChatHub.GetConnectedClientsCount(chatId.ToString());
+
+
+            var recipientId = chat.User1Id != request.SenderId ? chat.User1Id : chat.User2Id;
+
+            // If there's only one connected client, send a notification
+            if (connectedClientsCount == 1)
+            {
+                var recipient = await _context.StudingUsers.FindAsync(recipientId);
+                if (recipient != null)
+                {
+                    var notification = new Notification
+                    {
+                        UserId = recipientId,  // Send notification to recipient, not sender
+                        SenderFio = $"{sender.LastName} {sender.Name[0]}. {sender.MiddleName[0]}.",  // Sender's name
+                        Url = $"/system/chats/{chatId}",
+                        Text = $"У вас новое сообщение от {sender.LastName} {sender.Name[0]}. {sender.MiddleName[0]}.",
+                        isReaded = false
+                    };
+
+                    _context.Notifications.Add(notification);
+                    await _context.SaveChangesAsync();
+
+                    // Send the notification to the recipient (not the sender)
+                    await _hubContext2.Clients.User(recipientId).SendAsync("ReceiveNotification", new
+                    {
+                        UserId = recipientId,  // Send notification to recipient, not sender
+                        SenderFio = $"{sender.LastName} {sender.Name[0]}. {sender.MiddleName[0]}.",  // Sender's name
+                        Url = $"/system/chats/{chatId}",
+                        Text = $"У вас новое сообщение от {sender.LastName} {sender.Name[0]}. {sender.MiddleName[0]}.",
+                        isReaded = false
+                    });
+                }
+            }
+
+
 
             return Ok(message);
         }
@@ -294,28 +334,37 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized(new { message = "User not authenticated." });
 
-            var recentMessages = await _context.Messages
-                .Where(m => m.SenderId != userId)
-                .Include(m => m.Sender)
-                .OrderByDescending(m => m.SendDate) 
-                .Take(3)                           
+            // Получаем все чаты, в которых участвует пользователь
+            var userChats = await _context.Chats
+                .Where(uc => uc.User1Id == userId || uc.User2Id == userId)
+                .Select(uc => uc.Id) // Список чатов, в которых участвует пользователь
                 .ToListAsync();
 
+            if (!userChats.Any())
+                return Ok("Бебра1");
 
+            // Теперь фильтруем сообщения, относящиеся к этим чатам
+            var recentMessages = await _context.Messages
+                .Where(m => m.SenderId != userId && userChats.Contains(m.ChatId)) // Фильтруем по чатам
+                .Include(m => m.Sender)
+                .OrderByDescending(m => m.SendDate)
+                .Take(3)
+                .ToListAsync();
 
             if (!recentMessages.Any())
-                return NotFound(new { message = "No recent messages found." });
-            
+                return Ok("Бебра2");
+
             var preparedMessages = recentMessages.Select(message => new
             {
                 id = message.Id,
                 text = message.Text,
                 sendDate = message.SendDate,
-                sender = $"{message.Sender.LastName} {message.Sender.Name[0]}. {message.Sender.MiddleName[0]}." ,
+                sender = $"{message.Sender.LastName} {message.Sender.Name[0]}. {message.Sender.MiddleName[0]}."
             }).ToList();
 
             return Ok(preparedMessages);
         }
+
     }
 
 

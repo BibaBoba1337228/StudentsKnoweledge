@@ -24,7 +24,7 @@ function RightMenu() {
     useEffect(() => {
         const fetchRecentEvents = async () => {
             try {
-                const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/events/Event`, {
+                const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/events/Event/user-events`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -129,21 +129,25 @@ function RightMenu() {
                 <div id="RightMenuSectionLastMessages">
 
 
-                    {recentMessages.map((message, index) => (
-                        <div className="RightMenuSectionMessage">
+                    {recentMessages.length > 0 ? (
+                        recentMessages.map((message, index) => (
+                            <div className="RightMenuSectionMessage">
 
-                            <h1 className="RightMenuSectionMessageHeader">{message.sender}</h1>
-                            <div className="RightMenuSectionMessageDataAndDescription">
-                                <div className="RightMenuSectionMessageDescription">
-                                    {message.text}
+                                <h1 className="RightMenuSectionMessageHeader">{message.sender}</h1>
+                                <div className="RightMenuSectionMessageDataAndDescription">
+                                    <div className="RightMenuSectionMessageDescription">
+                                        {message.text}
+                                    </div>
+                                    <div className="RightMenuSectionMessageData">
+                                        {new Date(message.sendDate).toLocaleString()}
+                                    </div>
                                 </div>
-                                <div className="RightMenuSectionMessageData">
-                                    {new Date(message.sendDate).toLocaleString()}
-                                </div>
+
                             </div>
-
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <div className="RightMenuSectionEvent">Нет сообщений</div>
+                    )}
 
 
                 </div>

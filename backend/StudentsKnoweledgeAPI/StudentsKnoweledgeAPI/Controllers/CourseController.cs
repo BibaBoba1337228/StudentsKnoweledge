@@ -439,22 +439,41 @@ namespace StudentsKnoweledgeAPI.Controllers
         public async Task<IActionResult> GetCoursesByUser()
         {
             // Получаем текущего пользователя (например, из контекста запроса)
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // Assuming you are using JWT authentication
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            var user = await _context.Users.FindAsync(userId);
+
+
+
             if (string.IsNullOrEmpty(userId))
             {
                 return Unauthorized(new { message = "User is not authenticated." });
             }
 
-            // Получаем список курсов, в которых пользователь состоит как студент или преподаватель
+            // Если пользователь — администратор, возвращаем все курсы
+            if (user.Role == UserRole.Admin) // Замените "Admin" на точное название роли администратора в вашей системе
+            {
+                var allCourses = await _context.Courses
+                    .Include(c => c.Groups)   // Включаем группы
+                    .Include(c => c.Teachers) // Включаем преподавателей
+                    .ToListAsync();
+
+
+                return Ok(allCourses);
+            }
+
+            // Если не администратор, получаем курсы пользователя
             var courses = await _context.Courses
                 .Include(c => c.Groups)   // Включаем группы, чтобы проверить студентов
                 .Include(c => c.Teachers) // Включаем преподавателей
-                .Where(c => c.Groups.Any(g => g.Students.Any(s => s.Id.ToString() == userId)) || c.Teachers.Any(t => t.Id.ToString() == userId))
+                .Where(c => c.Groups.Any(g => g.Students.Any(s => s.Id.ToString() == userId))
+                         || c.Teachers.Any(t => t.Id.ToString() == userId))
                 .ToListAsync();
-
 
             return Ok(courses);
         }
+
 
 
         [HttpGet("{courseId}/Task/{id}")]

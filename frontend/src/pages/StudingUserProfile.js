@@ -67,11 +67,11 @@ function StudingUserProfile() {
                         <div className="MyProfileInfoBlockWithProfileImage">
 
                             <ProfileImage
-                                initialPictureUrl={`https://${process.env.REACT_APP_API_BASE_URL}/files/${userData.profilePictureUrl}`}/>
+                                initialPictureUrl={userData.profilePictureUrl.includes('files') ? `https://${process.env.REACT_APP_API_BASE_URL}/${userData.profilePictureUrl}` : `https://${process.env.REACT_APP_API_BASE_URL}/files/${userData.profilePictureUrl}`}/>
 
                             <div className="MyProfileTextBlockWithProfileImage">
                                 <div
-                                    className="MyProfileInfoBlockHeaderWithProfileImage">{userData.lastName} {userData.name[0]}. {userData.middleName[0]}.
+                                    className="MyProfileInfoBlockHeaderWithProfileImage">{userData.middleName} {userData.name[0]}. {userData.lastName[0]}.
                                 </div>
 
                                 {userData.id === userId ? (

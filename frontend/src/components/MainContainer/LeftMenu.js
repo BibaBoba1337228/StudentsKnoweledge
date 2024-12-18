@@ -11,16 +11,85 @@ import LogoutIcon from '../../assets/icons/logout_icon.svg';
 import KeyIcon from '../../assets/icons/key.svg';
 import {Link, useNavigate} from "react-router-dom";
 import {fetchWithAuth} from "../../api/fetchWithAuth";
+import {HubConnectionBuilder} from '@microsoft/signalr';
+import HaveNotifs from '../../assets/icons/notification2.svg';
 
 function LeftMenu({onMenuToggle}) {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [role, setRole] = useState(null); // To store the role
+    const [notifications, setNotifications] = useState([]);
+    const [hubConnection, setHubConnection] = useState(null); // For storing the connection
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+    console.log(`https://${process.env.REACT_APP_API_BASE_URL}/notificationHub?userId=${localStorage.getItem("user_id")}`)
+
+    useEffect(() => {
+        // Fetch notifications on load
+        const getNotifications = async () => {
+            const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Notification/user`, {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setNotifications(data.reverse());
+            }
+        };
+
+        getNotifications();
+
+        // Create connection with the server
+        const connection = new HubConnectionBuilder()
+            .withUrl(`https://${process.env.REACT_APP_API_BASE_URL}/notificationHub?userId=${localStorage.getItem("user_id")}`)
+            .build();
+
+        connection.on('ReceiveNotification', (notification) => {
+            setNotifications(prevNotifications => [notification, ...prevNotifications]);
+            console.log("Бэдра")
+        });
+
+        connection.start()
+            .then(() => console.log("Socket connection established"))
+            .catch((err) => console.error("Socket connection error: ", err));
+
+        setHubConnection(connection);
+
+        return () => {
+            if (hubConnection) {
+                hubConnection.stop();
+            }
+        };
+    }, []);
+
+
+    const markAllAsRead = async () => {
+        try {
+            const response = await fetchWithAuth(
+                `https://${process.env.REACT_APP_API_BASE_URL}/api/Notification/user/mark-as-read`,
+                {
+                    method: 'POST',
+                    credentials: 'include',
+                }
+            );
+
+            if (response.ok) {
+                // Если запрос успешен, очищаем список уведомлений
+                setNotifications([]);
+                alert("Все уведомления отмечены как прочитанные.");
+            } else {
+                console.error("Ошибка при попытке отметить уведомления как прочитанные.");
+            }
+        } catch (error) {
+            console.error("Ошибка при отправке запроса:", error);
+        }
+    };
+
 
     useEffect(() => {
         // Get role from localStorage
         const storedRole = localStorage.getItem('role');
-        setRole(storedRole);  // Update role state
+        setRole(storedRole);
     }, []);
 
     const toggleMenu = () => {
@@ -44,10 +113,25 @@ function LeftMenu({onMenuToggle}) {
                 localStorage.clear();
                 navigate('/login');
             } else {
-                console.log('Ошибка входа. Проверьте логин и пароль.');
+                console.log('Login error. Please check your credentials.');
             }
         } catch (error) {
-            console.log('Ошибка подключения. Пожалуйста, попробуйте позже.');
+            console.log('Connection error. Please try again later.');
+        }
+    };
+
+    const openNotificationModal = () => {
+        setIsModalOpen(prevState => !prevState);  // Toggle the modal open/close
+    };
+
+    const closeNotificationModal = () => {
+        setIsModalOpen(false);  // Explicitly close the modal
+    };
+
+    // Close modal when clicking outside of it
+    const handleClickOutside = (event) => {
+        if (event.target.id === 'modal-overlay') {
+            closeNotificationModal();
         }
     };
 
@@ -68,7 +152,12 @@ function LeftMenu({onMenuToggle}) {
                         <img src={MessengerIcon} alt="Messenger icon" style={{width: "20px"}}/>
                         {!isCollapsed && <p className="LeftMenuTopPageName">Сообщения</p>}
                     </div>
-                    {/* Conditionally render Admin Panel link based on role */}
+                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={openNotificationModal}
+                         style={{cursor: "pointer"}}>
+                        <img src={notifications.length > 0 ? HaveNotifs : NotificationIcon} alt="Notification icon"
+                             style={{width: "20px"}}/>
+                        {!isCollapsed && <p className="LeftMenuTopPageName">Уведомления</p>}
+                    </div>
                     {role === '3' && (
                         <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}
                              onClick={() => navigate('/system/admin')}
@@ -79,6 +168,62 @@ function LeftMenu({onMenuToggle}) {
                     )}
                 </div>
             </div>
+
+            {isModalOpen && (
+                <div id="modal-overlay" className="modal-overlay" onClick={handleClickOutside}>
+                    <div className="modal-content">
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                marginBottom: '15px'
+                            }}
+                        >
+                            <h2 style={{margin: 0}}>Уведомления</h2>
+                            <div
+                                onClick={markAllAsRead}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: '30px',
+                                    height: '30px',
+                                    color: 'white',
+                                    borderRadius: '50%',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.9)'
+                                }}
+                                title="Отметить все как прочитанные"
+                            >
+                                {/* Галочка в виде SVG */}
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="black"
+                                    width="20px"
+                                    height="20px"
+                                >
+                                    <path d="M9 16.17l-4.41-4.42L3 13.34 9 19.34 21 7.34 19.59 6l-10.59 10.59z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <ul className="notification-list">
+                            {notifications.map((notification, index) => (
+                                <li key={index} style={{marginBottom: '10px'}}>
+                                    <a
+                                        href={notification.url}
+                                        style={{all: 'unset', cursor: 'pointer', marginBottom: '10px'}}
+                                    >
+                                        {notification.text}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            )}
+
 
             <div id="LeftMenuDownPagesContainer">
                 <div id="LeftMenuTopPages" className={isCollapsed ? 'collapsed' : ''}>

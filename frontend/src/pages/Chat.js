@@ -8,10 +8,10 @@ import {ErrorHandler, ErrorModal, fetchWithErrorHandling} from "../components/Er
 function Chat() {
     const {chatId} = useParams();
     const chat = useLoaderData();
-    const [messages, setMessages] = useState(chat.messages || []); // сообщения
-    const [newMessage, setNewMessage] = useState(''); // новое сообщение
-    const messagesEndRef = useRef(null); // ссылка для прокрутки в конец чата
-    const [connection, setConnection] = useState(null); // SignalR соединение
+    const [messages, setMessages] = useState(chat.messages || []);
+    const [newMessage, setNewMessage] = useState('');
+    const messagesEndRef = useRef(null);
+    const connectionRef = useRef(null); // Используем useRef для хранения соединения
 
     const [skip, setSkip] = useState(chat.messages.length);
     const take = 20;
@@ -19,43 +19,42 @@ function Chat() {
     const [hasMore, setHasMore] = useState(true);
     const containerRef = useRef(null);
 
-    const [error, setError] = useState(null); // Состояние для ошибки
+    const [error, setError] = useState(null);
     const errorHandler = new ErrorHandler(setError);
+
     useEffect(() => {
-        errorHandler.setErrorCallback(setError); // Передаем setError в errorHandler
-
+        errorHandler.setErrorCallback(setError);
     }, []);
-    console.log(chat);
-    console.log("Сообщения", messages);
 
-
-    const closeErrorModal = () => {
-        setError(null); // Закрытие модального окна
-    };
-
-
-    // Настройка SignalR
+    // Настройка SignalR соединения
     useEffect(() => {
         const connect = new HubConnectionBuilder()
             .withUrl(`https://${process.env.REACT_APP_API_BASE_URL}/chatHub?chatId=${chatId}`)
             .withAutomaticReconnect()
             .build();
 
-        setConnection(connect);
+        connectionRef.current = connect; // Сохраняем соединение в useRef
 
         connect.start()
             .then(() => console.log("Connected to SignalR"))
             .catch((err) => console.error("SignalR Connection Error: ", err));
 
+        // Очистка при размонтировании компонента
         return () => {
-            if (connection) {
-                connection.stop();
+            if (connectionRef.current) {
+                connectionRef.current.stop().then(() => {
+                    console.log("SignalR connection closed");
+                }).catch((err) => {
+                    console.error("Error while stopping connection:", err);
+                });
             }
         };
-    }, [chatId]);
+    }, [chatId]); // Зависимость от chatId, чтобы пересоздавать соединение при смене чата
 
-    // Обработка сообщений от SignalR
+    // Обработка входящих сообщений
     useEffect(() => {
+        const connection = connectionRef.current;
+
         if (connection) {
             connection.on("ReceiveMessage", (message) => {
                 if (message.senderId !== localStorage.getItem("user_id")) {
@@ -67,7 +66,7 @@ function Chat() {
                 connection.off("ReceiveMessage");
             };
         }
-    }, [connection]);
+    }, []);
 
     const sendMessage = async () => {
         if (newMessage.trim()) {
@@ -81,13 +80,12 @@ function Chat() {
                 sendDate: new Date().toISOString(),
                 senderId: localStorage.getItem("user_id"),
                 isReaded: false,
-            }
+            };
             const updatedMessages = [
                 sendedMsg,
                 ...messages,
             ];
             setMessages(updatedMessages);
-
 
             const data = await fetchWithErrorHandling(
                 `https://${process.env.REACT_APP_API_BASE_URL}/api/Chat/${chatId}/messages`,
@@ -102,7 +100,6 @@ function Chat() {
                 errorHandler
             );
             if (data !== null) {
-                console.log(data);
                 sendedMsg.sendDate = data.sendDate;
                 sendedMsg.isReaded = data.isReaded;
                 sendedMsg.id = data.id;
@@ -113,7 +110,6 @@ function Chat() {
     const loadMessages = async () => {
         if (loading) return;
         setLoading(true);
-
 
         const response = await fetchWithErrorHandling(
             `https://${process.env.REACT_APP_API_BASE_URL}/api/Chat/${chatId}/messages?skip=${skip}&take=${take}`,
@@ -127,7 +123,6 @@ function Chat() {
         setMessages(prev => [...prev, ...response]);
         setSkip(prev => prev + take);
 
-
         if (response.length < take) {
             setHasMore(false);
         } else {
@@ -139,15 +134,11 @@ function Chat() {
     const handleScroll = () => {
         if (!hasMore || loading) {
             return;
-        };
+        }
+        ;
 
         const element = containerRef.current;
-        console.log(element.scrollTop)
-        console.log(element.scrollHeight)
-        console.log(element.clientHeight)
-
         if (element.scrollHeight + element.scrollTop < element.clientHeight * 1.2) {
-            console.log("ПУсти сука");
             loadMessages();
         }
     };
@@ -159,9 +150,10 @@ function Chat() {
         }
     };
 
-    // useEffect(() => {
-    //
-    // }, [messages]);
+    const closeErrorModal = () => {
+        setError(null);
+    };
+
 
     return (
         <div id="ChatWrapper">

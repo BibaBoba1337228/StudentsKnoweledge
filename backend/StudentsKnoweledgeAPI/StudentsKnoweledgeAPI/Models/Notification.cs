@@ -13,6 +13,10 @@
 
         public string Text { get; set; }
 
+        public bool isReaded { get; set; } = false;
+
+        public string SenderFio { get; set; }
+
 
 
 

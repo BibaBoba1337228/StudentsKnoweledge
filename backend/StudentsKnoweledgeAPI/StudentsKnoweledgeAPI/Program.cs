@@ -76,6 +76,7 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.MapHub<ChatHub>("/chatHub");
+app.MapHub<NotificationHub>("/notificationHub");
 
 
 

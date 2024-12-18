@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
 using StudentsKnoweledgeAPI.RequestsTemplates;
+using System.Security.Claims;
 
 namespace StudentsKnoweledgeAPI.Controllers
 {
@@ -25,6 +26,35 @@ namespace StudentsKnoweledgeAPI.Controllers
             var events = await _context.Events.Include(e => e.Course).ToListAsync();
             return Ok(events);
         }
+
+        [HttpGet("user-events")]
+        public async Task<IActionResult> GetUserEvents()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Получаем все курсы, на которых состоит пользователь (либо как студент, либо как преподаватель)
+            var userCourses = await _context.Courses
+                .Where(c => c.Groups.Any(g => g.Students.Any(s => s.Id.ToString() == userId))
+                            || c.Teachers.Any(t => t.Id.ToString() == userId))
+                .ToListAsync();
+
+            if (!userCourses.Any())
+            {
+                return NotFound(new { message = "User is not enrolled in any courses." });
+            }
+
+            // Получаем все события для этих курсов
+            var events = await _context.Events
+                .Where(e => userCourses.Select(c => c.Id).Contains(e.CourseId))  // Фильтруем события по курсу
+                .Include(e => e.Course)                                          // Включаем информацию о курсе
+                .ToListAsync();
+
+            return Ok(events);
+        }
+
+
+
+
 
         // Получение события по ID
         [HttpGet("{id}")]

@@ -831,6 +831,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.EventController",
+    "Method": "GetUserEvents",
+    "RelativePath": "api/events/Event/user-events",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.GroupController",
     "Method": "GetAllGroups",
     "RelativePath": "api/Group",
@@ -1194,17 +1204,21 @@
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.NotificationController",
     "Method": "GetNotificationsByUserId",
-    "RelativePath": "api/Notification/user/{userId}",
+    "RelativePath": "api/Notification/user",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userId",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.NotificationController",
+    "Method": "MarkAllUnreadNotificationsAsRead",
+    "RelativePath": "api/Notification/user/mark-as-read",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

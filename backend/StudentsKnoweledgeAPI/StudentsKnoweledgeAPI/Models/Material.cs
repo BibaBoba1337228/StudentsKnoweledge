@@ -8,7 +8,7 @@ namespace StudentsKnoweledgeAPI.Models
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
 
-        public bool IsVisible { get; set; } = true;
+        public bool IsVisible { get; set; } = false;
 
 
 

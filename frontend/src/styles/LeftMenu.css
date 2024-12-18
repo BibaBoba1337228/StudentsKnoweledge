@@ -16,6 +16,28 @@
 
 }
 
+.notification-list {
+    max-height: 400px; /* Высота для отображения примерно 10 уведомлений */
+    overflow-y: auto; /* Добавление вертикальной прокрутки */
+    padding: 0;
+    margin: 0;
+    list-style-type: none; /* Убираем маркеры списка */
+}
+
+.notification-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3); /* Цвет прокрутки */
+    border-radius: 4px;
+}
+
+.notification-list::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
 .LeftMenuTopPageName {
     font-family: "Igra Sans";
     font-size: 14px;

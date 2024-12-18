@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StudentsKnoweledgeAPI.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace StudentsKnoweledgeAPI.Controllers
 {
@@ -29,22 +30,51 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         // Получение уведомлений пользователя по UserId
-        [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetNotificationsByUserId(string userId)
+        [HttpGet("user")]
+        public async Task<IActionResult> GetNotificationsByUserId()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
                 return NotFound(new { message = "User not found." });
 
-            var notifications = await _context.Notifications
+            var unreadNotifications = await _context.Notifications
                 .Include(n => n.StudingUser)
-                .Where(n => n.UserId == userId)
+                .Where(n => n.UserId == userId && !n.isReaded) // Только непрочитанные
                 .ToListAsync();
 
-            if (!notifications.Any())
-                return NotFound(new { message = "No notifications found for the user." });
+            if (!unreadNotifications.Any())
+                return NotFound(new { message = "No unread notifications found for the user." });
 
-            return Ok(notifications);
+            return Ok(unreadNotifications);
+        }
+
+        [HttpPost("user/mark-as-read")]
+        public async Task<IActionResult> MarkAllUnreadNotificationsAsRead()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return NotFound(new { message = "User not found." });
+
+            var unreadNotifications = await _context.Notifications
+                .Where(n => n.UserId == userId && !n.isReaded)
+                .ToListAsync();
+
+            if (!unreadNotifications.Any())
+                return NotFound(new { message = "No unread notifications to mark as read." });
+
+            // Пометка уведомлений как прочитанные
+            foreach (var notification in unreadNotifications)
+            {
+                notification.isReaded= true;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "All unread notifications marked as read." });
         }
 
         // Получение уведомления по ID
