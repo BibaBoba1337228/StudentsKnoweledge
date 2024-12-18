@@ -2,26 +2,38 @@ import '../styles/AdminPanel.css'
 import '../styles/fonts.css'
 import {useNavigate} from 'react-router-dom';
 import SearchIcon from '../assets/icons/search.svg'
-import React, {useEffect, useState} from "react";
-import PencilIcon from '../assets/icons/pencil.svg'
-import Cross from '../assets/icons/cross.svg'
+import React, {useEffect, useRef, useState} from "react";
+import PencilIcon from '../assets/icons/pencil.svg';
+import Cross from '../assets/icons/cross.svg';
 import {fetchWithErrorHandling, ErrorHandler, ErrorModal} from "../components/ErrorHandler";
+import Double_arrow_mirrored from "../assets/icons/double_arrow_mirrored.svg";
+import Double_arrow from "../assets/icons/double_arrow.svg";
+import Arrow_mirrored from "../assets/icons/arrow_mirrored.svg";
+import Arrow from "../assets/icons/arrow.svg";
+
 
 
 function AdminPanel() {
     const navigate = useNavigate();
 
-    const [currentTable, setCurrentTable] = useState("Курсы");
+    const [currentTable, setCurrentTable] = useState("Преподаватели");
     const [isTeachersOpen, setIsTeachersOpen] = useState(false);
     const [isGroupsOpen, setIsGroupsOpen] = useState(false);
     const [isCourseOpen, setIsCourseOpen] = useState(false);
     const [isStudentsOpen, setIsStudentsOpen] = useState(false);
 
-    const [cources, setCources] = useState([]);
+    // const [cources, setCources] = useState([]);
     const [groups, setGroups] = useState([]);
-    const [teachers, setTeachers] = useState([]);
-    const [students, setStudents] = useState([]);
+    // const [teachers, setTeachers] = useState([]);
+    // const [students, setStudents] = useState([]);
+    const [data, setData] = useState({data: [], totalCount: 0});
+    const [totalCount, setTotalCount] = useState(data.totalCount);
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(12);
+
+    const itemsPerPageRef = useRef(null);
     const [isEditMode, setIsEditMode] = useState(false);  // Для проверки, в режиме ли редактирования
 
     const [selectedCourseId, setSelectedCourseId] = useState(null);
@@ -33,11 +45,11 @@ function AdminPanel() {
     const [semester, setSemester] = useState(1);
     const [groupName, setGroupName] = useState("");
 
-    const [error, setError] = useState(null); // Состояние для ошибки
+    const [error, setError] = useState(null);
     const errorHandler = new ErrorHandler(setError);
 
     useEffect(() => {
-        errorHandler.setErrorCallback(setError); // Передаем setError в errorHandler
+        errorHandler.setErrorCallback(setError);
 
     }, []);
 
@@ -109,16 +121,16 @@ function AdminPanel() {
     useEffect(() => {
         switch (currentTable) {
             case "Курсы":
-                GetCourses();
+                GetData("Курсы");
                 break;
             case "Группы":
-                GetGroups();
+                GetData("Группы");
                 break;
             case "Преподаватели":
-                GetTeachers();
+                GetData("Преподаватели");
                 break;
             case "Студенты":
-                GetStudents();
+                GetData("Студенты");
                 break;
         }
 
@@ -126,6 +138,7 @@ function AdminPanel() {
 
 
     const OpenAddModal = () => {
+        console.log("Я приехал", currentTable)
         switch (currentTable) {
             case "Курсы":
                 setIsCourseOpen(true);
@@ -137,7 +150,6 @@ function AdminPanel() {
                 setIsTeachersOpen(true);
                 break;
             case "Студенты":
-                GetStudents();
                 GetGroups();
                 setIsStudentsOpen(true);
                 break;
@@ -180,24 +192,25 @@ function AdminPanel() {
         const sem = semester % 2 === 0 ? "лето" : "осень"; // Если четное число, то лето, если нечетное - осень
         return `${year} курс ${semester} семестр`;
     };
+    //
+    // useEffect(() => {
+    //     if (isStudentsOpen) {
+    //         GetGroups("Группы"); // Функция для загрузки списка групп
+    //     }
+    // }, [isStudentsOpen]);
 
-    useEffect(() => {
-        if (isStudentsOpen) {
-            GetGroups(); // Функция для загрузки списка групп
-        }
-    }, [isStudentsOpen]);
 
-
-    const GetCourses = async () => {
-        await fetchWithErrorHandling(
-            `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/`,
-            {method: "GET", credentials: "include"},
-            (courses) => setCources(courses),
-            errorHandler
-        );
-    };
-
+    // const GetCourses = async () => {
+    //     await fetchWithErrorHandling(
+    //         `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/`,
+    //         {method: "GET", credentials: "include"},
+    //         (courses) => setData(courses),
+    //         errorHandler
+    //     );
+    // };
+    //
     const GetGroups = async () => {
+        console.log("хруппы")
         await fetchWithErrorHandling(
             `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/`,
             {method: "GET", credentials: "include"},
@@ -205,23 +218,95 @@ function AdminPanel() {
             errorHandler
         );
     };
+    //
+    // const GetTeachers = async () => {
+    //     await fetchWithErrorHandling(
+    //         `https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher/`,
+    //         {method: "GET", credentials: "include"},
+    //         (teachers) => setData(teachers),
+    //         errorHandler
+    //     );
+    // };
+    //
+    // const GetStudents = async () => {
+    //     await fetchWithErrorHandling(
+    //         `https://${process.env.REACT_APP_API_BASE_URL}/api/Student/`,
+    //         {method: "GET", credentials: "include"},
+    //         (students) => setData(students),
+    //         errorHandler
+    //     );
+    // };
 
-    const GetTeachers = async () => {
-        await fetchWithErrorHandling(
-            `https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher/`,
-            {method: "GET", credentials: "include"},
-            (teachers) => setTeachers(teachers),
-            errorHandler
-        );
-    };
+    const GetData = async (currentTable) => {
+        console.log("Да как так то епта",currentTable)
 
-    const GetStudents = async () => {
-        await fetchWithErrorHandling(
-            `https://${process.env.REACT_APP_API_BASE_URL}/api/Student/`,
-            {method: "GET", credentials: "include"},
-            (students) => setStudents(students),
-            errorHandler
-        );
+        let url  = "";
+        switch (currentTable) {
+            case "Курсы":
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/paginated?page=1&limit=${itemsPerPage}`;
+                break;
+            case "Группы":
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/paginated?page=1&limit=${itemsPerPage}`;
+                break;
+            case "Преподаватели":
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher/paginated?page=1&limit=${itemsPerPage}`;
+                break;
+            case "Студенты":
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Student/paginated?page=1&limit=${itemsPerPage}`;
+                break;
+        }
+
+        if (url !== ""){
+            setCurrentPage(1);
+             const responseData = await fetchWithErrorHandling(
+                url,
+                {method: "GET", credentials: "include"},
+                null,
+                errorHandler
+            );
+            setData(responseData);
+            setTotalCount(responseData.totalCount);
+            setTotalPages(Math.ceil(responseData.totalCount / Number(itemsPerPageRef.current.value)) || 1)
+
+        }
+        console.log("Щас будет дата дон",data)
+    }
+
+
+    const paginate = async (pageNumber, pageSize) => {
+        let url  = "";
+        switch (currentTable) {
+            case "Курсы":
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Course/paginated`;
+                break;
+            case "Группы":
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/paginated`;
+                break;
+            case "Преподаватели":
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher/paginated`;
+                break;
+            case "Студенты":
+                url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Student/paginated`;
+                break;
+        }
+        url = `${url}?page=${pageNumber}&limit=${pageSize}`
+        if (url !== ""){
+            await fetchWithErrorHandling(
+                url,
+                {method: "GET", credentials: "include"},
+                (students) => setData(students),
+                errorHandler
+            );
+            setCurrentPage(pageNumber);
+        }
+    }
+
+    const handleItemsPerPageChange = async (e) => {
+        console.log(itemsPerPageRef.current);
+        setItemsPerPage(Number(itemsPerPageRef.current.value));
+        await paginate(currentPage, Number(itemsPerPageRef.current.value));
+        setTotalPages(Math.ceil(totalCount / Number(itemsPerPageRef.current.value)) || 1)
+
     };
 
     const DeleteEntity = async (entityType, entityId, setter) => {
@@ -253,7 +338,7 @@ function AdminPanel() {
                 body: JSON.stringify(newCourse),
             },
             (addedCourse) => {
-                setCources((prevCources) => [...prevCources, addedCourse]);
+                setData((prevCources) => [...prevCources, addedCourse]);
                 // Закрыть модальное окно
             },
             errorHandler
@@ -280,7 +365,7 @@ function AdminPanel() {
                 body: JSON.stringify(updatedCourse),
             },
             (course) => {
-                setCources((prevCources) =>
+                setData((prevCources) =>
                     prevCources.map((c) => (c.id === course.id ? course : c))
                 );
                 // Закрыть модальное окно
@@ -309,7 +394,7 @@ function AdminPanel() {
                 body: JSON.stringify(body),
             },
             (newGroup) => {
-                setGroups((prevGroups) => [...prevGroups, newGroup]);
+                setData((prevGroups) => [...prevGroups, newGroup]);
                 // Закрыть модальное окно
             },
             errorHandler
@@ -330,7 +415,7 @@ function AdminPanel() {
             },
             (updatedGroupData) => {
                 // Обновляем данные в списке групп после успешного обновления
-                setGroups((prevGroups) =>
+                setData((prevGroups) =>
                     prevGroups.map((group) =>
                         group.id === selectedGroupId ? {...group, name: updatedGroup.name} : group
                     )
@@ -356,7 +441,7 @@ function AdminPanel() {
                 body: JSON.stringify(teacherData),
             },
             (newTeacher) => {
-                setTeachers((prevTeachers) => [...prevTeachers, newTeacher]);
+                setData((prevTeachers) => [...prevTeachers, newTeacher]);
                 // Закрыть модальное окно
             },
             errorHandler
@@ -376,7 +461,7 @@ function AdminPanel() {
                 body: JSON.stringify(updatedTeacher),
             },
             (updatedTeacherData) => {
-                setTeachers((prevTeachers) =>
+                setData((prevTeachers) =>
                     prevTeachers.map((teacher) =>
                         teacher.id === selectedTeacherId ? updatedTeacherData : teacher
                     )
@@ -404,7 +489,7 @@ function AdminPanel() {
                 body: JSON.stringify(studentData),
             },
             (newStudent) => {
-                setStudents((prevStudents) => [...prevStudents, newStudent]);
+                setData((prevStudents) => [...prevStudents, newStudent]);
                 // Закрыть модальное окно
             },
             errorHandler
@@ -426,7 +511,7 @@ function AdminPanel() {
                 body: JSON.stringify(updatedStudent),
             },
             (updatedStudentData) => {
-                setStudents((prevStudents) =>
+                setData((prevStudents) =>
                     prevStudents.map((student) =>
                         student.id === selectedStudentId ? updatedStudentData : student
                     )
@@ -464,15 +549,15 @@ function AdminPanel() {
                     <div>
                         <button id="AdminCourseButton"
                                 style={{cursor: "pointer"}} onClick={() => {
-                            GetCourses();
-                            console.log(cources);
+                            GetData("Курсы");
+                            console.log(data);
                             setCurrentTable("Курсы");
                         }}>Курсы
                         </button>
                         <button id="AdminGroupsButton"
                                 style={{cursor: "pointer"}} onClick={() => {
-                            GetGroups();
-                            console.log(groups);
+                            GetData("Группы");
+                            console.log(data);
                             setCurrentTable("Группы");
                         }}>Группы
                         </button>
@@ -480,25 +565,25 @@ function AdminPanel() {
 
                                 style={{cursor: "pointer"}}
                                 onClick={() => {
-                                    GetTeachers();
-                                    console.log(teachers);
+                                    GetData("Преподаватели");
+                                    console.log(data);
                                     setCurrentTable("Преподаватели");
                                 }}>Преподаватели
                         </button>
                         <button id="AdminStudentsButton"
                                 style={{cursor: "pointer"}} onClick={() => {
-                            GetStudents();
-                            console.log(students);
+                            GetData("Студенты");
+                            console.log(data);
                             setCurrentTable("Студенты");
                         }}>Студенты
                         </button>
                     </div>
 
-                    <div id="AdminPanelSearchBar">
-                        <input id="AdminPanelSearchBarInput" placeholder="Поиск курса"/>
-                        <img src={SearchIcon} alt="Иконка поиска" style={{width: '25px'}}/>
+                    {/*<div id="AdminPanelSearchBar">*/}
+                    {/*    <input id="AdminPanelSearchBarInput" placeholder="Поиск курса"/>*/}
+                    {/*    <img src={SearchIcon} alt="Иконка поиска" style={{width: '25px'}}/>*/}
 
-                    </div>
+                    {/*</div>*/}
 
                 </div>
 
@@ -531,7 +616,7 @@ function AdminPanel() {
 
                             <tbody style={{backgroundColor: '#FFEFEF'}}>
 
-                            {cources.map(course => (
+                            {data?.data.map(course => (
                                 <tr key={course.id}>
 
                                     <td id="AdminTableTd">{course.id}</td>
@@ -544,7 +629,7 @@ function AdminPanel() {
                                                  onClick={() => handleEditCourse(course)}/>
                                             <img src={Cross}
                                                  style={{width: '20px', marginRight: '5px', cursor: "pointer"}}
-                                                 onClick={() => DeleteEntity("Course", course.id, setCources)}/>
+                                                 onClick={() => DeleteEntity("Course", course.id, setData)}/>
                                         </div>
                                     </td>
 
@@ -579,7 +664,7 @@ function AdminPanel() {
 
                             <tbody style={{backgroundColor: '#FFEFEF'}}>
 
-                            {groups.map(group => (
+                            {data?.data.map(group => (
                                 <tr key={group.id}>
                                     <td id="AdminTableTd">{group.id}</td>
                                     <td id="AdminTableTd">{group.name}</td>
@@ -590,7 +675,7 @@ function AdminPanel() {
                                                  onClick={() => handleEditGroup(group)}/>
                                             <img src={Cross}
                                                  style={{width: '20px', marginRight: '5px', cursor: "pointer"}}
-                                                 onClick={() => DeleteEntity("Group", group.id, setGroups)}/>
+                                                 onClick={() => DeleteEntity("Group", group.id, setData)}/>
                                         </div>
                                     </td>
                                 </tr>
@@ -624,7 +709,7 @@ function AdminPanel() {
                             </thead>
 
                             <tbody style={{backgroundColor: '#FFEFEF'}}>
-                            {teachers.map(teacher => (
+                            {data?.data.map(teacher => (
                                 <tr key={teacher.id}>
                                     <td id="AdminTableTd">{teacher.id}</td>
                                     <td id="AdminTableTd">{teacher.userName}</td>
@@ -654,7 +739,7 @@ function AdminPanel() {
                                             <img
                                                 src={Cross}
                                                 style={{width: '20px', marginRight: '5px', cursor: "pointer"}}
-                                                onClick={() => DeleteEntity("Teacher", teacher.id, setTeachers)}
+                                                onClick={() => DeleteEntity("Teacher", teacher.id, setData)}
                                             />
                                         </div>
                                     </td>
@@ -690,14 +775,14 @@ function AdminPanel() {
 
                             <tbody style={{backgroundColor: '#FFEFEF'}}>
 
-                            {students.map(student => (
+                            {data?.data.map(student => (
                                 <tr key={student.id}>
                                     <td id="AdminTableTd">{student.id}</td>
                                     <td id="AdminTableTd">{student.userName}</td>
                                     <td id="AdminTableTd">{student.middleName}</td>
                                     <td id="AdminTableTd">{student.name}</td>
                                     <td id="AdminTableTd">{student.lastName}</td>
-                                    <td id="AdminTableTd">{student.group.name}</td>
+                                    <td id="AdminTableTd">{student.group?.name}</td>
                                     <td id="AdminTableTd">
                                         <div>
                                             <img src={PencilIcon}
@@ -721,7 +806,7 @@ function AdminPanel() {
                                                  }}/>
                                             <img src={Cross}
                                                  style={{width: '20px', marginRight: '5px', cursor: "pointer"}}
-                                                 onClick={() => DeleteEntity("Student", student.id, setStudents)}/>
+                                                 onClick={() => DeleteEntity("Student", student.id, setData)}/>
                                         </div>
                                     </td>
                                 </tr>
@@ -738,7 +823,52 @@ function AdminPanel() {
                                 style={{cursor: "pointer"}}>Добавить
                         </button>
                     </div>
+                    <div className="AdminPanel-pagination-wrapper">
+                        <div className="AdminPanel-pagination">
+                            <button
+                                onClick={() => paginate(1, itemsPerPage)}
+                                className={currentPage === 1 ? 'AdminPanel-page active' : 'AdminPanel-page'}
+                                disabled={currentPage === 1}
+                            >
+                                <img src={Double_arrow} width="20px" height="20px"/>
+                            </button>
+                            <button
+                                onClick={() => paginate(currentPage - 1, itemsPerPage)}
+                                className={currentPage === 1 ? 'AdminPanel-page active' : 'AdminPanel-page'}
+                                disabled={currentPage === 1}
+                            >
+                                <img src={Arrow_mirrored} width="20px" height="20px"/>
+                            </button>
+                            <div>
+                                Страница {currentPage} из {totalPages}
+                            </div>
+                            <button
+                                onClick={() => paginate(currentPage + 1, itemsPerPage)}
+                                className={currentPage === totalPages ? 'AdminPanel-page active' : 'AdminPanel-page'}
+                                disabled={currentPage === totalPages}
+                            >
+                                <img src={Arrow} width="20px" height="20px"/>
+                            </button>
+                            <button
+                                onClick={() => paginate(totalPages, itemsPerPage)}
+                                className={currentPage === totalPages ? 'AdminPanel-page active' : 'AdminPanel-page'}
+                                disabled={currentPage === totalPages}
+                            >
+                                <img src={Double_arrow_mirrored} width="20px" height="20px"/>
+                            </button>
+                        </div>
 
+
+                        <div className="AdminPanel-items-per-page">
+                            Отобразить на странице:
+                            <select onChange={handleItemsPerPageChange} value={itemsPerPage} ref={itemsPerPageRef}>
+                                <option value={12}>12</option>
+                                <option value={25}>25</option>
+                                <option value={50}>50</option>
+                            </select>
+                        </div>
+
+                    </div>
                     {isCourseOpen && (
                         <div id="CourceDetailSectionAddModalOverlay" onClick={() => handleCloseCourseModal()}
                              style={{zIndex: 999}}>

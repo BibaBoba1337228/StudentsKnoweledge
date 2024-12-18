@@ -28,6 +28,41 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(teachers);
         }
 
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllTeachersPaginated([FromQuery] int page, [FromQuery] int limit)
+        {
+
+
+            var totalTeachers = await _context.Teachers.CountAsync();
+
+
+            var teachers = await _context.Teachers
+                .Skip((page - 1) * limit)
+                .Take(limit)
+                .Include(t => t.Courses)
+                .ToListAsync();
+
+            var preparedTeachers = teachers.Select(teacher =>
+            new
+            {
+                id = teacher.Id,
+                userName = teacher.UserName,
+                name = teacher.Name,
+                lastName = teacher.LastName,
+                middleName = teacher.MiddleName,
+                phone = teacher.Phone,
+                mail = teacher.Mail,
+
+            }).ToList();
+
+            var result = new
+            {
+                TotalCount = totalTeachers,
+                Data = preparedTeachers
+            };
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTeacherById(string id)
         {
@@ -49,7 +84,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             var newTeacher = new Teacher
             {
                 UserName = request.UserName,
-                Mail = request.Mail,  // Предполагаем, что поле Email есть у Teacher
+                Mail = request.Mail,
                 Name = request.Name,
                 LastName = request.LastName,
                 MiddleName = request.MiddleName,
@@ -72,8 +107,8 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (requests == null || !requests.Any())
                 return BadRequest(new { message = "Request body is empty or no teachers provided." });
 
-            var createdTeachers = new List<string>(); // Список для хранения успешно созданных учителей
-            var failedTeachers = new List<string>(); // Список для хранения ошибок создания учителей
+            var createdTeachers = new List<string>();
+            var failedTeachers = new List<string>(); 
 
             foreach (var request in requests)
             {

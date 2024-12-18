@@ -28,6 +28,44 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(students);
         }
 
+
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllStudentsPaginated([FromQuery] int page, [FromQuery] int limit)
+        {
+            var totalStudents = await _context.Students.CountAsync();
+
+
+            var students = await _context.Students
+                .Skip((page - 1) * limit)
+                .Take(limit)
+                .ToListAsync();
+
+            var preparedStudents = students.Select(student =>
+            new
+            {
+                id = student.Id,
+                userName = student.UserName,
+                name = student.Name,
+                lastName = student.LastName,
+                middleName = student.MiddleName,
+                group = new
+                {
+                    name = student.Group?.Name,
+                },
+                groupId = student.GroupId,
+                phone = student.Phone,
+                mail = student.Mail
+
+            }).ToList();
+
+            var result = new
+            {
+                TotalCount = totalStudents,
+                Data = preparedStudents
+            };
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStudentById(string id)
         {

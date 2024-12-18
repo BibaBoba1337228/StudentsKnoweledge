@@ -31,6 +31,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(course.Sections);
         }
+        
 
 
         [HttpGet("Student/{courseId}/Sections")]
@@ -434,6 +435,27 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(courses);
         }
+
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllCoursesPaginated([FromQuery] int page, [FromQuery] int limit)
+        {
+            var totalCourses = await _context.Courses.CountAsync();
+
+
+            var courses = await _context.Courses
+                .Skip((page - 1) * limit)
+                .Take(limit)
+                .ToListAsync();
+
+
+            var result = new
+            {
+                TotalCount = totalCourses,
+                Data = courses
+            };
+            return Ok(result);
+        }
+
 
         [HttpGet("UserCourses")]
         public async Task<IActionResult> GetCoursesByUser()

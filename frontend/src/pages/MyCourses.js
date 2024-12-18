@@ -13,9 +13,21 @@ function MyCourses() {
 
     const data = useLoaderData();
     const [isLoading, setIsLoading] = useState(true); // состояние загрузки
+    const [searchQuery, setSearchQuery] = useState('');
+
     const navigate = useNavigate();
 
     const backgrounds = [Background1, Background2, Background3, Background4];
+
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value.toLowerCase());
+    };
+
+    const filteredCourses = data.filter(course =>
+        course.name.toLowerCase().includes(searchQuery)
+    );
+
+
 
     useEffect(() => {
         // Создаем промисы для загрузки всех картинок
@@ -45,8 +57,8 @@ function MyCourses() {
     };
 
     const getSemesterText = (semester) => {
-        const year = Math.floor(semester / 2) + 1; // Assuming 2 semesters per year
-        const sem = semester % 2 === 0 ? "лето" : "осень"; // Example: autumn or spring
+        const year = Math.floor(semester / 2) + 1;
+        const sem = semester % 2 === 0 ? "лето" : "осень";
         return `${year} курс ${semester} семестр`;
     };
 
@@ -58,14 +70,19 @@ function MyCourses() {
                     <div id="MyCourcesHeaderAndSearchBarContainer">
                         <div id="MyCourcesHeader">Мои курсы</div>
                         <div id="MyCourcesSearchBar">
-                            <input id="MyCourcesSearchBarInput" placeholder="Поиск курса"/>
+                            <input
+                                id="MyCourcesSearchBarInput"
+                                placeholder="Поиск курса"
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                            />
+
                             <img src={SearchIcon} alt="Иконка поиска" style={{width: '25px'}}/>
                         </div>
                     </div>
                     <div id="MyCourcesDelimiter"></div>
                 </div>
 
-                {/* Показать лоадер, если идет загрузка */}
                 {isLoading ? (
                     <div className="loader">
                         <ClipLoader size={50} color={"#007BFF"} loading={isLoading}/>
@@ -73,7 +90,7 @@ function MyCourses() {
                 ) : (
                     <div id="MyCourcesCourcesCardsWrapper">
                         <div id="MyCourcesCourcesCardsContainer">
-                            {data.map(course => (
+                            {filteredCourses.map(course => (
                                 <div key={course.id} className="MyCourcesCourcesCard"
                                      onClick={() => navigate(`/system/courses/course/${course.id}`, {state: {courseName: course.name}})}
                                      style={{cursor: "pointer"}}>

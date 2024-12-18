@@ -24,6 +24,27 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(groups);
         }
 
+
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetAllGroupsPaginated([FromQuery] int page, [FromQuery] int limit)
+        {
+            var totalGroups = await _context.Groups.CountAsync();
+
+
+            var groups = await _context.Groups
+                .Skip((page - 1) * limit)
+                .Take(limit)
+                .ToListAsync();
+
+            var result = new
+            {
+                TotalCount = totalGroups,
+                Data = groups
+            };
+            return Ok(result);
+        }
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGroupById(int id)
         {

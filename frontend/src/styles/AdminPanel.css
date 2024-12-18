@@ -30,6 +30,60 @@
     font-size: 40px;
 }
 
+.AdminPanel-pagination-wrapper{
+    display: flex;
+    margin-top: 15px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+.AdminPanel-pagination{
+    display: flex;
+    justify-content: start;
+    margin-top: 15px;
+    align-items: center;
+    }
+
+.AdminPanel-page {
+    background: white;
+    color: #333;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+
+.AdminPanel-page[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.AdminPanel-page.active {
+    background: #fffeb8;
+    color: #ffed9b;
+}
+
+
+.AdminPanel-items-per-page{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.AdminPanel-items-per-page select {
+    margin-left: 5px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
 #AdminPanelSearchBar {
     background-color: #fff;
     width: 20%;

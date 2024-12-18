@@ -695,6 +695,27 @@
   },
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
+    "Method": "GetAllTeachersPaginated",
+    "RelativePath": "api/Course/paginated",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.CourseController",
     "Method": "GetVisibleSectionsByCourseId",
     "RelativePath": "api/Course/Student/{courseId}/Sections",
     "HttpMethod": "GET",
@@ -915,6 +936,27 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.GroupController",
+    "Method": "GetAllTeachersPaginated",
+    "RelativePath": "api/Group/paginated",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1531,6 +1573,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.StudentController",
+    "Method": "GetAllStudentsPaginated",
+    "RelativePath": "api/Student/paginated",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.StudingUserController",
     "Method": "GetMyMarks",
     "RelativePath": "api/StudingUser/{id}/marks",
@@ -1695,6 +1758,27 @@
         "Name": "requests",
         "Type": "System.Collections.Generic.List\u00601[[StudentsKnoweledgeAPI.RequestsTemplates.CreateTeacherRequest, StudentsKnoweledgeAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.TeacherController",
+    "Method": "GetAllTeachersPaginated",
+    "RelativePath": "api/Teacher/paginated",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
