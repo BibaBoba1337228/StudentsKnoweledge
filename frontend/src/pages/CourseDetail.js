@@ -148,7 +148,6 @@ function MyCourses() {
     };
 
 
-
     const fetchCourseGroups = async () => {
         setLoadingGroups(true);
         await fetchWithErrorHandling(
@@ -168,26 +167,26 @@ function MyCourses() {
         setLoadingGroups(true);
 
 
-        const response =await fetchWithErrorHandling(
-            `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${refresh.current? 0 : groups?.length || 0 }&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`,
+        const response = await fetchWithErrorHandling(
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${refresh.current ? 0 : groups?.length || 0}&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`,
             {method: "GET", credentials: "include"},
             null,
             errorHandler
         )
-        console.log(`https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${refresh.current? 0 : groups?.length || 0 }&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`)
+        console.log(`https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${refresh.current ? 0 : groups?.length || 0}&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`)
         console.log("Группы", response);
         if (response && Array.isArray(response)) {
             console.log("Буду устанавливать")
             const newGroups = response
 
-            if (!refresh.current){
+            if (!refresh.current) {
                 const filteredGroups = newGroups.filter(
                     (group) =>
                         !courseGroups.some((courseGroup) => courseGroup.id === group.id)
                 );
                 console.log(refresh.current);
                 setGroups((prevGroups) => [...prevGroups, ...filteredGroups]);
-            }else{
+            } else {
                 setGroups(newGroups);
             }
             refresh.current = false;
@@ -618,7 +617,7 @@ function MyCourses() {
                                     <input id="CourseTeachersSearchBarInput" placeholder="Поиск группы"
                                            value={groupsSearchQuery}
                                            onChange={handleGroupSearchChange}
-                                           ref = {searchGroupsSearchQueryElement}
+                                           ref={searchGroupsSearchQueryElement}
                                     />
                                     <img src={SearchIcon} alt="Иконка поиска" style={{width: '15px'}}/>
 

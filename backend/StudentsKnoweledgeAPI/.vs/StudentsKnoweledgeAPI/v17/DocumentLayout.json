@@ -1,189 +1,189 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\",
+  "WorkspaceRootPath": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\groupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\groupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\studingusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\studingusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Events.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\materialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\materialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\studentanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\studentanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\groupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\groupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\studingusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\studingusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.AspNetUsers.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\notificationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\notificationhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\notificationhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\requeststemplates\\notificationhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\requeststemplates\\chathub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Notifications.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Events.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\studinguser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\studinguser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\studinguser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\group.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\group.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\group.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\markscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\markscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\markscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Chats.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\connectiontrackingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\connectiontrackingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\requeststemplates\\connectiontrackingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\chat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\studentanswercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\studentanswercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\studentanswercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\addanswerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\addanswerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\requeststemplates\\addanswerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\createstudentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\createstudentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\requeststemplates\\createstudentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\dbcontext\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\dbcontext\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\dbcontext\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\studentanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\studentanswer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\fileuploadoperationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\fileuploadoperationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\fileuploadoperationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\getmarksrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\getmarksrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\requeststemplates\\getmarksrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\section.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\section.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\section.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\createuserrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\createuserrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\requeststemplates\\createuserrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\administratorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\administratorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\administratorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\administrator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\administrator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\administrator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\createadministratorrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\createadministratorrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\requeststemplates\\createadministratorrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\controllers\\materialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\controllers\\materialcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\sendmessagerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\requeststemplates\\sendmessagerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\requeststemplates\\sendmessagerequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\models\\message.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\migrations\\20241217212636_v22.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\migrations\\20241217212636_v22.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\migrations\\20241217212636_v22.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\migrations\\20241217205927_v21.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|c:\\labs\\2 course 4 semestr\\studentsknoweledge\\backend\\studentsknoweledgeapi\\studentsknoweledgeapi\\migrations\\20241217205927_v21.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B7748C29-42AB-44D1-84D9-1C46D8BB56E1}|StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI.csproj|solutionrelative:studentsknoweledgeapi\\migrations\\20241217205927_v21.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -193,21 +193,30 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 315,
+          "DockedWidth": 279,
           "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "StudingUserController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudingUserController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudingUserController.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\StudingUserController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudingUserController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudingUserController.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\StudingUserController.cs",
               "ViewState": "AgIAAB8AAAAAAAAAAAAgwB4BAAB9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-16T13:57:10.871Z",
-              "IsPinned": true,
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "dbo.Events [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Events.sql",
+              "ToolTip": "dbo.Events [\u0414\u0430\u043D\u043D\u044B\u0435]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-12-18T20:33:06.892Z",
               "EditorCaption": ""
             },
             {
@@ -216,49 +225,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CourseController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
-              "ViewState": "AgIAAKkBAAAAAAAAAAAAAMEBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T07:49:20.255Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "StudentController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudentController.cs",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\StudentController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudentController.cs",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\StudentController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAQwCoAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-13T13:06:27.811Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TeacherController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\TeacherController.cs",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\TeacherController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\TeacherController.cs",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\TeacherController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwDwAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T16:28:11.732Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "GroupController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\GroupController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\GroupController.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\GroupController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\GroupController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\GroupController.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\GroupController.cs",
               "ViewState": "AgIAACMAAAAAAAAAAAAwwDEAAACSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -267,68 +238,49 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\appsettings.json",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\appsettings.json",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\appsettings.json",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-17T21:29:11.909Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "NotificationController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\NotificationController.cs",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\NotificationController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\NotificationController.cs",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\NotificationController.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAgwCgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T18:29:30.306Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Program.cs",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Program.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Program.cs",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\Program.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAAAE4AAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-14T15:50:19.879Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "EventController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\EventController.cs",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\EventController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\EventController.cs",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\EventController.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAQwDUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T18:28:48.331Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "dbo.Events.sql",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Events.sql",
-              "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Events.sql",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2024-12-18T14:24:03.767Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "EventController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\EventController.cs",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\EventController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\EventController.cs",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\EventController.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAwwEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T18:28:48.331Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CourseController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\CourseController.cs",
+              "ViewState": "AgIAANUAAAAAAAAAAAAgwOsAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-14T07:49:20.255Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudentController.cs",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\StudentController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudentController.cs",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\StudentController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwCoAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T13:06:27.811Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "AppUser.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\AppUser.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\AppUser.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\AppUser.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\AppUser.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\AppUser.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\AppUser.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -336,11 +288,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 15,
               "Title": "NotificationHub.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\NotificationHub.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\NotificationHub.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\RequestsTemplates\\NotificationHub.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\NotificationHub.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\NotificationHub.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\RequestsTemplates\\NotificationHub.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -348,7 +300,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "dbo.AspNetUsers.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.AspNetUsers.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.AspNetUsers.sql",
@@ -357,11 +309,111 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MaterialController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\MaterialController.cs",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\MaterialController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\MaterialController.cs",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\MaterialController.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAowEQAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T18:26:41.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Material.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Material.cs",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Material.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Material.cs",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Material.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-07T16:23:26.872Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "StudentAnswer.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\StudentAnswer.cs",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\StudentAnswer.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\StudentAnswer.cs",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\StudentAnswer.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAowBsAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T19:14:22.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Course.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Course.cs",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Course.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Course.cs",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Course.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T15:25:45.459Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Program.cs",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Program.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Program.cs",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\Program.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAE4AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-14T15:50:19.879Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "NotificationController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\NotificationController.cs",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\NotificationController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\NotificationController.cs",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\NotificationController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwCgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-17T18:29:30.306Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 17,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\appsettings.json",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\appsettings.json",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-17T21:29:11.909Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TeacherController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\TeacherController.cs",
+              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\TeacherController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\TeacherController.cs",
+              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\TeacherController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwDwAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-06T16:28:11.732Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
               "Title": "Event.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Event.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Event.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Event.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Event.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Event.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Event.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -369,11 +421,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 23,
               "Title": "Group.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Group.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Group.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Group.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Group.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Group.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Group.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -381,23 +433,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Course.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Course.cs",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Course.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Course.cs",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Course.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAABLAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-16T15:25:45.459Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "LoginController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\LoginController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\LoginController.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\LoginController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\LoginController.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\LoginController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -405,23 +445,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Material.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Material.cs",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Material.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Material.cs",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Material.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-07T16:23:26.872Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "StudentAnswerController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudentAnswerController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudentAnswerController.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\StudentAnswerController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudentAnswerController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\StudentAnswerController.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\StudentAnswerController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -429,11 +457,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "MarksController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\MarksController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\MarksController.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\MarksController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\MarksController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\MarksController.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\MarksController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -441,23 +469,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "StudentAnswer.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\StudentAnswer.cs",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\StudentAnswer.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\StudentAnswer.cs",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\StudentAnswer.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAowBsAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T19:14:22.924Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "GetMarksRequest.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\GetMarksRequest.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\GetMarksRequest.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\RequestsTemplates\\GetMarksRequest.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\GetMarksRequest.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\GetMarksRequest.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\RequestsTemplates\\GetMarksRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -467,9 +483,9 @@
               "$type": "Document",
               "DocumentIndex": 45,
               "Title": "20241217212636_v22.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\20241217212636_v22.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\20241217212636_v22.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Migrations\\20241217212636_v22.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\20241217212636_v22.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\20241217212636_v22.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Migrations\\20241217212636_v22.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -477,11 +493,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "CreateStudentRequest.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateStudentRequest.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateStudentRequest.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\RequestsTemplates\\CreateStudentRequest.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateStudentRequest.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateStudentRequest.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\RequestsTemplates\\CreateStudentRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -489,11 +505,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "AddAnswerRequest.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\AddAnswerRequest.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\AddAnswerRequest.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\RequestsTemplates\\AddAnswerRequest.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\AddAnswerRequest.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\AddAnswerRequest.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\RequestsTemplates\\AddAnswerRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -503,9 +519,9 @@
               "$type": "Document",
               "DocumentIndex": 46,
               "Title": "20241217205927_v21.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\20241217205927_v21.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\20241217205927_v21.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Migrations\\20241217205927_v21.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\20241217205927_v21.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\20241217205927_v21.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Migrations\\20241217205927_v21.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -513,11 +529,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 32,
               "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\DBContext\\AppDbContext.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\DBContext\\AppDbContext.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\DBContext\\AppDbContext.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\DBContext\\AppDbContext.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\DBContext\\AppDbContext.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\DBContext\\AppDbContext.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -525,11 +541,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "FileUploadOperationFilter.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\FileUploadOperationFilter.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\FileUploadOperationFilter.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\FileUploadOperationFilter.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\FileUploadOperationFilter.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\FileUploadOperationFilter.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\FileUploadOperationFilter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -537,11 +553,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "CreateUserRequest.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateUserRequest.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateUserRequest.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\RequestsTemplates\\CreateUserRequest.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateUserRequest.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateUserRequest.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\RequestsTemplates\\CreateUserRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -549,11 +565,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "AdministratorController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\AdministratorController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\AdministratorController.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\AdministratorController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\AdministratorController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\AdministratorController.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\AdministratorController.cs",
               "ViewState": "AgIAADgAAAAAAAAAAAD4vz4AAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -561,11 +577,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "Administrator.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Administrator.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Administrator.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Administrator.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Administrator.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Administrator.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Administrator.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -573,11 +589,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "Section.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Section.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Section.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Section.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Section.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Section.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Section.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -585,11 +601,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "CreateAdministratorRequest.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateAdministratorRequest.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateAdministratorRequest.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\RequestsTemplates\\CreateAdministratorRequest.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateAdministratorRequest.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\CreateAdministratorRequest.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\RequestsTemplates\\CreateAdministratorRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -597,23 +613,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "MaterialController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\MaterialController.cs",
-              "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\MaterialController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\MaterialController.cs",
-              "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\MaterialController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-17T18:26:41.92Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 41,
               "Title": "AppDbContextModelSnapshot.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\AppDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\AppDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Migrations\\AppDbContextModelSnapshot.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Migrations\\AppDbContextModelSnapshot.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Migrations\\AppDbContextModelSnapshot.cs",
               "ViewState": "AgIAAK4BAAAAAAAAAAArwNMBAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -623,9 +627,9 @@
               "$type": "Document",
               "DocumentIndex": 40,
               "Title": "Teacher.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Teacher.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Teacher.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Teacher.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Teacher.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Teacher.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Teacher.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -635,9 +639,9 @@
               "$type": "Document",
               "DocumentIndex": 44,
               "Title": "Message.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Message.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Message.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Message.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Message.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Message.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Message.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -647,9 +651,9 @@
               "$type": "Document",
               "DocumentIndex": 43,
               "Title": "SendMessageRequest.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\SendMessageRequest.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\SendMessageRequest.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\RequestsTemplates\\SendMessageRequest.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\SendMessageRequest.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\SendMessageRequest.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\RequestsTemplates\\SendMessageRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -658,29 +662,29 @@
           ]
         },
         {
-          "DockedWidth": 85,
+          "DockedWidth": 121,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "ChatController.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\ChatController.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\ChatController.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Controllers\\ChatController.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\ChatController.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Controllers\\ChatController.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Controllers\\ChatController.cs",
-              "ViewState": "AgIAAMEAAAAAAAAAAADwv94AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAMoAAAAAAAAAAAAswN4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-07T07:59:35.539Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "ConnectionTrackingService.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\ConnectionTrackingService.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\ConnectionTrackingService.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\RequestsTemplates\\ConnectionTrackingService.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\ConnectionTrackingService.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\ConnectionTrackingService.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\RequestsTemplates\\ConnectionTrackingService.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAQwBUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -688,7 +692,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "dbo.Chats.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Chats.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Chats.sql",
@@ -697,7 +701,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 19,
               "Title": "dbo.Notifications.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Notifications.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/StudentsKnowledgeDB/True/SqlTable/dbo.Notifications.sql",
@@ -706,11 +710,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 16,
               "Title": "ChatHub.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\ChatHub.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\ChatHub.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\RequestsTemplates\\ChatHub.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\ChatHub.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\RequestsTemplates\\ChatHub.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\RequestsTemplates\\ChatHub.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAgwCkAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -718,11 +722,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 22,
               "Title": "StudingUser.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\StudingUser.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\StudingUser.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\StudingUser.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\StudingUser.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\StudingUser.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\StudingUser.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -730,11 +734,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "Notification.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Notification.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Notification.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Notification.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Notification.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Notification.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Notification.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -742,11 +746,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "Chat.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Chat.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Chat.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Chat.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Chat.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Chat.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Chat.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -756,9 +760,9 @@
               "$type": "Document",
               "DocumentIndex": 42,
               "Title": "Student.cs",
-              "DocumentMoniker": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Student.cs",
+              "DocumentMoniker": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Student.cs",
               "RelativeDocumentMoniker": "StudentsKnoweledgeAPI\\Models\\Student.cs",
-              "ToolTip": "C:\\\u043F\u0430\u043F\u043E\u0447\u043A\u0430 \u0441 \u0444\u0430\u043B\u0438\u043A\u0430\u043C\u0438 - \u0431\u0435\u043A\u0430\u043F 05.09.2024\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Student.cs",
+              "ToolTip": "C:\\Labs\\2 course 4 semestr\\StudentsKnoweledge\\backend\\StudentsKnoweledgeAPI\\StudentsKnoweledgeAPI\\Models\\Student.cs",
               "RelativeToolTip": "StudentsKnoweledgeAPI\\Models\\Student.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

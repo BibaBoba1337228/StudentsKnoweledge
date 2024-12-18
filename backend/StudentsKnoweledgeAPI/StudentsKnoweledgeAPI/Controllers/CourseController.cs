@@ -222,7 +222,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
 
-
         [HttpPut("{courseId}/Sections/{sectionId}/Visibility")]
         public async Task<IActionResult> ToggleSectionVisibility(int courseId, int sectionId, [FromBody] bool isVisible)
         {
@@ -233,11 +232,68 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             section.IsVisible = isVisible;
 
+            // Если секция скрыта, удаляем все события для TaskMaterial в этой секции
+            if (!isVisible)
+            {
+                var taskMaterials = await _context.Materials
+                    .OfType<TaskMaterial>()
+                    .Where(m => m.SectionId == sectionId)
+                    .ToListAsync();
+
+                var taskMaterialIds = taskMaterials.Select(tm => tm.Id).ToList();
+
+                var eventsToDelete = await _context.Events
+                    .Where(e => taskMaterialIds.Contains(e.MaterialId))
+                    .ToListAsync();
+
+                _context.Events.RemoveRange(eventsToDelete);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                // Если секция включена, создаем события для всех TaskMaterial в этой секции
+                var taskMaterials = await _context.Materials
+                    .OfType<TaskMaterial>()
+                    .Where(m => m.SectionId == sectionId)
+                    .ToListAsync();
+
+                var course = await _context.Courses.FirstOrDefaultAsync(c => c.Id == courseId);
+                if (course == null)
+                    return NotFound(new { message = "Course not found." });
+
+                foreach (var taskMaterial in taskMaterials)
+                {
+                    // Проверяем, существует ли событие для данного TaskMaterial
+                    var existingEvent = await _context.Events
+                        .FirstOrDefaultAsync(e => e.MaterialId == taskMaterial.Id);
+
+                    if (existingEvent == null)
+                    {
+                        var newEvent = new Event
+                        {
+                            CourseId = course.Id,
+                            MaterialId = taskMaterial.Id,
+                            OpenDate = DateTime.Now, // или ваша желаемая дата начала
+                            CloseDate = taskMaterial.Deadline, // или ваша желаемая дата окончания
+                            Name = taskMaterial.Title,
+                            URL = $"/system/courses/course/{course.Id}/task/{taskMaterial.Id}"
+                        };
+
+                        await _context.Events.AddAsync(newEvent);
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+            }
+
+            // Сохраняем изменения для секции
             _context.Entry(section).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Section visibility updated successfully.", section });
         }
+
+
 
         [HttpDelete("{courseId}/Sections/{sectionId}")]
         public async Task<IActionResult> DeleteSection(int courseId, int sectionId)

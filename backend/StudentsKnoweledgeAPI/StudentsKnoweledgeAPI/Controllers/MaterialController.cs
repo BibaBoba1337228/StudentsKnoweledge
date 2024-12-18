@@ -60,11 +60,71 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             material.IsVisible = isVisible;
 
+            // Map material to the specific type
+            var mappedMaterial = MapMaterialToSpecificType(material);
+
+            // If the material is of type "Task" and its visibility is changing
+            if (material.Type == "Task")
+            {
+                var section = await _context.Sections
+                    .FirstOrDefaultAsync(s => s.Id == sectionId);
+
+                if (section == null)
+                    return NotFound(new { message = "Section not found." });
+
+                var course = await _context.Courses
+                    .FirstOrDefaultAsync(c => c.Id == section.CourseId);
+
+                if (course == null)
+                    return NotFound(new { message = "Course not found." });
+
+                // Now the TaskMaterial is mapped, and we can safely use its properties
+                var taskMaterial = mappedMaterial as TaskMaterial;  // cast to TaskMaterial
+
+                if (isVisible && section.IsVisible)
+                {
+                    // Create an event if the material is being made visible
+                    var existingEvent = await _context.Events
+                        .FirstOrDefaultAsync(e => e.MaterialId == materialId);
+
+                    if (existingEvent == null)
+                    {
+                        var newEvent = new Event
+                        {
+                            CourseId = course.Id,
+                            MaterialId = materialId,
+                            OpenDate = DateTime.Now, // Set this to your desired open date
+                            CloseDate = taskMaterial?.Deadline ?? DateTime.Now, // Use mapped taskMaterial's Deadline
+                            Name = material.Title,
+                            URL = $"/system/courses/course/{course.Id}/task/{materialId}"
+                        };
+
+                        await _context.Events.AddAsync(newEvent);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+                else
+                {
+                    // Delete the event if the material is being made invisible
+                    var eventToDelete = await _context.Events
+                        .FirstOrDefaultAsync(e => e.MaterialId == materialId);
+
+                    if (eventToDelete != null)
+                    {
+                        _context.Events.Remove(eventToDelete);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+            }
+
             _context.Entry(material).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Material visibility updated successfully." });
         }
+
+
+
 
 
 
