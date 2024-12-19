@@ -12,6 +12,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Course> Courses { get; set; }
     public DbSet<Section> Sections { get; set; }
     public DbSet<Material> Materials { get; set; }
+    public DbSet<Schedule> Schedules { get; set; }
+    public DbSet<ScheduleEntry> ScheduleEntries { get; set; }
 
     public DbSet<Message> Messages { get; set; }
 
@@ -113,6 +115,21 @@ public class AppDbContext : IdentityDbContext<AppUser>
             .WithMany(u => u.Notifications)
             .HasForeignKey(n => n.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Schedule>()
+            .HasOne(s => s.Group)
+            .WithMany(g => g.Schedules)
+            .HasForeignKey(s => s.GroupId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+
+        modelBuilder.Entity<Schedule>()
+           .HasMany(s => s.Entries)
+           .WithOne(se => se.Schedule)  // Explicitly reference the Schedule entity in the ScheduleEntry entity
+           .HasForeignKey(se => se.ScheduleId)  // Foreign key explicitly set for ScheduleId
+           .OnDelete(DeleteBehavior.Restrict);
+
+
 
     }
 }

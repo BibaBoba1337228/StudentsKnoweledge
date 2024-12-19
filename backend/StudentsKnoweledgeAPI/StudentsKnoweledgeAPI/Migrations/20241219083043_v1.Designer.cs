@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace StudentsKnoweledgeAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241217205927_v21")]
-    partial class v21
+    [Migration("20241219083043_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -438,6 +438,10 @@ namespace StudentsKnoweledgeAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("SenderFio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -450,11 +454,74 @@ namespace StudentsKnoweledgeAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("isReaded")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Schedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("Schedules");
+                });
+
+            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.ScheduleEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Classroom")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Day")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<bool>("IsDenominator")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsNumerator")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ScheduleId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("ScheduleEntries");
                 });
 
             modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Section", b =>
@@ -494,7 +561,6 @@ namespace StudentsKnoweledgeAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilePath")
@@ -770,6 +836,28 @@ namespace StudentsKnoweledgeAPI.Migrations
                     b.Navigation("StudingUser");
                 });
 
+            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Schedule", b =>
+                {
+                    b.HasOne("StudentsKnoweledgeAPI.Models.Group", "Group")
+                        .WithMany("Schedules")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.ScheduleEntry", b =>
+                {
+                    b.HasOne("StudentsKnoweledgeAPI.Models.Schedule", "Schedule")
+                        .WithMany("Entries")
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Schedule");
+                });
+
             modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Section", b =>
                 {
                     b.HasOne("StudentsKnoweledgeAPI.Models.Course", "Course")
@@ -825,7 +913,14 @@ namespace StudentsKnoweledgeAPI.Migrations
 
             modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Group", b =>
                 {
+                    b.Navigation("Schedules");
+
                     b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Schedule", b =>
+                {
+                    b.Navigation("Entries");
                 });
 
             modelBuilder.Entity("StudentsKnoweledgeAPI.Models.Section", b =>
