@@ -77,11 +77,22 @@ function App() {
             children: [
                 {
                     path: "/system/courses/",
-                    element: <Outlet/>,
+
+                    element: (
+                        <ProtectedRoute>
+                            <Outlet/>
+                        </ProtectedRoute>
+
+                        ),
                     children: [
                         {
                             path: "/system/courses/course/:courseId",
-                            element: <Outlet/>,
+                            element: (
+                                <ProtectedRoute>
+                                    <Outlet/>
+                                </ProtectedRoute>
+
+                            ),
                             children: [
                                 {
                                     index: true,
@@ -166,7 +177,12 @@ function App() {
                 },
                 {
                     path: "/system/chats",
-                    element: <Outlet/>,
+                    element: (
+                        <ProtectedRoute>
+                            <Outlet/>
+                        </ProtectedRoute>
+
+                    ),
                     children: [
                         {
                             index: true,
@@ -190,7 +206,12 @@ function App() {
                 },
                 {
                     path: "/system/profile/:userId",
-                    element: <Outlet></Outlet>,
+                    element: (
+                        <ProtectedRoute>
+                            <Outlet/>
+                        </ProtectedRoute>
+
+                    ),
                     children: [
                         {
                             index: true,

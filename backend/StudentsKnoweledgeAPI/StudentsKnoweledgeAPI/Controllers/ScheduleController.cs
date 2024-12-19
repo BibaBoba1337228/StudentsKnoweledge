@@ -69,35 +69,69 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(schedule);
         }
-
-        // Обновить расписание
         [HttpPut("{id}")]
         public IActionResult UpdateSchedule(int id, [FromBody] ScheduleDto updatedScheduleDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // Получаем существующее расписание
             var existingSchedule = GetScheduleWithEntries()
                 .FirstOrDefault(s => s.Id == id);
 
             if (existingSchedule == null)
                 return NotFound();
 
-            // Обновляем данные расписания
-            existingSchedule.Entries = updatedScheduleDto.Entries.Select(entry => new ScheduleEntry
+            // Обновляем только те записи, которые были переданы в запросе
+            foreach (var entry in updatedScheduleDto.Entries)
             {
-                Subject = entry.Subject,
-                Classroom = entry.Classroom,
-                StartTime = TimeSpan.Parse(entry.StartTime),
-                EndTime = TimeSpan.Parse(entry.EndTime),
-                Day = entry.Day,
-                IsNumerator = entry.IsNumerator,
-                IsDenominator = entry.IsDenominator
-            }).ToList();
+                // Ищем существующую запись по уникальным полям (например, Subject, Day)
+                var existingEntry = existingSchedule.Entries
+                    .FirstOrDefault(e => e.Subject == entry.Subject && e.Day == entry.Day && e.StartTime == TimeSpan.Parse(entry.StartTime));
 
+                // Если такая запись найдена, обновляем поля
+                if (existingEntry != null)
+                {
+                    if (!string.IsNullOrEmpty(entry.Subject)) existingEntry.Subject = entry.Subject;
+                    if (!string.IsNullOrEmpty(entry.Classroom)) existingEntry.Classroom = entry.Classroom;
+                    if (!string.IsNullOrEmpty(entry.StartTime)) existingEntry.StartTime = TimeSpan.Parse(entry.StartTime);
+                    if (!string.IsNullOrEmpty(entry.EndTime)) existingEntry.EndTime = TimeSpan.Parse(entry.EndTime);
+                    if (!string.IsNullOrEmpty(entry.Day)) existingEntry.Day = entry.Day;
+                    existingEntry.IsNumerator = entry.IsNumerator;
+                    existingEntry.IsDenominator = entry.IsDenominator;
+                    _context.SaveChanges();
+
+                    return Ok(existingEntry);
+                }
+                else
+                {
+                    // Если запись не найдена, то можно создать новую или вернуть ошибку
+                    // В этом примере создаем новую запись
+                    var newEntry = new ScheduleEntry
+                    {
+                        Subject = entry.Subject,
+                        Classroom = entry.Classroom,
+                        StartTime = TimeSpan.Parse(entry.StartTime),
+                        EndTime = TimeSpan.Parse(entry.EndTime),
+                        Day = entry.Day,
+                        IsNumerator = entry.IsNumerator,
+                        IsDenominator = entry.IsDenominator
+                    };
+                    existingSchedule.Entries.Add(newEntry);
+
+                    _context.SaveChanges();
+
+                    return Ok(newEntry);
+                }
+            }
+
+            // Сохраняем изменения
             _context.SaveChanges();
-            return NoContent();
+
+            return NotFound();
         }
+
+
 
         // Удалить расписание
         [HttpDelete("{id}")]
