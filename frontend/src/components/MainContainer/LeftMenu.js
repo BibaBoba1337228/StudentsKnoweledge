@@ -158,6 +158,12 @@ function LeftMenu({onMenuToggle}) {
                              style={{width: "20px"}}/>
                         {!isCollapsed && <p className="LeftMenuTopPageName">Уведомления</p>}
                     </div>
+                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={navigate('/system/schedule/')}
+                         style={{cursor: "pointer"}}>
+                        <img src={CourcesIcon} alt="Schedule icon"
+                             style={{width: "20px"}}/>
+                        {!isCollapsed && <p className="LeftMenuTopPageName">Расписание</p>}
+                    </div>
                     {role === '3' && (
                         <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}
                              onClick={() => navigate('/system/admin')}

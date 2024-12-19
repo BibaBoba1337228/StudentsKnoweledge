@@ -50,6 +50,8 @@ import {chatsListLoader} from "./api/loaders/ChatsListLoader";
 import {studingUserProfileLoader} from "./api/loaders/StudingUserProfileLoader";
 import {myMarksLoader} from "./api/loaders/MyCourcesMarksLoader";
 import {myMarksCurrentSubjectLoader} from "./api/loaders/MyCourcesMarksCurrentSubjectLoader";
+import ScheduleTable from "./components/Statistics/ScheduleTable";
+import Schedule from "./pages/Schedule";
 
 
 function App() {
@@ -218,10 +220,9 @@ function App() {
                     element: <FindContacts></FindContacts>
                 },
 
-
                 {
-                    path: "/system/course/test",
-                    element: <TestDetail></TestDetail>
+                    path: "/system/schedule",
+                    element: <Schedule></Schedule>
                 },
 
 
