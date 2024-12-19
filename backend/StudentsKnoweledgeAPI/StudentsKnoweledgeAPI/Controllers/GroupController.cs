@@ -7,7 +7,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class GroupController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -26,6 +25,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpGet("paginated")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllGroupsPaginated([FromQuery] int page, [FromQuery] int limit)
         {
             var totalGroups = await _context.Groups.CountAsync();
@@ -47,6 +47,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpGet("scrolled")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> GetAllGroupsScrollWithSearch([FromQuery] int skip, [FromQuery] int take, [FromQuery] string searchQuery="")
         {
             var query = _context.Groups.AsQueryable();
@@ -76,6 +77,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateGroup([FromBody] Group group)
         {
             if (!ModelState.IsValid)
@@ -88,6 +90,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateGroup(int id, [FromBody] Group updatedGroup)
         {
             if (id != updatedGroup.Id)
@@ -106,6 +109,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteGroup(int id)
         {
             var group = await _context.Groups.FindAsync(id);

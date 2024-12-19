@@ -21,6 +21,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpGet("Teacher")]
+        [Authorize(Roles="Teacher,Admin")]
         public async Task<IActionResult> GetMaterialsBySectionId(int sectionId)
         {
             var materials = await _context.Materials
@@ -28,7 +29,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 .Include(m => m.Section)
                 .ToListAsync();
 
-            // Преобразуем материалы в более конкретные типы
             var result = materials.Select(m => MapMaterialToSpecificType(m)).ToList();
 
             return Ok(result);
@@ -42,7 +42,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 .Include(m => m.Section)
                 .ToListAsync();
 
-            // Преобразуем материалы в более конкретные типы
             var result = materials.Select(m => MapMaterialToSpecificType(m)).ToList();
 
             return Ok(result);
@@ -50,6 +49,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpPut("{materialId}/Visibility")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> ToggleMaterialVisibility(int sectionId, int materialId, [FromBody] bool isVisible)
         {
             var material = await _context.Materials
@@ -60,10 +60,8 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             material.IsVisible = isVisible;
 
-            // Map material to the specific type
             var mappedMaterial = MapMaterialToSpecificType(material);
 
-            // If the material is of type "Task" and its visibility is changing
             if (material.Type == "Task")
             {
                 var section = await _context.Sections
@@ -78,12 +76,12 @@ namespace StudentsKnoweledgeAPI.Controllers
                 if (course == null)
                     return NotFound(new { message = "Course not found." });
 
-                // Now the TaskMaterial is mapped, and we can safely use its properties
-                var taskMaterial = mappedMaterial as TaskMaterial;  // cast to TaskMaterial
+              
+                var taskMaterial = mappedMaterial as TaskMaterial;
 
                 if (isVisible && section.IsVisible)
                 {
-                    // Create an event if the material is being made visible
+                   
                     var existingEvent = await _context.Events
                         .FirstOrDefaultAsync(e => e.MaterialId == materialId);
 
@@ -93,8 +91,8 @@ namespace StudentsKnoweledgeAPI.Controllers
                         {
                             CourseId = course.Id,
                             MaterialId = materialId,
-                            OpenDate = DateTime.Now, // Set this to your desired open date
-                            CloseDate = taskMaterial?.Deadline ?? DateTime.Now, // Use mapped taskMaterial's Deadline
+                            OpenDate = DateTime.Now,
+                            CloseDate = taskMaterial?.Deadline ?? DateTime.Now, 
                             Name = material.Title,
                             URL = $"/system/courses/course/{course.Id}/task/{materialId}"
                         };
@@ -105,7 +103,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 }
                 else
                 {
-                    // Delete the event if the material is being made invisible
                     var eventToDelete = await _context.Events
                         .FirstOrDefaultAsync(e => e.MaterialId == materialId);
 
@@ -132,6 +129,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpPost("Task")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> CreateTaskMaterial(int sectionId, [FromBody] CreateTaskMaterialRequest request)
         {
             var section = await _context.Sections.FindAsync(sectionId);
@@ -154,6 +152,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPut("Task/{id}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> UpdateTaskMaterial(int sectionId, int id, [FromBody] UpdateTaskMaterialRequest request)
         {
             var material = await _context.Materials.OfType<TaskMaterial>().FirstOrDefaultAsync(m => m.Id == id && m.SectionId == sectionId);
@@ -175,6 +174,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         // ----- Управление файлами -----
 
         [HttpPost("File")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> CreateFileMaterial(int sectionId, [FromForm] CreateFileMaterialRequest request)
         {
             var section = await _context.Sections.FindAsync(sectionId);
@@ -203,7 +203,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             var newMaterial = new FileMaterial
             {
                 Title = request.Title,
-                FilePath = string.Join(";", filePaths), // Сохраняем пути к файлам в одну строку
+                FilePath = string.Join(";", filePaths), 
                 SectionId = sectionId
             };
 
@@ -214,30 +214,25 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPut("File/{id}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> UpdateFileMaterial(int sectionId, int id, [FromForm] UpdateFileMaterialRequest request)
         {
-            // Fetch the material first, without specifying 'OfType<FileMaterial>'
             var material = await _context.Materials
                 .Where(m => m.Id == id && m.SectionId == sectionId)
                 .FirstOrDefaultAsync();
 
-            // If material is not found, return 404
             if (material == null)
                 return NotFound(new { message = "File material not found." });
 
-            // Attempt to cast it to a FileMaterial
             var fileMaterial = material as FileMaterial;
 
-            // If the material is not of type FileMaterial, return 404
             if (fileMaterial == null)
                 return NotFound(new { message = "File material not found." });
 
             var filePaths = fileMaterial.FilePath?.Split(";").ToList() ?? new List<string>();
 
-            // If there are files to be updated
             if (request.Files != null && request.Files.Any())
             {
-                // Remove old files
                 foreach (var oldFilePath in filePaths)
                 {
                     if (System.IO.File.Exists(oldFilePath))
@@ -246,9 +241,8 @@ namespace StudentsKnoweledgeAPI.Controllers
                     }
                 }
 
-                filePaths.Clear(); // Clear the old file paths
+                filePaths.Clear(); 
 
-                // Process the new files
                 foreach (var file in request.Files)
                 {
                     if (file.Length == 0)
@@ -266,11 +260,9 @@ namespace StudentsKnoweledgeAPI.Controllers
                 }
             }
 
-            // Update material properties
             fileMaterial.Title = request.Title ?? fileMaterial.Title;
             fileMaterial.FilePath = string.Join(";", filePaths);
 
-            // Mark material as modified
             _context.Entry(fileMaterial).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
@@ -284,6 +276,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         // ----- Управление текст блоками -----
 
         [HttpPost("TextContent")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> CreateTextContentMaterial(int sectionId, [FromBody] CreateTextContentMaterialRequest request)
         {
             var section = await _context.Sections.FindAsync(sectionId);
@@ -304,6 +297,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPut("TextContent/{id}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> UpdateTextContentMaterial(int sectionId, int id, [FromBody] UpdateTextContentMaterialRequest request)
         {
             var material = await _context.Materials.OfType<TextContentMaterial>().FirstOrDefaultAsync(m => m.Id == id && m.SectionId == sectionId);
@@ -321,6 +315,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public async Task<IActionResult> DeleteMaterial(int sectionId, int id)
         {
             var material = await _context.Materials.FirstOrDefaultAsync(m => m.Id == id && m.SectionId == sectionId);

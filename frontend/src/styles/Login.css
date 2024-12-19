@@ -9,6 +9,11 @@
 
 }
 
+
+.LoginFormShowPassword{
+    all: unset;
+    cursor:pointer;
+}
 #LoginHeaderContainer {
     font-family: Seminaria;
     font-size: 96px;

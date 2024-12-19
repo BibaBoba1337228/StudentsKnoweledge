@@ -25,6 +25,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
         // Получение всех ответов пользователей по ID материала
         [HttpGet]
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> GetAnswersByMaterialId(int materialId)
         {
             var answers = await _context.StudentAnswers
@@ -68,6 +69,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Student")]
         public async Task<IActionResult> AddAnswer(int materialId, [FromForm] AddAnswerRequest request)
         {
             var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -95,11 +97,11 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             var answer = new StudentAnswer
             {
-                MaterialId = materialId, // Теперь берем materialId из маршрута
-                StudentId = studentId,   // Берем studentId из маршрута
-                FilePath = string.Join(";", filePaths), // Сохраняем пути файлов в одну строку
+                MaterialId = materialId,
+                StudentId = studentId, 
+                FilePath = string.Join(";", filePaths),
                 AnswerTime = DateTime.UtcNow,
-                Comment = request.Comment // Сохраняем комментарий
+                Comment = request.Comment
             };
 
             _context.StudentAnswers.Add(answer);

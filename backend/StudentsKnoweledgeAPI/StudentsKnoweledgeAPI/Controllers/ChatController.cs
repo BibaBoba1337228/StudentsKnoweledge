@@ -12,7 +12,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = "Teacher,Student")]
     public class ChatController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;

@@ -1875,7 +1875,7 @@
   },
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.TeacherController",
-    "Method": "GetAllTeachersPaginated",
+    "Method": "GetTeachersPaginated",
     "RelativePath": "api/Teacher/paginated",
     "HttpMethod": "GET",
     "IsController": true,
@@ -1889,6 +1889,32 @@
       {
         "Name": "limit",
         "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.TeacherController",
+    "Method": "GetTeachersScrollWithSearch",
+    "RelativePath": "api/Teacher/scrolled",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "skip",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "take",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "searchQuery",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],

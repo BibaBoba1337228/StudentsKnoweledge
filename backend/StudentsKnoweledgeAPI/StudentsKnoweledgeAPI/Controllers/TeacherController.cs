@@ -21,7 +21,10 @@ namespace StudentsKnoweledgeAPI.Controllers
             _context = context;
         }
 
+
+
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllTeachers()
         {
             var teachers = await _context.Teachers.Include(t => t.Courses).ToListAsync();
@@ -29,7 +32,8 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpGet("paginated")]
-        public async Task<IActionResult> GetAllTeachersPaginated([FromQuery] int page, [FromQuery] int limit)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetTeachersPaginated([FromQuery] int page, [FromQuery] int limit)
         {
 
 
@@ -63,6 +67,33 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("scrolled")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetTeachersScrollWithSearch([FromQuery] int skip, [FromQuery] int take, [FromQuery] string searchQuery = "")
+        {
+            var query = _context.Teachers.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+            {
+                query = query.Where(g => g.LastName.Contains(searchQuery));
+            }
+            var teachers = await query
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
+
+            var preparedTeachers = teachers.Select(teacher => new
+            {
+                profilePictureUrl = teacher.ProfilePictureUrl,
+                middleName = teacher.MiddleName,
+                name = teacher.Name,
+                lastName = teacher.LastName,
+                id = teacher.Id
+
+            }).ToList();
+            return Ok(preparedTeachers);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTeacherById(string id)
         {
@@ -75,6 +106,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateTeacher([FromBody] CreateTeacherRequest request)
         {
             if (!ModelState.IsValid)
@@ -102,6 +134,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPost("bulk")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateTeachers([FromBody] List<CreateTeacherRequest> requests)
         {
             if (requests == null || !requests.Any())
@@ -154,6 +187,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateTeacher(string id, [FromBody] UpdateTeacherRequest request)
         {
             var teacher = await _context.Teachers.Include(t => t.Courses)
@@ -203,6 +237,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteTeacher(string id)
         {
             var teacher = await _context.Teachers.FindAsync(id);

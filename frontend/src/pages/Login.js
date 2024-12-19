@@ -6,7 +6,8 @@ import PasswordIcon from '../assets/icons/password_icon.svg'
 import {useState} from "react";
 import {fetchWithAuth} from "../api/fetchWithAuth";
 import ErrorBoundary from "../components/ErrorBoundary";
-
+import Hide from "../assets/icons/Hide.svg"
+import Show from "../assets/icons/Show.svg"
 
 function Login() {
     const [login, setLogin] = useState('');
@@ -15,6 +16,7 @@ function Login() {
     const [isErrorOpen, setIsErrorOpen] = useState(false);
     const [errorText, setErrorText] = useState('Ошибка');
 
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -94,11 +96,15 @@ function Login() {
                             <img id="LoginFormInputPasswordIcon" src={PasswordIcon} alt="Иконка замка"
                                  style={{width: "20px"}}/>
                             <input id="LoginFormPasswordInput" placeholder="*******"
+                                   type={showPassword ? "text" : "password"}
 
                                    value={password}
                                    onChange={(e) => setPassword(e.target.value)}
                                    required
                             />
+                            <button type="button" className="LoginFormShowPassword" onClick={() => setShowPassword(!showPassword)} >
+                                <img src={showPassword ? Hide : Show} width="20px" height="20px"/>
+                            </button>
                         </div>
 
 

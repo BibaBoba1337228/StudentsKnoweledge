@@ -391,13 +391,21 @@ const ScheduleTable = () => {
                             value={newEntry.endTime}
                             onChange={(e) => setNewEntry((prev) => ({...prev, endTime: e.target.value}))}
                         />
-                        <input
+                        <select
                             type="text"
                             placeholder="День"
                             name="day"
                             value={newEntry.day}
                             onChange={(e) => setNewEntry((prev) => ({...prev, day: e.target.value}))}
-                        />
+                        >
+                            <option value="Понедельник">Понедельник</option>
+                            <option value="Вторник">Вторник</option>
+                            <option value="Среда">Среда</option>
+                            <option value="Четверг">Четверг</option>
+                            <option value="Пятница">Пятница</option>
+                            <option value="Суббота">Суббота</option>
+
+                        </select>
                         <label>
                             Числитель
                             <input

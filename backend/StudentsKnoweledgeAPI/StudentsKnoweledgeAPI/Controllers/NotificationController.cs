@@ -79,6 +79,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
         // Получение уведомления по ID
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetNotificationById(int id)
         {
             var notification = await _context.Notifications.Include(n => n.StudingUser).FirstOrDefaultAsync(n => n.Id == id);
@@ -91,6 +92,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
         // Создание уведомления
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateNotification([FromBody] Notification newNotification)
         {
             if (!ModelState.IsValid)
@@ -110,6 +112,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
         // Обновление уведомления
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateNotification(int id, [FromBody] Notification updatedNotification)
         {
             var notification = await _context.Notifications.FindAsync(id);
@@ -128,6 +131,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
         // Удаление уведомления
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteNotification(int id)
         {
             var notification = await _context.Notifications.FindAsync(id);

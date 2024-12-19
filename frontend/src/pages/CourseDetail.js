@@ -49,37 +49,85 @@ function MyCourses() {
     const [searchTimeout, setSearchTimeout] = useState(null);
 
     const [teachers, setTeachers] = useState([]);
+    const addingTeachers = useRef(false);
     const [loadingTeachers, setLoadingTeachers] = useState(false);
     const [selectedTeacherIds, setSelectedTeacherIds] = useState([]);
     const [courseTeachers, setCourseTeachers] = useState([]);
+    const teachersScroll = useRef(null);
+    const teachersRefresh = useRef(true);
+
+
 
     const [groups, setGroups] = useState([]);
+    const addingGroups = useRef(false);
     const [loadingGroups, setLoadingGroups] = useState(false);
     const [selectedGroupsIds, setSelectedGroupsIds] = useState([]);
     const [courseGroups, setCourseGroups] = useState([]);
+    const groupsScroll = useRef(null);
+    const groupsRefresh = useRef(true);
 
 
-    const take = 20;
+    const take = 8;
     const [hasMore, setHasMore] = useState(true);
-    const containerRef = useRef(null);
-    const refresh = useRef(true);
+
+    const handleTeachersScroll = () => {
+
+        if (!hasMore || loadingTeachers) {
+            console.log(hasMore);
+            console.log(loadingTeachers);
+            return;
+        }
+        ;
+
+        const element = teachersScroll.current;
+        console.log(element.scrollHeight);
+        console.log(element.scrollTop);
+
+        console.log(element.clientHeight);
+
+        if (element.scrollHeight - element.scrollTop <= element.clientHeight + 50) {
+            fetchScrolledTeachers();
+        }
+    }
+
+
+    const handleGroupsScroll = () => {
+
+        if (!hasMore || loadingGroups) {
+            console.log(hasMore);
+            console.log(loadingGroups);
+            return;
+        }
+        ;
+
+        const element = groupsScroll.current;
+        console.log(element.scrollHeight);
+        console.log(element.scrollTop);
+
+        console.log(element.clientHeight);
+
+        if (element.scrollHeight - element.scrollTop <= element.clientHeight + 50) {
+            fetchScrolledGroups();
+        }
+    }
 
 
     const handleGroupSearchChange = (event) => {
-        setGroupsSearchQuery(event.target.value);
 
-        if (searchTimeout) {
-            clearTimeout(searchTimeout);
+        if (addingGroups){
+            setGroupsSearchQuery(event.target.value);
+
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+
+            groupsRefresh.current = true;
+            const timeout = setTimeout(() => {
+                fetchScrolledGroups();
+            }, 1000);
+
+            setSearchTimeout(timeout);
         }
-
-        refresh.current = true;
-        const timeout = setTimeout(() => {
-            fetchScrolledGroups();
-        }, 1000);
-
-        setSearchTimeout(timeout);
-
-
     };
 
     const handleTeachersSearchChange = (event) => {
@@ -89,9 +137,9 @@ function MyCourses() {
             clearTimeout(searchTimeout);
         }
 
-        refresh.current = true;
+        teachersRefresh.current = true;
         const timeout = setTimeout(() => {
-            // fetchScrolledGroups(0, event.target.value);
+            fetchScrolledTeachers();
         }, 1000);
 
         setSearchTimeout(timeout);
@@ -128,6 +176,8 @@ function MyCourses() {
 
 
     const WipeAll = () => {
+        addingGroups.current = false;
+        addingTeachers.current = false;
         setIsTeachersOpen(false);
         setShowCheckboxes(false);
         setIsGroupsOpen(false);
@@ -163,40 +213,80 @@ function MyCourses() {
 
 
     const fetchScrolledGroups = async () => {
+        if (!addingGroups.current) return;
+
         if (loadingGroups) return;
         setLoadingGroups(true);
 
 
         const response = await fetchWithErrorHandling(
-            `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${refresh.current ? 0 : groups?.length || 0}&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${groupsRefresh.current ? 0 : groups?.length || 0}&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`,
             {method: "GET", credentials: "include"},
             null,
             errorHandler
         )
-        console.log(`https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${refresh.current ? 0 : groups?.length || 0}&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`)
+        console.log(`https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${groupsRefresh.current ? 0 : groups?.length || 0}&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`)
         console.log("Группы", response);
         if (response && Array.isArray(response)) {
             console.log("Буду устанавливать")
-            const newGroups = response
+            const filteredGroups = response.filter(
+                (group) =>
+                    !courseGroups.some((courseGroup) => courseGroup.id === group.id)
+            );
 
-            if (!refresh.current) {
-                const filteredGroups = newGroups.filter(
-                    (group) =>
-                        !courseGroups.some((courseGroup) => courseGroup.id === group.id)
-                );
-                console.log(refresh.current);
+            if (!groupsRefresh.current) {
                 setGroups((prevGroups) => [...prevGroups, ...filteredGroups]);
             } else {
-                setGroups(newGroups);
+                setGroups(filteredGroups);
+                groupsRefresh.current = false;
             }
-            refresh.current = false;
-
             setHasMore(response.length >= take);
+
         } else {
             setHasMore(false);
         }
 
         setLoadingGroups(false);
+
+    };
+
+    const fetchScrolledTeachers = async () => {
+        if (!addingTeachers.current) return;
+
+        if (loadingTeachers) return;
+        setLoadingTeachers(true);
+
+
+        const response = await fetchWithErrorHandling(
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher/scrolled?skip=${teachersRefresh.current ? 0 : teachers?.length || 0}&take=${take}&searchQuery=${searchTeachersSearchQueryElement.current.value || ""}`,
+            {method: "GET", credentials: "include"},
+            null,
+            errorHandler
+        )
+        console.log(`https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher/scrolled?skip=${teachersRefresh.current ? 0 : teachers?.length || 0}&take=${take}&searchQuery=${searchTeachersSearchQueryElement.current.value || ""}`)
+        console.log("Группы", response);
+        if (response && Array.isArray(response)) {
+            console.log("Буду устанавливать")
+
+            const filteredTeachers = response.filter(
+                (teacher) =>
+                    !courseTeachers.some((courseTeacher) => courseTeacher.id === teacher.id)
+            );
+
+            if (!teachersRefresh.current) {
+                setTeachers((prevTeachers) => [...prevTeachers, ...filteredTeachers]);
+            } else {
+                setTeachers(filteredTeachers);
+                teachersRefresh.current = false;
+            }
+
+            setHasMore(response.length >= take);
+
+        } else {
+            setHasMore(false);
+        }
+
+        setLoadingTeachers(false);
 
     };
 
@@ -208,7 +298,6 @@ function MyCourses() {
             {method: "GET", credentials: "include"},
             (allTeachers) => setTeachers(allTeachers.filter((teacher) =>
                     !courseTeachers.some((courseTeacher) => courseTeacher.id === teacher.id)),
-
                 errorHandler
             ))
         setLoadingTeachers(false);
@@ -466,13 +555,14 @@ function MyCourses() {
             {isTeachersOpen && (
                 <div id="CourceDetailSectionAddModalOverlay" onClick={() => {
                     setIsTeachersOpen(false);
-                    setShowCheckboxes(false); // Очистить чекбоксы при закрытии модалки
+                    setShowCheckboxes(false);
+                    addingTeachers.current = false;
                 }}>
                     <div id="CourceDetailTeachersAddModalContent" onClick={(e) => e.stopPropagation()}>
                         <div id="MyCourcesHeaderContainer">
                             <div id="CourseTeachersDetailHeaderAndSearchBarContainer">
                                 <div id="CourseTeachersHeader">Преподаватели</div>
-                                <div id="CourseTeachersSearchBar">
+                                <div id="CourseTeachersSearchBar" style={{display: `${addingTeachers.current? "flex": "none"}`}}>
                                     <input id="CourseTeachersSearchBarInput" placeholder="Поиск преподавателя"
                                            value={teachersSearchQuery}
                                            onChange={handleTeachersSearchChange}
@@ -490,8 +580,10 @@ function MyCourses() {
                                     id="CourceDetailAddButton"
                                     style={{cursor: "pointer", backgroundColor: "#fff"}}
                                     onClick={() => {
-                                        fetchAllTeachers(); // Загружаем всех преподавателей при нажатии "Добавить"
                                         setShowCheckboxes(true);
+                                        teachersRefresh.current = true;
+                                        addingTeachers.current = true;
+                                        fetchScrolledTeachers();
                                     }}
                                 >
                                     Добавить
@@ -500,7 +592,9 @@ function MyCourses() {
                         )}
 
 
-                        <div id="CourseContactsCourceContainer">
+                        <div id="CourseContactsCourceContainer"
+                             ref={teachersScroll}
+                             onScroll={handleTeachersScroll}>
                             {loadingTeachers ? (
                                 <div style={{textAlign: "center", marginTop: "20px"}}>
                                     <ClipLoader size={50} color={"#333"}/>
@@ -606,14 +700,15 @@ function MyCourses() {
             {isGroupsOpen && (
                 <div id="CourceDetailSectionAddModalOverlay" onClick={() => {
                     setIsGroupsOpen(false);
-                    setShowCheckboxes(false); // Очистить чекбоксы при закрытии модалки
+                    setShowCheckboxes(false);
+                    addingGroups.current = false;
                 }}>
                     <div id="CourceDetailTeachersAddModalContent" onClick={(e) => e.stopPropagation()}>
                         <div id="MyCourcesHeaderContainer">
 
                             <div id="CourseTeachersDetailHeaderAndSearchBarContainer">
                                 <div id="CourseTeachersHeader">Группы</div>
-                                <div id="CourseTeachersSearchBar">
+                                <div id="CourseTeachersSearchBar"  style={{display: `${addingGroups.current? "flex": "none"}`}}>
                                     <input id="CourseTeachersSearchBarInput" placeholder="Поиск группы"
                                            value={groupsSearchQuery}
                                            onChange={handleGroupSearchChange}
@@ -635,6 +730,8 @@ function MyCourses() {
                                         style={{cursor: "pointer", backgroundColor: "#fff"}}
                                         onClick={() => {
                                             setShowCheckboxes(true);
+                                            groupsRefresh.current = true;
+                                            addingGroups.current = true;
                                             fetchScrolledGroups();
                                         }}>Добавить
                                 </button>
@@ -643,7 +740,9 @@ function MyCourses() {
                         )}
 
 
-                        <div id="CourseContactsCourceContainer">
+                        <div id="CourseContactsCourceContainer"
+                            ref={groupsScroll}
+                             onScroll={handleGroupsScroll}>
                             {loadingGroups ? (
                                 <div style={{textAlign: "center", marginTop: "20px"}}>
                                     <ClipLoader size={50} color={"#333"}/>

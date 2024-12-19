@@ -22,6 +22,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllStudents()
         {
             var students = await _context.Students.Include(s => s.Group).ToListAsync();
@@ -30,6 +31,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpGet("paginated")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllStudentsPaginated([FromQuery] int page, [FromQuery] int limit)
         {
             var totalStudents = await _context.Students.CountAsync();
@@ -80,6 +82,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateStudent([FromBody] CreateStudentRequest request)
         {
             if (!ModelState.IsValid)
@@ -94,11 +97,11 @@ namespace StudentsKnoweledgeAPI.Controllers
             var newStudent = new Student
             {
                 UserName = request.UserName,
-                Mail = request.Mail,  // Добавили email
-                Name = request.Name,  // Добавили имя
-                LastName = request.LastName,  // Добавили фамилию
-                MiddleName = request.MiddleName,  // Добавили отчество
-                Phone = request.Phone,  // Добавили телефон
+                Mail = request.Mail,  
+                Name = request.Name, 
+                LastName = request.LastName,  
+                MiddleName = request.MiddleName, 
+                Phone = request.Phone,  
                 Role = UserRole.Student,
                 Group = group
             };
@@ -114,6 +117,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateStudent(string id, [FromBody] UpdateStudentRequest request)
         {
             var student = await _context.Students.Include(s => s.Group).FirstOrDefaultAsync(s => s.Id == id);
@@ -159,10 +163,10 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             }
 
-            // Mark the student entity as modified
+          
             _context.Entry(student).State = EntityState.Modified;
 
-            // Save changes to the database
+
             await _context.SaveChangesAsync();
 
             return Ok(student);
@@ -170,6 +174,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteStudent(string id)
         {
             var student = await _context.Students.FindAsync(id);

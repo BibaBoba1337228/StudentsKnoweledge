@@ -21,6 +21,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
         // ----- Управление разделами курса -----
 
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpGet("Teacher/{courseId}/Sections")]
         public async Task<IActionResult> GetSectionsByCourseId(int courseId)
         {
@@ -31,7 +32,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(course.Sections);
         }
-        
 
 
         [HttpGet("Student/{courseId}/Sections")]
@@ -49,7 +49,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
 
-
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpPost("{courseId}/Sections")]
         public async Task<IActionResult> AddSectionToCourse(int courseId, [FromBody] CreateCourseSectionRequest section)
         {
@@ -70,6 +70,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return CreatedAtAction(nameof(GetSectionsByCourseId), new { courseId }, newSection);
         }
 
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpPut("{courseId}/Sections/{sectionId}")]
         public async Task<IActionResult> UpdateSection(int courseId, int sectionId, [FromBody] UpdateSectionRequest updatedSection)
         {
@@ -125,6 +126,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(taskMaterials);
         }
+
 
         [HttpGet("{courseId}/TaskMaterialsWithAnswers")]
         public async Task<IActionResult> GetTaskMaterialsWithAnswers(int courseId)
@@ -221,7 +223,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
 
-
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpPut("{courseId}/Sections/{sectionId}/Visibility")]
         public async Task<IActionResult> ToggleSectionVisibility(int courseId, int sectionId, [FromBody] bool isVisible)
         {
@@ -294,7 +296,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
 
-
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpDelete("{courseId}/Sections/{sectionId}")]
         public async Task<IActionResult> DeleteSection(int courseId, int sectionId)
         {
@@ -312,6 +314,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
         // ----- Управление преподавателями курса -----
 
+
         [HttpGet("{courseId}/Teachers")]
         public async Task<IActionResult> GetTeachersByCourseId(int courseId)
         {
@@ -325,6 +328,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(course.Teachers);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("{courseId}/AddTeacher/{teacherId}")]
         public async Task<IActionResult> AddTeacherToCourse(int courseId, string teacherId)
         {
@@ -343,6 +347,8 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Teacher added to course successfully." });
         }
 
+
+        [Authorize(Roles = "Admin")]
         [HttpPost("{courseId}/AddTeachers")]
         public async Task<IActionResult> AddTeachersToCourse(int courseId, [FromBody] List<string> teacherIds)
         {
@@ -374,7 +380,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{courseId}/RemoveTeacher/{teacherId}")]
         public async Task<IActionResult> RemoveTeacherFromCourse(int courseId, string teacherId)
         {
@@ -409,6 +415,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(course.Groups);
         }
 
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpPost("{courseId}/AddGroup/{groupId}")]
         public async Task<IActionResult> AddGroupToCourse(int courseId, int groupId)
         {
@@ -427,6 +434,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Group added to course successfully." });
         }
 
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpPost("{courseId}/AddGroups")]
         public async Task<IActionResult> AddGroupsToCourse(int courseId, [FromBody] List<int> groupIds)
         {
@@ -460,7 +468,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(addedGroups);
         }
 
-
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpDelete("{courseId}/RemoveGroup/{groupId}")]
         public async Task<IActionResult> RemoveGroupFromCourse(int courseId, int groupId)
         {
@@ -492,6 +500,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(courses);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("paginated")]
         public async Task<IActionResult> GetAllCoursesPaginated([FromQuery] int page, [FromQuery] int limit)
         {
@@ -557,36 +566,36 @@ namespace StudentsKnoweledgeAPI.Controllers
         [HttpGet("{courseId}/Task/{id}")]
         public async Task<IActionResult> GetTaskMaterialById(int courseId, int id)
         {
-            // Поиск курса по courseId, включая его секции и материалы
+        
             var course = await _context.Courses
-                .Include(c => c.Sections)  // Включаем секции курса
-                .ThenInclude(s => s.Materials)  // Включаем материалы секций
+                .Include(c => c.Sections)
+                .ThenInclude(s => s.Materials)
                 .FirstOrDefaultAsync(c => c.Id == courseId);
 
             if (course == null)
                 return NotFound(new { message = "Course not found." });
 
-            // Ищем материал среди всех секций курса
+        
             var material = course.Sections
-                .SelectMany(s => s.Materials)  // Извлекаем все материалы из секций
-                .OfType<TaskMaterial>()  // Фильтруем по типу TaskMaterial
+                .SelectMany(s => s.Materials)
+                .OfType<TaskMaterial>()
                 .FirstOrDefault(m => m.Id == id);
 
             // Если материал не найден
             if (material == null)
                 return NotFound(new { message = "Task material not found." });
 
-            // Извлекаем идентификатор студента из Identity
-            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);  // Retrieve the user ID
+
+            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrEmpty(studentId))
                 return Unauthorized(new { message = "Student ID not found in Identity." });
 
-            // Поиск ответа студента
+
             var studentAnswer = await _context.StudentAnswers
                 .FirstOrDefaultAsync(sa => sa.MaterialId == id && sa.StudentId == studentId);
 
-            // Формируем объект результата
+
             var result = new
             {
                 material.Id,
@@ -630,6 +639,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(course);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateCourse([FromBody] Course course)
         {
@@ -642,6 +652,8 @@ namespace StudentsKnoweledgeAPI.Controllers
             return CreatedAtAction(nameof(GetCourseById), new { id = course.Id }, course);
         }
 
+
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCourse(int id, [FromBody] Course updatedCourse)
         {
@@ -658,7 +670,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(course);  
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)
         {
@@ -672,14 +684,14 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Course deleted successfully." });
         }
 
-
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpGet("TaskMaterials/{materialId}/StudentAnswers")]
         public async Task<IActionResult> GetStudentAnswersByTaskMaterialId(int materialId)
         {
-            // Retrieve all student answers for the given TaskMaterial by materialId
+            
             var studentAnswers = await _context.StudentAnswers
-                .Include(sa => sa.Student)  // Include related student data
-                .Where(sa => sa.MaterialId == materialId)  // Filter by TaskMaterial ID
+                .Include(sa => sa.Student)  
+                .Where(sa => sa.MaterialId == materialId)  
                 .ToListAsync();
 
             if (studentAnswers == null || !studentAnswers.Any())

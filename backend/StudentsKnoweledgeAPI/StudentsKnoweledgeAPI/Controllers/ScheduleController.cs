@@ -17,33 +17,29 @@ namespace StudentsKnoweledgeAPI.Controllers
             _context = context;
         }
 
-        // Общий метод для получения расписания с учётом связанных данных
         private IQueryable<Schedule> GetScheduleWithEntries()
         {
             return _context.Schedules
-                .Include(s => s.Entries);  // Подключаем связанные записи расписания
+                .Include(s => s.Entries);  
         }
 
-        // Создать или обновить расписание
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateOrUpdateSchedule([FromBody] ScheduleDto scheduleDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Проверяем существование группы
             var groupExists = _context.Groups.Any(g => g.Id == scheduleDto.GroupId);
             if (!groupExists)
                 return NotFound("Group not found");
 
-            // Проверяем, существует ли расписание для указанной группы
             var existingSchedule = _context.Schedules
                 .Include(s => s.Entries)
                 .FirstOrDefault(s => s.GroupId == scheduleDto.GroupId);
 
             if (existingSchedule != null)
             {
-                // Расписание существует, добавляем записи к существующему расписанию
                 var newEntry = new ScheduleEntry
                 {
                     Subject = scheduleDto.Entries[0].Subject,
@@ -55,7 +51,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                     IsDenominator = scheduleDto.Entries[0].IsDenominator
                 };
 
-                // Добавляем новые записи к существующему расписанию
                 existingSchedule.Entries.Add(newEntry);
 
                 _context.Schedules.Update(existingSchedule);
@@ -64,7 +59,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             }
             else
             {
-                // Расписание не существует, создаём новое
                 var newSchedule = new Schedule
                 {
                     GroupId = scheduleDto.GroupId,
@@ -101,27 +95,25 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             return Ok(schedule);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public IActionResult UpdateSchedule(int id, [FromBody] ScheduleDto updatedScheduleDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Получаем существующее расписание
             var existingSchedule = GetScheduleWithEntries()
                 .FirstOrDefault(s => s.Id == id);
 
             if (existingSchedule == null)
                 return NotFound();
 
-            // Обновляем только те записи, которые были переданы в запросе
             foreach (var entry in updatedScheduleDto.Entries)
             {
-                // Ищем существующую запись по уникальным полям (например, Subject, Day)
                 var existingEntry = existingSchedule.Entries
                     .FirstOrDefault(e => e.Subject == entry.Subject && e.Day == entry.Day && e.StartTime == TimeSpan.Parse(entry.StartTime));
 
-                // Если такая запись найдена, обновляем поля
                 if (existingEntry != null)
                 {
                     if (!string.IsNullOrEmpty(entry.Subject)) existingEntry.Subject = entry.Subject;
@@ -137,8 +129,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 }
                 else
                 {
-                    // Если запись не найдена, то можно создать новую или вернуть ошибку
-                    // В этом примере создаем новую запись
                     var newEntry = new ScheduleEntry
                     {
                         Subject = entry.Subject,
@@ -157,7 +147,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 }
             }
 
-            // Сохраняем изменения
             _context.SaveChanges();
 
             return NotFound();
@@ -166,6 +155,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
         [HttpDelete("{entryId}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteScheduleEntry(int entryId)
         {
             var entry = _context.ScheduleEntries.FirstOrDefault(e => e.Id == entryId);
@@ -179,7 +169,6 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
 
-        // Получить расписание по группе
         [HttpGet("group/{groupId}")]
         public IActionResult GetScheduleByGroup(int groupId)
         {

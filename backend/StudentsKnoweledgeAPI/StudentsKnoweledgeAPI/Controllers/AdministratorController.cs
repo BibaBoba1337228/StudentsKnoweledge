@@ -15,6 +15,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly AppDbContext _context;
 
+
         public AdministratorController(UserManager<AppUser> userManager, AppDbContext context)
         {
             _userManager = userManager;
@@ -22,6 +23,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllAdministrators()
         {
             var administrators = await _context.Administrators.ToListAsync();
@@ -29,6 +31,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAdministratorById(int id)
         {
             var administrator = await _context.Administrators.FindAsync(id);
@@ -40,6 +43,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAdministrator([FromBody] CreateAdministratorRequest request)
         {
             if (!ModelState.IsValid)
@@ -60,6 +64,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateAdministrator(int id, [FromBody] UpdateAdministratorRequest request)
         {
             var administrator = await _context.Administrators.FindAsync(id);
@@ -76,6 +81,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAdministrator(int id)
         {
             var administrator = await _context.Administrators.FindAsync(id);

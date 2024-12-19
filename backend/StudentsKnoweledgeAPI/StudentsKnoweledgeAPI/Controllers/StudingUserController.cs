@@ -262,10 +262,9 @@ namespace StudentsKnoweledgeAPI.Controllers
                 // Генерация уникального имени файла
                 var fileName = $"{Guid.NewGuid()}{Path.GetExtension(profilePicture.FileName)}";
 
-                // Используем директорию для хранения файлов в проекте (например, в папке "files")
+               
                 var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "files", "profile_pictures", userId);
 
-                // Проверяем, существует ли директория, и создаем, если нет
                 if (!Directory.Exists(uploadPath))
                 {
                     Directory.CreateDirectory(uploadPath);
@@ -273,13 +272,12 @@ namespace StudentsKnoweledgeAPI.Controllers
 
                 var filePath = Path.Combine(uploadPath, fileName);
 
-                // Сохранение файла
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await profilePicture.CopyToAsync(stream);
                 }
 
-                // Обновление пути к файлу в базе данных
+                
                 var user = await _context.Users.FindAsync(userId);
                 if (user == null)
                     return NotFound(new { message = "User not found" });
