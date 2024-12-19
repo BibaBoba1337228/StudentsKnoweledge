@@ -12,7 +12,7 @@ import {ClipLoader} from "react-spinners";
 function MyCourses() {
 
     const data = useLoaderData();
-    const [isLoading, setIsLoading] = useState(true); // состояние загрузки
+    const [isLoading, setIsLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
 
     const navigate = useNavigate();
@@ -28,26 +28,25 @@ function MyCourses() {
     );
 
 
-
     useEffect(() => {
         // Создаем промисы для загрузки всех картинок
         const preloadImages = backgrounds.map(src => {
             return new Promise((resolve, reject) => {
                 const img = new Image();
                 img.src = src;
-                img.onload = resolve; // Разрешим промис, когда изображение загрузится
-                img.onerror = reject; // Отклоняем промис, если изображение не загрузилось
+                img.onload = resolve;
+                img.onerror = reject;
             });
         });
 
         // Ожидаем загрузки всех изображений
         Promise.all(preloadImages)
             .then(() => {
-                setIsLoading(false); // Все изображения загружены, меняем состояние
+                setIsLoading(false);
             })
             .catch((error) => {
                 console.error('Ошибка при загрузке изображений:', error);
-                setIsLoading(false); // В случае ошибки тоже завершаем загрузку
+                setIsLoading(false);
             });
     }, [backgrounds]);
 

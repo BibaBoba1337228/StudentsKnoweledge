@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {useLoaderData, useLocation, useNavigate, useParams} from 'react-router-dom';
 import '../styles/LrManage.css';
-import {fetchWithFormAuth} from "../api/fetchWithFormAuth";
 import {fetchWithAuth} from "../api/fetchWithAuth";
 
 function LrManage() {
@@ -13,16 +12,16 @@ function LrManage() {
     const sectionId = location.state?.sectionId;
 
     const [title, setTitle] = useState(taskDetails.title || "");
-    const [content, setContent] = useState(taskDetails.content || ""); // Track content from textarea
-    const [isSaving, setIsSaving] = useState(false); // for loading state
-    const [error, setError] = useState(null); // for error state
+    const [content, setContent] = useState(taskDetails.content || "");
+    const [isSaving, setIsSaving] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleTitleChange = (e) => {
         setTitle(e.currentTarget.textContent);
     };
 
     const handleContentChange = (e) => {
-        setContent(e.target.value); // Update content when textarea changes
+        setContent(e.target.value);
     };
 
     const HandleGoBack = () => {
@@ -32,7 +31,6 @@ function LrManage() {
     const saveChanges = async () => {
         if (isSaving) return;
 
-        // Check if title or content changed
         const isTitleChanged = title !== taskDetails.title;
         const isContentChanged = content !== taskDetails.content;
 
@@ -50,15 +48,15 @@ function LrManage() {
                 Content: isContentChanged ? content : taskDetails.content
             };
 
-            const method = 'PUT'; // Use PUT for update
-            const url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${sectionId}/Material/TextContent/${taskId}`; // Updated API endpoint
+            const method = 'PUT';
+            const url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${sectionId}/Material/TextContent/${taskId}`;
 
             const response = await fetchWithAuth(url, {
                 method: method,
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(updatedData), // Send updated data as JSON
+                body: JSON.stringify(updatedData),
             });
 
             if (!response.ok) {

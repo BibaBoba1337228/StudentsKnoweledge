@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import {fetchWithAuth} from "../api/fetchWithAuth";
 
-// Компонент модалки для отображения ошибки
+
 export const ErrorModal = ({errorMessage, onClose}) => (
     <div className="modal-overlay" style={styles.overlay}>
         <div className="modal" style={styles.modal}>
@@ -24,7 +24,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 999, // чтобы окно было поверх контента
+        zIndex: 999,
     },
     modal: {
         maxWidth: '500px',
@@ -49,51 +49,39 @@ const styles = {
 };
 
 
-// Класс обработчика ошибок
 export class ErrorHandler {
     constructor(setError) {
-        this.setError = setError || null; // Передаем setError через конструктор
+        this.setError = setError || null;
     }
 
-    // Метод для установки ошибки
     setErrorCallback(setError) {
         this.setError = setError;
     }
 
-    // Обработчик ошибки
     handleError(error) {
         if (this.setError) {
-            let errorMessage = "Неизвестная ошибка"; // Начальное сообщение об ошибке
+            let errorMessage = "Неизвестная ошибка";
 
-            console.error(error);
-            // Проверяем, является ли ошибка объектом Response
             if (error instanceof Response) {
                 error.json().then((errorDetails) => {
                     if (errorDetails.errors) {
-                        // Ошибки валидации
                         const modelErrors = Object.values(errorDetails.errors).flat().join("\n");
                         errorMessage = `Ошибка валидации:\n${modelErrors}`;
-                        console.log(errorMessage);
                     } else if (Array.isArray(errorDetails)) {
-                        // Ошибка запроса
                         const identityErrors = errorDetails.map((e) => e.description).join("\n");
                         errorMessage = `Ошибка запроса:\n${identityErrors}`;
                     } else {
                         errorMessage = `Ошибка: ${JSON.stringify(errorDetails)}`;
                     }
 
-                    // Устанавливаем ошибку в состояние
                     this.setError(errorMessage);
                 }).catch(() => {
-                    // Если не удается распарсить JSON, обрабатываем как обычную ошибку
                     this.setError(`Неизвестная ошибка с кодом ${error.status}`);
                 });
             } else if (error instanceof Error) {
-                // Обработка ошибок на уровне сети или JavaScript ошибок
                 errorMessage = `Системная ошибка: ${error.message}`;
                 this.setError(errorMessage);
             } else {
-                // Ошибка неизвестного типа
                 this.setError(`Неизвестный тип ошибки: ${JSON.stringify(error)}`);
             }
         } else {
@@ -102,20 +90,17 @@ export class ErrorHandler {
     }
 }
 
-// Функция для универсальной обработки ошибок
 export async function fetchWithErrorHandling(url, options, callback = null, errorHandler = null) {
     try {
         const response = await fetchWithAuth(url, options);
         if (response.ok) {
             const data = await response.json();
-            // Вызываем callback, если он был передан
             if (callback) {
                 callback(data);
             } else {
                 return data;
             }
         } else {
-            // Если errorHandler передан, обрабатываем ошибку, иначе выводим в консоль
             if (errorHandler) {
                 errorHandler.handleError(response);
             } else {
@@ -123,7 +108,6 @@ export async function fetchWithErrorHandling(url, options, callback = null, erro
             }
         }
     } catch (error) {
-        // Если errorHandler передан, обрабатываем ошибку, иначе выводим в консоль
         if (errorHandler) {
             errorHandler.handleError(error);
         } else {

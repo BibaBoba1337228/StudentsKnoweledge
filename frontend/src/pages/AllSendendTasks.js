@@ -22,7 +22,7 @@ function AllSendendTasks() {
                         <div
                             key={task.id}
                             className="AllSendendTasksInfoBlock"
-                            onClick={() => navigate(`/system/courses/course/${courseId}/task/${task.id}/answers/students`)} // Adjust the path as necessary
+                            onClick={() => navigate(`/system/courses/course/${courseId}/task/${task.id}/answers/students`)}
                             style={{cursor: "pointer"}}
                         >
                             <div className="AllSendendTasksTextBlock">

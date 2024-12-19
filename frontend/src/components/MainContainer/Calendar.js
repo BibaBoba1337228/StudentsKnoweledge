@@ -14,7 +14,7 @@ import LeftIcon from "../../assets/icons/left_icon.svg";
 import RightIcon from "../../assets/icons/right_icon.svg";
 import "../../styles/Calendar.css";
 import {useNavigate} from "react-router-dom";
-import {fetchWithAuth} from "../../api/fetchWithAuth"; // Подключение CSS
+import {fetchWithAuth} from "../../api/fetchWithAuth";
 
 
 function Calendar() {
@@ -25,7 +25,6 @@ function Calendar() {
 
     const navigate = useNavigate();
 
-    // Загрузка событий с сервера
     useEffect(() => {
         const fetchEvents = async () => {
             try {
@@ -40,9 +39,8 @@ function Calendar() {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const data = await response.json(); // Преобразуем в JSON
+                const data = await response.json();
                 setEvents(data);
-                console.log(data);
             } catch (error) {
                 console.error("Error fetching events:", error);
             }
@@ -51,20 +49,17 @@ function Calendar() {
         fetchEvents();
     }, []);
 
-    // Получаем все события для текущего месяца
     const monthStart = startOfMonth(currentDate);
     const monthEnd = endOfMonth(currentDate);
     const days = eachDayOfInterval({start: monthStart, end: monthEnd});
     const startDayOfWeek = (getDay(monthStart) + 6) % 7;
 
-    // Функция для проверки, является ли день событием
     const isEventDay = (day) => {
         return events.some((event) =>
             (isSameDay(day, new Date(event.openDate)) || isSameDay(day, new Date(event.closeDate)))
         );
     };
 
-    // Обработка перехода по месяцам
     const handlePrevMonth = () => setCurrentDate(subMonths(currentDate, 1));
     const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
 
@@ -81,14 +76,13 @@ function Calendar() {
 
     return (
         <div className="calendar-container">
-            {/* Навигация по месяцам */}
             <div className="calendar-navigation">
                 <img src={LeftIcon} alt="left" onClick={handlePrevMonth}/>
                 <p className="calendar-title">{format(currentDate, "LLLL yyyy", {locale: ru})}</p>
                 <img src={RightIcon} alt="right" onClick={handleNextMonth}/>
             </div>
 
-            {/* Заголовки дней недели */}
+
             <div className="calendar-grid">
                 {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"].map((day) => (
                     <div key={day} className="calendar-day-header">
@@ -96,12 +90,12 @@ function Calendar() {
                     </div>
                 ))}
 
-                {/* Пустые ячейки для сдвига */}
+
                 {Array.from({length: startDayOfWeek}).map((_, index) => (
                     <div key={index}/>
                 ))}
 
-                {/* Дни месяца */}
+
                 {days.map((day) => (
                     <div
                         key={day}
@@ -113,7 +107,7 @@ function Calendar() {
                 ))}
             </div>
 
-            {/* Модальное окно */}
+
             {selectedDate && (
                 <div className="modal-overlay" onClick={() => setSelectedDate(null)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>

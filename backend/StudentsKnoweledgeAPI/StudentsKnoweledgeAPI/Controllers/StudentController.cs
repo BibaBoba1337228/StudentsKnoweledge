@@ -40,6 +40,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             var students = await _context.Students
                 .Skip((page - 1) * limit)
                 .Take(limit)
+                .Include(s => s.Group)
                 .ToListAsync();
 
             var preparedStudents = students.Select(student =>

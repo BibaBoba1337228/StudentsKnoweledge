@@ -7,23 +7,21 @@ import {fetchWithAuth} from "../api/fetchWithAuth";
 
 function ChangeTask() {
     const [materialType, setMaterialType] = useState("Ответ студента");
-    const [title, setTitle] = useState(""); // Название материала
-    const [description, setDescription] = useState(""); // Описание задачи
-    const [deadline, setDeadline] = useState(""); // Дедлайн для задачи
-    const [grade, setGrade] = useState(""); // Максимальный балл
-    const [content, setContent] = useState(""); // Текст для "Текстового блока"
-    const [file, setFile] = useState(null); // Файл
-    const [isLoading, setIsLoading] = useState(false); // Состояние загрузки
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [deadline, setDeadline] = useState("");
+    const [grade, setGrade] = useState("");
+    const [content, setContent] = useState("");
+    const [file, setFile] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();
     const sectionId = location.state?.sectionId;
     const {courseId} = useParams();
 
-    // Обработчик изменения типа материала
     const handleDropdownChange = (e) => setMaterialType(e.target.value);
 
-    // Обработчик создания материала
     const handleCreate = async () => {
         if (!title) {
             alert("Пожалуйста, укажите название материала.");
@@ -143,7 +141,6 @@ function ChangeTask() {
                         </div>
                     </div>
 
-                    {/* Блоки для различных типов материалов */}
                     {materialType === "Файл" && (
                         <div className="LrManageInfoBlock">
                             <FileAttachment initialFile={null} onFileChange={setFile}/>

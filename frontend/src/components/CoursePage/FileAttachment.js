@@ -1,18 +1,18 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import "../../styles/FileAttachment.css";
 import trashcan from '../../assets/icons/trashcan.svg';
-import {fetchWithAuth} from "../../api/fetchWithAuth";
+
 
 const FileAttachment = ({initialFile, materialId, onFileChange}) => {
     const [file, setFile] = useState(initialFile);
-    const [isLoading, setIsLoading] = useState(false); // состояние загрузки
-    const [error, setError] = useState(null); // состояние для ошибки
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleFileChange = (event) => {
-        const selectedFile = event.target.files[0]; // получаем только один файл
+        const selectedFile = event.target.files[0];
         if (selectedFile) {
-            setFile(selectedFile); // обновляем состояние с выбранным файлом
-            onFileChange(selectedFile); // передаем родительскому компоненту
+            setFile(selectedFile);
+            onFileChange(selectedFile);
         }
     };
 
@@ -20,20 +20,19 @@ const FileAttachment = ({initialFile, materialId, onFileChange}) => {
     const removeFile = async () => {
         if (!file) return;
 
-        // Удаляем файл через API только если это тот же файл, что был изначально
+
         if (file != initialFile) {
-            setFile(null); // просто сбрасываем файл локально
-            onFileChange(null); // передаем родительскому компоненту информацию о файле
+            setFile(null);
+            onFileChange(null);
             return;
         }
 
-        setIsLoading(true);  // начинаем процесс загрузки
+        setIsLoading(true);
 
-        // Успешное удаление файла, обновляем состояние
-        setFile(null); // сбрасываем файл локально
-        onFileChange(null); // передаем родительскому компоненту информацию о файле
-        setIsLoading(false); // завершение загрузки
 
+        setFile(null);
+        onFileChange(null);
+        setIsLoading(false);
     };
 
 
@@ -47,7 +46,7 @@ const FileAttachment = ({initialFile, materialId, onFileChange}) => {
                         accept="*"
                         onChange={handleFileChange}
                         className="file-input"
-                        disabled={file !== null || isLoading} // блокируем выбор нового файла, если уже есть выбранный или идет загрузка
+                        disabled={file !== null || isLoading}
                     />
                 </label>
             </div>
@@ -60,7 +59,7 @@ const FileAttachment = ({initialFile, materialId, onFileChange}) => {
                             <button
                                 onClick={removeFile}
                                 className="file-remove-button"
-                                disabled={isLoading} // блокируем кнопку удаления, если идет загрузка
+                                disabled={isLoading}
                             >
                                 <img src={trashcan} alt="trashcan"/>
                             </button>
@@ -73,7 +72,7 @@ const FileAttachment = ({initialFile, materialId, onFileChange}) => {
                 )}
             </div>
 
-            {error && <div className="error-message">{error}</div>} {/* отображение ошибки */}
+            {error && <div className="error-message">{error}</div>}
         </div>
     );
 };

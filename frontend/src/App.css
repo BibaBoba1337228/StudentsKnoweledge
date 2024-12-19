@@ -10,40 +10,39 @@
 
 }
 
-/* AuthorizedContainer.css */
 .MainContainer {
     display: flex;
-    height: 100vh; /* Полная высота окна */
-    overflow: hidden; /* Убираем прокрутку для контейнера */
+    height: 100vh;
+    overflow: hidden;
 }
 
 .LeftMenu {
-    position: fixed; /* Фиксированное положение */
+    position: fixed;
     top: 0;
     left: 0;
-    height: 100vh; /* Полная высота */
-    width: 200px; /* Фиксированная ширина */
-    background-color: #f4f4f4; /* Цвет фона */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Тень */
-    z-index: 10; /* Поверх содержимого */
+    height: 100vh;
+    width: 200px;
+    background-color: #f4f4f4;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
 .RightMenu {
-    position: fixed; /* Фиксированное положение */
+    position: fixed;
     top: 0;
     right: 0;
-    height: 100vh; /* Полная высота */
-    width: 200px; /* Фиксированная ширина */
-    background-color: #f4f4f4; /* Цвет фона */
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Тень */
-    z-index: 10; /* Поверх содержимого */
+    height: 100vh;
+    width: 200px;
+    background-color: #f4f4f4;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
 .Content {
-    margin-right: 300px; /* Отступ справа (равен ширине RightMenu) */
-    flex: 1; /* Занимает оставшееся пространство */
-    overflow-y: auto; /* Прокрутка, если контент превышает высоту */
-    height: 100%; /* Полная высота */
-    background-color: #FCF8F5; /* Фон центрального блока */
+    margin-right: 300px;
+    flex: 1;
+    overflow-y: auto;
+    height: 100%;
+    background-color: #FCF8F5;
 }
 

@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useEffect, useState, useRef} from 'react';
+import {useNavigate} from 'react-router-dom';
 import '../styles/FindContacts.css';
-import Chats from '../assets/images/profile.svg';
 import SearchIcon from '../assets/icons/search.svg';
 import {ErrorHandler, ErrorModal, fetchWithErrorHandling} from "../components/ErrorHandler";
 import {ClipLoader} from "react-spinners";
@@ -23,42 +22,40 @@ function FindContacts() {
         errorHandler.setErrorCallback(setError);
 
     }, []);
-    console.log(users);
 
     const closeErrorModal = () => {
-        setError(null); // Закрытие модального окна
+        setError(null);
     };
 
     const loadUsers = async (reset = false) => {
         if (loading) return;
         setLoading(true);
 
-        // Если reset = true, значит мы меняли поисковый запрос и нужно обнулить skip и users
         const currentSkip = reset ? 0 : skip;
 
-            const response = await fetchWithErrorHandling(
-                `https://${process.env.REACT_APP_API_BASE_URL}/api/StudingUser/contacts?skip=${currentSkip}&take=${take}&search=${encodeURIComponent(searchTerm)}`,
-                {
-                    method: "GET",
-                    credentials: "include",
-                },
-                null,
-                errorHandler
-            );
+        const response = await fetchWithErrorHandling(
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/StudingUser/contacts?skip=${currentSkip}&take=${take}&search=${encodeURIComponent(searchTerm)}`,
+            {
+                method: "GET",
+                credentials: "include",
+            },
+            null,
+            errorHandler
+        );
 
-            if (reset) {
-                setUsers(response);
-                setSkip(take);
-            } else {
-                setUsers(prev => [...prev, ...response]);
-                setSkip(prev => prev + take);
-            }
+        if (reset) {
+            setUsers(response);
+            setSkip(take);
+        } else {
+            setUsers(prev => [...prev, ...response]);
+            setSkip(prev => prev + take);
+        }
 
-            if (response.length < take) {
-                setHasMore(false);
-            } else {
-                setHasMore(true);
-            }
+        if (response.length < take) {
+            setHasMore(false);
+        } else {
+            setHasMore(true);
+        }
         setLoading(false);
     };
 
@@ -66,7 +63,6 @@ function FindContacts() {
         loadUsers(true);
     }, []);
 
-    // Обработчик скролла
     const handleScroll = () => {
         if (!hasMore || loading) return;
 
@@ -80,9 +76,7 @@ function FindContacts() {
     const handleSearchChange = (e) => {
         const value = e.target.value;
         setSearchTerm(value);
-        // Когда пользователь вводит текст, заново загружаем список, начиная с начала
-        // Делаем небольшую задержку (дебаунс) или сразу, чтобы не дергать API по каждому символу
-        // Для простоты сразу, но в идеале - добавить useEffect с таймером
+
         loadUsers(true);
     };
 
@@ -119,7 +113,15 @@ function FindContacts() {
                              style={{cursor: "pointer"}}>
 
                             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                                <img src={`https://${process.env.REACT_APP_API_BASE_URL}/${user.profilePictureUrl}`} alt="Chats" style={{width: '80px'}}/>
+                                <img
+                                    src={
+                                        user.profilePictureUrl.includes('files')
+                                            ? `https://${process.env.REACT_APP_API_BASE_URL}/${user.profilePictureUrl}`
+                                            : `https://${process.env.REACT_APP_API_BASE_URL}/files/${user.profilePictureUrl}`
+                                    }
+                                    alt="Chats"
+                                    style={{width: '80px'}}
+                                />
                                 <div className="FindContactsTextBlockWithChatsImage">
                                     <div className="FindContactsInfoBlockHeaderWithChatsImage">
                                         {user.lastName} {user.name} {user.middleName}

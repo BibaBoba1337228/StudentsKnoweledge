@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Navigate, Outlet, Route, Routes, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import '../styles/OtherProfile.css';
 import profile from '../assets/images/profile.svg'
 import add from '../assets/icons/add.svg'
@@ -58,7 +58,7 @@ function OtherProfile() {
                         </div>
 
                     </div>
-                    
+
 
                     <div className="OtherProfileInfoBlock">
 

@@ -11,7 +11,6 @@ const GroupMarksTable = () => {
     const {courseId} = useParams();
 
     useEffect(() => {
-        // Загружаем список групп
         const fetchGroups = async () => {
             const response = await fetchWithAuth(
                 `https://localhost:7065/api/Course/${courseId}/Groups`
@@ -69,7 +68,8 @@ const GroupMarksTable = () => {
                             </option>
                         ))}
                     </select>
-                    <button id="GroupMarksChangeButton" style={{marginBottom: "40px"}} onClick={fetchMarks}>Показать
+                    <button id="GroupMarksChangeButton" style={{marginBottom: "40px", textAlign: "center"}}
+                            onClick={fetchMarks}>Показать
                         успеваемость
                     </button>
                 </div>

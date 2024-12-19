@@ -11,7 +11,7 @@ function Chat() {
     const [messages, setMessages] = useState(chat.messages || []);
     const [newMessage, setNewMessage] = useState('');
     const messagesEndRef = useRef(null);
-    const connectionRef = useRef(null); // Используем useRef для хранения соединения
+    const connectionRef = useRef(null);
 
     const [skip, setSkip] = useState(chat.messages.length);
     const take = 20;
@@ -26,14 +26,13 @@ function Chat() {
         errorHandler.setErrorCallback(setError);
     }, []);
 
-    // Настройка SignalR соединения
     useEffect(() => {
         const connect = new HubConnectionBuilder()
             .withUrl(`https://${process.env.REACT_APP_API_BASE_URL}/chatHub?chatId=${chatId}`)
             .withAutomaticReconnect()
             .build();
 
-        connectionRef.current = connect; // Сохраняем соединение в useRef
+        connectionRef.current = connect;
 
         connect.start()
             .then(() => console.log("Connected to SignalR"))
@@ -43,15 +42,14 @@ function Chat() {
         return () => {
             if (connectionRef.current) {
                 connectionRef.current.stop().then(() => {
-                    console.log("SignalR connection closed");
                 }).catch((err) => {
                     console.error("Error while stopping connection:", err);
                 });
             }
         };
-    }, [chatId]); // Зависимость от chatId, чтобы пересоздавать соединение при смене чата
+    }, [chatId]);
 
-    // Обработка входящих сообщений
+
     useEffect(() => {
         const connection = connectionRef.current;
 

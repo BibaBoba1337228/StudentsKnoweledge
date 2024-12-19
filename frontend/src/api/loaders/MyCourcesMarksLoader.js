@@ -1,8 +1,4 @@
 import {fetchWithAuth} from "../fetchWithAuth";
-import Background1 from '../../assets/images/card_background_1.svg'
-import Background2 from '../../assets/images/card_background_2.svg'
-import Background3 from '../../assets/images/card_background_3.svg'
-import Background4 from '../../assets/images/card_background_4.svg'
 
 
 export async function myMarksLoader() {

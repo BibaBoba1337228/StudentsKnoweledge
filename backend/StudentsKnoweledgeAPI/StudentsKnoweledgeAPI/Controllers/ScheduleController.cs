@@ -83,7 +83,6 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
 
-        // Получить расписание по ID
         [HttpGet("{id}")]
         public IActionResult GetScheduleById(int id)
         {

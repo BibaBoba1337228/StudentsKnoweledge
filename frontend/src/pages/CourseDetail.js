@@ -1,9 +1,7 @@
 import '../styles/CourseDetail.css'
 import '../styles/fonts.css'
 import {
-    createBrowserRouter,
-    RouterProvider,
-    Outlet,
+
     useNavigate,
     useLoaderData,
     useParams,
@@ -11,14 +9,9 @@ import {
 } from 'react-router-dom';
 import CourseElement from "../components/CoursePage/CourseElement";
 import React, {useEffect, useRef, useState} from "react";
-import ProfileIcon from "../assets/icons/profile_icon.svg";
 import SearchIcon from "../assets/icons/search.svg";
-import Chats from "../assets/images/profile.svg";
 import Cross from '../assets/icons/cross.svg'
-import CheckBoxUncheckedIcon from '../assets/icons/unchecked_checkbox.svg'
-import CheckBoxСheckedIcon from '../assets/icons/checked_checkbox.svg'
 import {ClipLoader} from "react-spinners";
-import {fetchWithAuth} from "../api/fetchWithAuth";
 import {ErrorHandler, ErrorModal, fetchWithErrorHandling} from "../components/ErrorHandler";
 
 
@@ -26,7 +19,7 @@ function MyCourses() {
 
 
     const data = useLoaderData();
-    const {courseId} = useParams(); // Получаем courseId из URL
+    const {courseId} = useParams();
 
     const location = useLocation();
     const courseName = location.state?.courseName;
@@ -57,7 +50,6 @@ function MyCourses() {
     const teachersRefresh = useRef(true);
 
 
-
     const [groups, setGroups] = useState([]);
     const addingGroups = useRef(false);
     const [loadingGroups, setLoadingGroups] = useState(false);
@@ -73,17 +65,12 @@ function MyCourses() {
     const handleTeachersScroll = () => {
 
         if (!hasMore || loadingTeachers) {
-            console.log(hasMore);
-            console.log(loadingTeachers);
             return;
         }
         ;
 
         const element = teachersScroll.current;
-        console.log(element.scrollHeight);
-        console.log(element.scrollTop);
 
-        console.log(element.clientHeight);
 
         if (element.scrollHeight - element.scrollTop <= element.clientHeight + 50) {
             fetchScrolledTeachers();
@@ -94,17 +81,12 @@ function MyCourses() {
     const handleGroupsScroll = () => {
 
         if (!hasMore || loadingGroups) {
-            console.log(hasMore);
-            console.log(loadingGroups);
             return;
         }
         ;
 
         const element = groupsScroll.current;
-        console.log(element.scrollHeight);
-        console.log(element.scrollTop);
 
-        console.log(element.clientHeight);
 
         if (element.scrollHeight - element.scrollTop <= element.clientHeight + 50) {
             fetchScrolledGroups();
@@ -114,7 +96,7 @@ function MyCourses() {
 
     const handleGroupSearchChange = (event) => {
 
-        if (addingGroups){
+        if (addingGroups) {
             setGroupsSearchQuery(event.target.value);
 
             if (searchTimeout) {
@@ -159,19 +141,18 @@ function MyCourses() {
     const [role, setRole] = useState(null); // To store the role
 
     useEffect(() => {
-        // Get role from localStorage
         const storedRole = localStorage.getItem('role');
-        setRole(storedRole);  // Update role state
+        setRole(storedRole);
     }, []);
 
     useEffect(() => {
-        errorHandler.setErrorCallback(setError); // Передаем setError в errorHandler
+        errorHandler.setErrorCallback(setError);
 
     }, []);
 
 
     const closeErrorModal = () => {
-        setError(null); // Закрытие модального окна
+        setError(null);
     };
 
 
@@ -225,10 +206,7 @@ function MyCourses() {
             null,
             errorHandler
         )
-        console.log(`https://${process.env.REACT_APP_API_BASE_URL}/api/Group/scrolled?skip=${groupsRefresh.current ? 0 : groups?.length || 0}&take=${take}&searchQuery=${searchGroupsSearchQueryElement.current.value || ""}`)
-        console.log("Группы", response);
         if (response && Array.isArray(response)) {
-            console.log("Буду устанавливать")
             const filteredGroups = response.filter(
                 (group) =>
                     !courseGroups.some((courseGroup) => courseGroup.id === group.id)
@@ -263,10 +241,7 @@ function MyCourses() {
             null,
             errorHandler
         )
-        console.log(`https://${process.env.REACT_APP_API_BASE_URL}/api/Teacher/scrolled?skip=${teachersRefresh.current ? 0 : teachers?.length || 0}&take=${take}&searchQuery=${searchTeachersSearchQueryElement.current.value || ""}`)
-        console.log("Группы", response);
         if (response && Array.isArray(response)) {
-            console.log("Буду устанавливать")
 
             const filteredTeachers = response.filter(
                 (teacher) =>
@@ -562,7 +537,8 @@ function MyCourses() {
                         <div id="MyCourcesHeaderContainer">
                             <div id="CourseTeachersDetailHeaderAndSearchBarContainer">
                                 <div id="CourseTeachersHeader">Преподаватели</div>
-                                <div id="CourseTeachersSearchBar" style={{display: `${addingTeachers.current? "flex": "none"}`}}>
+                                <div id="CourseTeachersSearchBar"
+                                     style={{display: `${addingTeachers.current ? "flex" : "none"}`}}>
                                     <input id="CourseTeachersSearchBarInput" placeholder="Поиск преподавателя"
                                            value={teachersSearchQuery}
                                            onChange={handleTeachersSearchChange}
@@ -615,7 +591,9 @@ function MyCourses() {
                                                     <div style={{
                                                         width: '80px',
                                                         height: "120px",
-                                                        backgroundImage: `url(https://${process.env.REACT_APP_API_BASE_URL}/${teacher.profilePictureUrl})`,
+                                                        backgroundImage: teacher.profilePictureUrl.includes('files')
+                                                            ? `url(https://${process.env.REACT_APP_API_BASE_URL}/${teacher.profilePictureUrl})`
+                                                            : `url(https://${process.env.REACT_APP_API_BASE_URL}/files/${teacher.profilePictureUrl})`,
                                                         backgroundSize: 'contain',
                                                         backgroundPosition: 'center',
                                                         backgroundRepeat: 'no-repeat',
@@ -650,7 +628,9 @@ function MyCourses() {
                                                 <div style={{
                                                     width: '80px',
                                                     height: "120px",
-                                                    backgroundImage: `url(https://${process.env.REACT_APP_API_BASE_URL}/${teacher.profilePictureUrl})`,
+                                                    backgroundImage: teacher.profilePictureUrl.includes('files')
+                                                        ? `url(https://${process.env.REACT_APP_API_BASE_URL}/${teacher.profilePictureUrl})`
+                                                        : `url(https://${process.env.REACT_APP_API_BASE_URL}/files/${teacher.profilePictureUrl})`,
                                                     backgroundSize: 'contain',
                                                     backgroundPosition: 'center',
                                                     backgroundRepeat: 'no-repeat',
@@ -708,7 +688,8 @@ function MyCourses() {
 
                             <div id="CourseTeachersDetailHeaderAndSearchBarContainer">
                                 <div id="CourseTeachersHeader">Группы</div>
-                                <div id="CourseTeachersSearchBar"  style={{display: `${addingGroups.current? "flex": "none"}`}}>
+                                <div id="CourseTeachersSearchBar"
+                                     style={{display: `${addingGroups.current ? "flex" : "none"}`}}>
                                     <input id="CourseTeachersSearchBarInput" placeholder="Поиск группы"
                                            value={groupsSearchQuery}
                                            onChange={handleGroupSearchChange}
@@ -741,7 +722,7 @@ function MyCourses() {
 
 
                         <div id="CourseContactsCourceContainer"
-                            ref={groupsScroll}
+                             ref={groupsScroll}
                              onScroll={handleGroupsScroll}>
                             {loadingGroups ? (
                                 <div style={{textAlign: "center", marginTop: "20px"}}>
@@ -771,7 +752,7 @@ function MyCourses() {
                                                             src={Cross}
                                                             alt="Крестик"
                                                             style={{cursor: "pointer"}}
-                                                            onClick={() => handleRemoveGroup(group.id)} // Удаление при клике на крестик
+                                                            onClick={() => handleRemoveGroup(group.id)}
                                                         />
                                                     </div>
                                                 </div>

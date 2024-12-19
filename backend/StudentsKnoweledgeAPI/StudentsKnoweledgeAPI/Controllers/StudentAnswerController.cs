@@ -23,7 +23,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             _environment = environment;
         }
 
-        // Получение всех ответов пользователей по ID материала
         [HttpGet]
         [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> GetAnswersByMaterialId(int materialId)
@@ -33,8 +32,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 .Include(a => a.Student)
                 .ToListAsync();
 
-            if (!answers.Any())
-                return NotFound(new { message = "No answers found for this material." });
 
             return Ok(answers);
         }
@@ -44,8 +41,8 @@ namespace StudentsKnoweledgeAPI.Controllers
         {
             var answers = await _context.StudentAnswers
                 .Where(answer => answer.StudentId == studentId &&
-                                 answer.Material.Section.CourseId == courseId) // Используем courseId из маршрута
-                .Include(answer => answer.Material) // Подгружаем материал
+                                 answer.Material.Section.CourseId == courseId) 
+                .Include(answer => answer.Material) 
                 .ToListAsync();
 
             if (!answers.Any())
@@ -55,7 +52,6 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
 
-        // Получение ответа по ID материала и ID студента
         [HttpGet("{studentId}")]
         public async Task<IActionResult> GetAnswerByMaterialAndStudent(int materialId, string studentId)
         {
@@ -127,10 +123,8 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (answer == null)
                 return NotFound(new { message = "Answer not found." });
 
-            // Если переданы файлы, обновляем их
             if (request.Files != null && request.Files.Any())
             {
-                // Удаляем старые файлы
                 if (!string.IsNullOrEmpty(answer.FilePath))
                 {
                     foreach (var oldFilePath in answer.FilePath.Split(";"))
@@ -159,12 +153,11 @@ namespace StudentsKnoweledgeAPI.Controllers
                     filePaths.Add(filePath);
                 }
 
-                answer.FilePath = string.Join(";", filePaths); // Обновляем список путей файлов
+                answer.FilePath = string.Join(";", filePaths); 
             }
 
             
 
-            // Если ни файлов, ни комментария не передано, ничего не обновляем
             if (request.Files == null && request.Comment == null)
             {
                 return BadRequest(new { message = "No updates provided."+request.Comment });
@@ -174,7 +167,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             answer.Comment = request.Comment;
 
 
-            // Обновляем время ответа
             answer.AnswerTime = DateTime.UtcNow;
 
             _context.Entry(answer).State = EntityState.Modified;
@@ -188,7 +180,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
 
-        // Удаление ответа
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteAnswer(int materialId)
         {
@@ -201,7 +192,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (answer == null)
                 return NotFound(new { message = "Answer not found." });
 
-            // Удаляем файл, если он существует
             if (!string.IsNullOrEmpty(answer.FilePath) && System.IO.File.Exists(answer.FilePath))
             {
                 System.IO.File.Delete(answer.FilePath);
@@ -219,34 +209,27 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             var teacherId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Находим ответ студента
             var answer = await _context.StudentAnswers
                 .FirstOrDefaultAsync(a => a.MaterialId == materialId && a.StudentId == studentId);
 
-            // Проверяем, существует ли ответ
             if (answer == null)
                 return NotFound(new { message = "Answer not found." });
 
-            // Находим информацию о учителе по его ID
             var teacher = await _context.Teachers.FirstOrDefaultAsync(t => t.Id == teacherId);
 
             if (teacher == null)
                 return NotFound(new { message = "Teacher not found." });
 
-            // Формируем ФИО учителя в нужном формате (middleName 1 буква, name 1 буква, lastName)
             var teacherFIO = $"{teacher.MiddleName}. {teacher.Name[0]}. {teacher.LastName[0]}.";
 
-            // Обновляем оценку
-            answer.Grade = request.Grade ?? answer.Grade; // Обновляем поле Grade (целое число)
-            answer.MarkTime = DateTime.UtcNow; // Устанавливаем время, когда была поставлена оценка
-            answer.TeacherId = teacherId; // Устанавливаем идентификатор учителя
-            answer.TeacherFIO = teacherFIO; // Устанавливаем ФИО учителя
+            answer.Grade = request.Grade ?? answer.Grade; 
+            answer.MarkTime = DateTime.UtcNow; 
+            answer.TeacherId = teacherId; 
+            answer.TeacherFIO = teacherFIO; 
             answer.TeacherComment = request.TeacherComment ?? answer.TeacherComment;
 
-            // Обновляем время последнего изменения
             answer.AnswerTime = DateTime.UtcNow;
 
-            // Сохраняем изменения
             _context.Entry(answer).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
@@ -260,7 +243,7 @@ namespace StudentsKnoweledgeAPI.Controllers
                 throw new ArgumentException("Invalid file.");
 
             var uploadPath = Path.Combine(_environment.WebRootPath, "files", studentId);
-            Directory.CreateDirectory(uploadPath); // Создаем папку, если она не существует
+            Directory.CreateDirectory(uploadPath); 
 
             var filePath = Path.Combine(uploadPath, Guid.NewGuid() + Path.GetExtension(file.FileName));
 

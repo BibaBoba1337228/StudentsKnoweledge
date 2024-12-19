@@ -13,7 +13,6 @@ namespace StudentsKnoweledgeAPI
             if (operation.OperationId == null)
                 return;
 
-            // Найти действия с параметром IFormFile
             var parameters = context.MethodInfo.GetParameters()
                 .Where(p => p.ParameterType == typeof(IFormFile) ||
                             p.ParameterType == typeof(IEnumerable<IFormFile>));

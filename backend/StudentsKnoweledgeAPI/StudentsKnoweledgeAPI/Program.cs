@@ -56,10 +56,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-//builder.Services.AddSwaggerGen(options =>
-//{
-//    options.OperationFilter<FileUploadOperationFilter>();
-//});
+
 
 
 

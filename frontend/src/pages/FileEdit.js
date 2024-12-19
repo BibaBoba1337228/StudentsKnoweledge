@@ -14,17 +14,16 @@ function LrManage() {
 
     const [file, setFile] = useState(taskDetails.studentAnswer?.filePath ? {name: taskDetails.studentAnswer.filePath.split("\\").pop()} : null);
     const [title, setTitle] = useState(taskDetails.title || "");
-    const [isSaving, setIsSaving] = useState(false); // for loading state
-    const [error, setError] = useState(null); // for error state
+    const [isSaving, setIsSaving] = useState(false);
+    const [error, setError] = useState(null);
 
-    const titleRef = useRef(null); // reference to the title input
 
     const handleFileChange = (newFile) => {
         setFile(newFile);
     };
 
     const handleTitleChange = (e) => {
-        setTitle(e.target.innerText); // update title when content changes
+        setTitle(e.target.innerText);
     };
 
     const HandleGoBack = () => {
@@ -56,7 +55,7 @@ function LrManage() {
                 formData.append("Title", title);
             }
 
-            const method = 'PUT'; // Use PUT for update
+            const method = 'PUT';
             const url = `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${sectionId}/Material/File/${taskDetails.id}`;
 
             const response = await fetchWithFormAuth(url, {

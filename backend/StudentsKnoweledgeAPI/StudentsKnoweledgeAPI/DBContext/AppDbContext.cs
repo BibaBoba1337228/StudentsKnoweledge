@@ -12,6 +12,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Course> Courses { get; set; }
     public DbSet<Section> Sections { get; set; }
     public DbSet<Material> Materials { get; set; }
+    public DbSet<TaskMaterial> TaskMaterials { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
     public DbSet<ScheduleEntry> ScheduleEntries { get; set; }
 
@@ -125,8 +126,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
 
         modelBuilder.Entity<Schedule>()
            .HasMany(s => s.Entries)
-           .WithOne(se => se.Schedule)  // Explicitly reference the Schedule entity in the ScheduleEntry entity
-           .HasForeignKey(se => se.ScheduleId)  // Foreign key explicitly set for ScheduleId
+           .WithOne(se => se.Schedule)  
+           .HasForeignKey(se => se.ScheduleId)  
            .OnDelete(DeleteBehavior.Restrict);
 
 

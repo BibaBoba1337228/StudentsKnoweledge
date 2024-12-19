@@ -1,10 +1,10 @@
 import '../styles/AllEvents.css';
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {fetchWithAuth} from "../api/fetchWithAuth"; // Функция для выполнения авторизованных запросов
+import {fetchWithAuth} from "../api/fetchWithAuth";
 
 function AllEvents() {
-    const [events, setEvents] = useState([]); // Состояние для хранения списка событий
+    const [events, setEvents] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {

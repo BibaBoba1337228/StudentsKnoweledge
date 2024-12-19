@@ -22,12 +22,11 @@ namespace StudentsKnoweledgeAPI.Models
         [Required]
         public string Day { get; set; }
 
-        public int ScheduleId { get; set; }  // Explicit foreign key for Schedule
-        public Schedule Schedule { get; set; }  // Navigation property for Schedule
+        public int ScheduleId { get; set; }  
+        public Schedule Schedule { get; set; }  
 
 
-        // Поля для деления на числитель и знаменатель
-        public bool IsNumerator { get; set; } = false;  // Это может быть признак для числителя
-        public bool IsDenominator { get; set; } = false;  // Это может быть признак для знаменателя
+        public bool IsNumerator { get; set; } = false;  
+        public bool IsDenominator { get; set; } = false;  
     }
 }

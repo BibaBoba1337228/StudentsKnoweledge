@@ -1,19 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useLoaderData, useNavigate,} from 'react-router-dom';
 import '../styles/MyChats.css';
-import Chats from '../assets/images/profile.svg'
-import add from '../assets/icons/add.svg'
 
 
 function MyChats() {
     const chats = useLoaderData();
     const navigate = useNavigate();
 
-    console.log(chats);
-    useEffect(() => {
-
-        console.log("После рендера", chats);
-    }, [])
     return (
         <div id="MyChatsWrapper">
             <div id="MyChatsContainer">

@@ -112,7 +112,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Создаем нового учителя
             var newTeacher = new Teacher
             {
                 UserName = request.UserName,
@@ -129,7 +128,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
 
-            // Возвращаем созданного учителя
             return Ok(newTeacher);
         }
 
@@ -161,11 +159,11 @@ namespace StudentsKnoweledgeAPI.Controllers
 
                 if (result.Succeeded)
                 {
-                    createdTeachers.Add(newTeacher.Id); // Добавляем ID успешно созданного учителя в список
+                    createdTeachers.Add(newTeacher.Id); 
                 }
                 else
                 {
-                    failedTeachers.Add(request.UserName); // Добавляем учителя, создание которого не удалось
+                    failedTeachers.Add(request.UserName); 
                 }
             }
 
@@ -196,7 +194,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (teacher == null)
                 return NotFound(new { message = "Teacher not found." });
 
-            // Обновляем обычные поля
             teacher.UserName = request.UserName ?? teacher.UserName;
             teacher.Mail = request.Mail ?? teacher.Mail;
             teacher.Name = request.Name ?? teacher.Name;
@@ -204,10 +201,9 @@ namespace StudentsKnoweledgeAPI.Controllers
             teacher.MiddleName = request.MiddleName ?? teacher.MiddleName;
             teacher.Phone = request.Phone ?? teacher.Phone;
 
-            // Если передан новый пароль, обновляем его через UserManager
             if (!string.IsNullOrEmpty(request.Password))
             {
-                var user = await _userManager.FindByIdAsync(teacher.Id); // Найти пользователя по Id
+                var user = await _userManager.FindByIdAsync(teacher.Id); 
 
 
 
@@ -226,7 +222,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             }
 
-            // Обновляем сущность преподавателя
             _context.Entry(teacher).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 

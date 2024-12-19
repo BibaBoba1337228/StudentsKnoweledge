@@ -1,8 +1,5 @@
 import './App.css';
 import './styles/fonts.css'
-import LeftMenu from "./components/MainContainer/LeftMenu";
-import RightMenu from "./components/MainContainer/RightMenu";
-import Calendar from "./components/MainContainer/Calendar";
 import {createBrowserRouter, RouterProvider, Outlet, useNavigate} from 'react-router-dom';
 import AuthorizedContainer from "./components/MainContainer/AuthorizedContainer";
 import Login from "./pages/Login";
@@ -13,12 +10,8 @@ import StudingUserProfile from "./pages/StudingUserProfile";
 import AllStudentMarks from "./pages/AllStudentMarks";
 import AllStudentMarksForCurrentSubject from "./pages/AllStudentMarksForCurrentSubject";
 import LrDetail from "./pages/LrDetail";
-import TestDetail from "./pages/TestDetail";
 import LrManage from "./pages/LrManage";
-import TestOverview from "./pages/TestOverview";
-import DoingTest from "./pages/DoingTest";
 import FindContacts from "./pages/FindContacts";
-import OtherProfile from "./pages/OtherProfile";
 import Chat from "./pages/Chat";
 import AllSendendTasksFromStudent from "./pages/AllSendendTasksFromStudent";
 import AllSendendTasks from "./pages/AllSendendTasks";
@@ -32,7 +25,6 @@ import MainPage from "./pages/MainPage";
 import {mainPageLoader} from "./api/loaders/MainPageLoader";
 import {myCourcesLoader} from "./api/loaders/MyCourcesLoader";
 import {courseDetailLoader} from "./api/loaders/CourseDetailLoader";
-import {adminPanelLoader} from "./api/loaders/AdminPanelLoader";
 import {courseWorksLoader} from "./api/loaders/CourseWorksLoader";
 import {studentsWorksLoader} from "./api/loaders/StudentsWorksLoader";
 import ProtectedRoute from "./api/ProtectedRoute";
@@ -50,7 +42,6 @@ import {chatsListLoader} from "./api/loaders/ChatsListLoader";
 import {studingUserProfileLoader} from "./api/loaders/StudingUserProfileLoader";
 import {myMarksLoader} from "./api/loaders/MyCourcesMarksLoader";
 import {myMarksCurrentSubjectLoader} from "./api/loaders/MyCourcesMarksCurrentSubjectLoader";
-import ScheduleTable from "./components/Statistics/ScheduleTable";
 import Schedule from "./pages/Schedule";
 
 
@@ -83,7 +74,7 @@ function App() {
                             <Outlet/>
                         </ProtectedRoute>
 
-                        ),
+                    ),
                     children: [
                         {
                             path: "/system/courses/course/:courseId",

@@ -4,17 +4,15 @@ import {useLoaderData, useNavigate} from "react-router-dom";
 function MainPage() {
     const loaderData = useLoaderData();
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(true); // Локальное состояние загрузки
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (loaderData.status === 200) {
-            // Если авторизация успешна, перенаправляем
             navigate("/system/courses");
         } else {
-            // Если не авторизован, перенаправляем на логин
             navigate("/login");
         }
-        setIsLoading(false); // Завершаем загрузку
+        setIsLoading(false);
     }, [loaderData, navigate]);
 
     if (isLoading) {
@@ -25,7 +23,7 @@ function MainPage() {
         );
     }
 
-    return null; // Во время проверки ничего не рендерим
+    return null;
 }
 
 export default MainPage;

@@ -4,31 +4,31 @@ import trashcan from '../../assets/icons/trashcan.svg';
 
 const FileAttachment = ({initialFile, onFileChange}) => {
     const [file, setFile] = useState(initialFile);
-    const [isLoading, setIsLoading] = useState(false); // состояние загрузки
-    const [error, setError] = useState(null); // состояние для ошибки
-    const fileInputRef = useRef(null); // реф для доступа к input
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const fileInputRef = useRef(null);
 
     const handleFileChange = (event) => {
-        const selectedFile = event.target.files[0]; // получаем только один файл
+        const selectedFile = event.target.files[0];
         if (selectedFile) {
-            setFile(selectedFile); // обновляем состояние с выбранным файлом
-            onFileChange(selectedFile); // передаем родительскому компоненту
+            setFile(selectedFile);
+            onFileChange(selectedFile);
         }
     };
 
     const removeFile = async () => {
         if (!file) return;
 
-        setIsLoading(true); // начинаем процесс загрузки
+        setIsLoading(true);
 
-        // Успешное удаление файла
-        setFile(null); // сбрасываем файл локально
-        onFileChange(null); // передаем родительскому компоненту информацию об удалении файла
-        setIsLoading(false); // завершение загрузки
 
-        // Сбрасываем значение input
+        setFile(null);
+        onFileChange(null);
+        setIsLoading(false);
+
+
         if (fileInputRef.current) {
-            fileInputRef.current.value = null; // очищаем поле для выбора файла
+            fileInputRef.current.value = null;
         }
     };
 
@@ -42,8 +42,8 @@ const FileAttachment = ({initialFile, onFileChange}) => {
                         accept="*"
                         onChange={handleFileChange}
                         className="file-input"
-                        ref={fileInputRef} // присваиваем реф
-                        disabled={file !== null || isLoading} // блокируем выбор нового файла, если уже есть выбранный или идет загрузка
+                        ref={fileInputRef}
+                        disabled={file !== null || isLoading}
                     />
                 </label>
             </div>
@@ -56,7 +56,7 @@ const FileAttachment = ({initialFile, onFileChange}) => {
                             <button
                                 onClick={removeFile}
                                 className="file-remove-button"
-                                disabled={isLoading} // блокируем кнопку удаления, если идет загрузка
+                                disabled={isLoading}
                             >
                                 <img src={trashcan} alt="trashcan"/>
                             </button>
@@ -69,7 +69,7 @@ const FileAttachment = ({initialFile, onFileChange}) => {
                 )}
             </div>
 
-            {error && <div className="error-message">{error}</div>} {/* отображение ошибки */}
+            {error && <div className="error-message">{error}</div>}
         </div>
     );
 };

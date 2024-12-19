@@ -1,10 +1,9 @@
 import {fetchWithAuth} from "../fetchWithAuth";
 
 export async function courseDetailLoader({params}) {
-    const {courseId} = params; // Извлекаем courseId из параметров маршрута
+    const {courseId} = params;
 
-    // Запрос на получение секций курса
-    const sectionsResponse = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${localStorage.getItem("role") === "1"? "Student": "Teacher"}/${courseId}/Sections`, {
+    const sectionsResponse = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Course/${localStorage.getItem("role") === "1" ? "Student" : "Teacher"}/${courseId}/Sections`, {
         method: "GET",
         credentials: "include",
     });
@@ -19,11 +18,10 @@ export async function courseDetailLoader({params}) {
 
     const sections = await sectionsResponse.json();
 
-    // Для каждой секции выполняем запрос на материалы
     const sectionsWithMaterials = await Promise.all(
         sections.map(async (section) => {
             const materialsResponse = await fetchWithAuth(
-                `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${section.id}/Material/${localStorage.getItem("role") === "1"? "Student": "Teacher"}`,
+                `https://${process.env.REACT_APP_API_BASE_URL}/api/Section/${section.id}/Material/${localStorage.getItem("role") === "1" ? "Student" : "Teacher"}`,
                 {
                     method: "GET",
                     credentials: "include",
@@ -32,16 +30,15 @@ export async function courseDetailLoader({params}) {
 
             if (materialsResponse.ok) {
                 const materials = await materialsResponse.json();
-                return {...section, materials}; // Добавляем материалы к секции
+                return {...section, materials};
             } else {
                 console.error(
                     `Failed to fetch materials for section ${section.id}: ${materialsResponse.statusText}`
                 );
-                return {...section, materials: []}; // Если запрос на материалы не удался
+                return {...section, materials: []};
             }
         })
     );
 
-    // Возвращаем секции с материалами
     return sectionsWithMaterials;
 }

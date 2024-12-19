@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import '../../styles/LeftMenu.css';
 import '../../styles/fonts.css';
-import MainPageIcon from '../../assets/icons/main_page_icon.svg';
 import CourcesIcon from '../../assets/icons/courses_icon.svg';
 import MessengerIcon from '../../assets/icons/chats_icon.svg';
 import NotificationIcon from '../../assets/icons/notification_icon.svg';
 import ProfileIcon from '../../assets/icons/profile_icon.svg';
-import SettingsIcon from '../../assets/icons/settings_icon.svg';
 import LogoutIcon from '../../assets/icons/logout_icon.svg';
 import KeyIcon from '../../assets/icons/key.svg';
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {fetchWithAuth} from "../../api/fetchWithAuth";
 import {HubConnectionBuilder} from '@microsoft/signalr';
 import HaveNotifs from '../../assets/icons/notification2.svg';
@@ -21,10 +19,8 @@ function LeftMenu({onMenuToggle}) {
     const [hubConnection, setHubConnection] = useState(null); // For storing the connection
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
-    console.log(`https://${process.env.REACT_APP_API_BASE_URL}/notificationHub?userId=${localStorage.getItem("user_id")}`)
 
     useEffect(() => {
-        // Fetch notifications on load
         const getNotifications = async () => {
             const response = await fetchWithAuth(`https://${process.env.REACT_APP_API_BASE_URL}/api/Notification/user`, {
                 method: 'GET',
@@ -39,14 +35,12 @@ function LeftMenu({onMenuToggle}) {
 
         getNotifications();
 
-        // Create connection with the server
         const connection = new HubConnectionBuilder()
             .withUrl(`https://${process.env.REACT_APP_API_BASE_URL}/notificationHub?userId=${localStorage.getItem("user_id")}`)
             .build();
 
         connection.on('ReceiveNotification', (notification) => {
             setNotifications(prevNotifications => [notification, ...prevNotifications]);
-            console.log("Бэдра")
         });
 
         connection.start()
@@ -74,7 +68,6 @@ function LeftMenu({onMenuToggle}) {
             );
 
             if (response.ok) {
-                // Если запрос успешен, очищаем список уведомлений
                 setNotifications([]);
                 alert("Все уведомления отмечены как прочитанные.");
             } else {
@@ -87,7 +80,7 @@ function LeftMenu({onMenuToggle}) {
 
 
     useEffect(() => {
-        // Get role from localStorage
+
         const storedRole = localStorage.getItem('role');
         setRole(storedRole);
     }, []);
@@ -96,7 +89,7 @@ function LeftMenu({onMenuToggle}) {
         const newState = !isCollapsed;
         setIsCollapsed(newState);
         if (onMenuToggle) {
-            onMenuToggle(newState);  // Notify parent of state change
+            onMenuToggle(newState);
         }
     };
 
@@ -113,7 +106,6 @@ function LeftMenu({onMenuToggle}) {
                 localStorage.clear();
                 navigate('/login');
             } else {
-                console.log('Login error. Please check your credentials.');
             }
         } catch (error) {
             console.log('Connection error. Please try again later.');
@@ -121,11 +113,11 @@ function LeftMenu({onMenuToggle}) {
     };
 
     const openNotificationModal = () => {
-        setIsModalOpen(prevState => !prevState);  // Toggle the modal open/close
+        setIsModalOpen(prevState => !prevState);
     };
 
     const closeNotificationModal = () => {
-        setIsModalOpen(false);  // Explicitly close the modal
+        setIsModalOpen(false);
     };
 
     // Close modal when clicking outside of it
@@ -146,19 +138,24 @@ function LeftMenu({onMenuToggle}) {
                         <img src={CourcesIcon} alt="Courses icon" style={{width: "20px"}}/>
                         {!isCollapsed && <p className="LeftMenuTopPageName">Курсы</p>}
                     </div>
-                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}
-                         onClick={() => navigate('/system/chats')}
-                         style={{cursor: "pointer"}}>
-                        <img src={MessengerIcon} alt="Messenger icon" style={{width: "20px"}}/>
-                        {!isCollapsed && <p className="LeftMenuTopPageName">Сообщения</p>}
-                    </div>
+                    {localStorage.getItem('role') != 3 && (
+                        <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}
+                             onClick={() => navigate('/system/chats')}
+                             style={{cursor: "pointer"}}>
+                            <img src={MessengerIcon} alt="Messenger icon" style={{width: "20px"}}/>
+                            {!isCollapsed && <p className="LeftMenuTopPageName">Сообщения</p>}
+                        </div>
+                    )}
+
                     <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={openNotificationModal}
                          style={{cursor: "pointer"}}>
                         <img src={notifications.length > 0 ? HaveNotifs : NotificationIcon} alt="Notification icon"
                              style={{width: "20px"}}/>
                         {!isCollapsed && <p className="LeftMenuTopPageName">Уведомления</p>}
                     </div>
-                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={() => {navigate('/system/schedule/')}}
+                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={() => {
+                        navigate('/system/schedule/')
+                    }}
                          style={{cursor: "pointer"}}>
                         <img src={CourcesIcon} alt="Schedule icon"
                              style={{width: "20px"}}/>
@@ -233,12 +230,16 @@ function LeftMenu({onMenuToggle}) {
 
             <div id="LeftMenuDownPagesContainer">
                 <div id="LeftMenuTopPages" className={isCollapsed ? 'collapsed' : ''}>
-                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}
-                         onClick={() => navigate(`/system/profile/${localStorage.getItem("user_id")}`)}
-                         style={{cursor: "pointer"}}>
-                        <img src={ProfileIcon} alt="Profile icon" style={{width: "20px"}}/>
-                        {!isCollapsed && <p className="LeftMenuTopPageName">Профиль</p>}
-                    </div>
+
+
+                    {localStorage.getItem('role') != 3 && (
+                        <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}
+                             onClick={() => navigate(`/system/profile/${localStorage.getItem("user_id")}`)}
+                             style={{cursor: "pointer"}}>
+                            <img src={ProfileIcon} alt="Profile icon" style={{width: "20px"}}/>
+                            {!isCollapsed && <p className="LeftMenuTopPageName">Профиль</p>}
+                        </div>
+                    )}
                     <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={() => handleLogoutClick()}
                          style={{cursor: "pointer"}}>
                         <img src={LogoutIcon} alt="Logout icon" style={{width: "20px"}}/>

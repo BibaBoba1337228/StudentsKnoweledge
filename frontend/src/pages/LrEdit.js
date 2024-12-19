@@ -12,7 +12,6 @@ function LrEdit() {
 
 
     const sectionId = location.state?.sectionId;
-    console.log(sectionId, "Айди секции");
 
     const [data, setData] = useState(taskData);
     const [isEditing, setIsEditing] = useState(false);
@@ -37,7 +36,6 @@ function LrEdit() {
         }, {});
 
         if (Object.keys(updatedFields).length === 0) {
-            // No changes, just close edit mode
             setIsEditing(false);
             return;
         }
@@ -53,7 +51,6 @@ function LrEdit() {
 
             if (response.ok) {
                 const updatedData = await response.json();
-                console.log("Обновленные данные", updatedData);
                 setData(updatedData);
                 setIsEditing(false);
             } else {

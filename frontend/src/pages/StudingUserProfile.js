@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Navigate, Outlet, Route, Routes, useLoaderData, useNavigate, useParams} from 'react-router-dom';
+import {useLoaderData, useNavigate} from 'react-router-dom';
 import '../styles/MyProfile.css';
-import profile from '../assets/images/profile.svg'
 import add from '../assets/icons/add.svg'
 import {ClipLoader} from "react-spinners";
 import {ErrorHandler, ErrorModal, fetchWithErrorHandling} from "../components/ErrorHandler";
@@ -16,19 +15,18 @@ function StudingUserProfile() {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [userId, setUserId] = useState(localStorage.getItem("user_id"));
-    const [error, setError] = useState(null); // Состояние для ошибки
+    const [error, setError] = useState(null);
     const errorHandler = new ErrorHandler(setError);
     useEffect(() => {
-        errorHandler.setErrorCallback(setError); // Передаем setError в errorHandler
+        errorHandler.setErrorCallback(setError);
 
     }, []);
 
 
     const closeErrorModal = () => {
-        setError(null); // Закрытие модального окна
+        setError(null);
     };
 
-    console.log(userData);
     const toggleExpand = () => {
         setIsExpanded((prev) => !prev);
     };
@@ -41,7 +39,6 @@ function StudingUserProfile() {
             },
             null,
             errorHandler);
-        console.log(data);
         navigate(`/system/chats/${data.id}`);
     }
 

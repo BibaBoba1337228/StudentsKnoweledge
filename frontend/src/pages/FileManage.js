@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {useLoaderData, useNavigate, useParams} from 'react-router-dom';
 import '../styles/LrManage.css';
 import FileAttachment from "../components/CoursePage/FileAttachment";
-import {fetchWithAuth} from "../api/fetchWithAuth";
 import {fetchWithFormAuth} from "../api/fetchWithFormAuth";
 
 function LrManage() {
@@ -12,10 +11,9 @@ function LrManage() {
 
     const [file, setFile] = useState(taskDetails.studentAnswer?.filePath ? {name: taskDetails.studentAnswer.filePath.split("\\").pop()} : null);
     const [comment, setComment] = useState(taskDetails.studentAnswer?.comment || "");
-    const [isSaving, setIsSaving] = useState(false); // состояние для загрузки
-    const [error, setError] = useState(null); // состояние для ошибки
+    const [isSaving, setIsSaving] = useState(false);
+    const [error, setError] = useState(null);
 
-    console.log(taskDetails.studentAnswer);
 
     const handleFileChange = (newFile) => {
         setFile(newFile);
@@ -32,7 +30,6 @@ function LrManage() {
     const saveChanges = async () => {
         if (isSaving) return;
 
-        // Проверяем, есть ли изменения
         const isFileChanged = file && (!taskDetails.studentAnswer || file.name !== taskDetails.studentAnswer.filePath.split("\\").pop());
         const isCommentChanged = comment !== (taskDetails.studentAnswer?.comment || "");
 
@@ -48,13 +45,13 @@ function LrManage() {
             const formData = new FormData();
 
             if (isFileChanged && file) {
-                formData.append("files", file); // Отправляем файл, если он изменился
+                formData.append("files", file);
             }
             if (isCommentChanged) {
-                formData.append("comment", comment); // Отправляем комментарий, если он изменился
+                formData.append("comment", comment);
             }
 
-            const method = taskDetails.studentAnswer ? 'PUT' : 'POST'; // Используем PUT для обновления, POST для создания
+            const method = taskDetails.studentAnswer ? 'PUT' : 'POST';
 
             const url = taskDetails.studentAnswer ? `https://${process.env.REACT_APP_API_BASE_URL}/api/Materials/${taskDetails.id}/StudentAnswers/update` : `https://${process.env.REACT_APP_API_BASE_URL}/api/Materials/${taskDetails.id}/StudentAnswers/`;
 
@@ -107,7 +104,7 @@ function LrManage() {
                         <FileAttachment
                             initialFile={taskDetails.studentAnswer?.filePath ? {name: taskDetails.studentAnswer.filePath.split("\\").pop()} : null}
                             materialId={taskDetails.id}
-                            onFileChange={handleFileChange}  // Обновляем родительский компонент о файле
+                            onFileChange={handleFileChange}
                         />
                     </div>
 

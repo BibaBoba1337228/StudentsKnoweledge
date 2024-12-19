@@ -1,8 +1,6 @@
 import React from 'react';
-import {Navigate, Outlet, Route, Routes} from 'react-router-dom';
 import '../styles/GroupMarks.css';
-import lab from '../assets/icons/lab.svg'
-import GroupMarksTable from "../components/Statistics/GroupMarksTable";
+
 import ScheduleTable from "../components/Statistics/ScheduleTable";
 
 

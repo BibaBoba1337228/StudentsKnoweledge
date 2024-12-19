@@ -8,14 +8,12 @@ function LrRate() {
     const {courseId, taskId} = useParams();
     const navigate = useNavigate();
     const data = useLoaderData();
-    console.log("С лоадера", data);
     const location = useLocation();
     const lrdata = location.state?.data;
-    console.log("С ЛР даты", lrdata);
 
     const [isEditing, setIsEditing] = useState(false);
     const [currentGrade, setCurrentGrade] = useState(lrdata?.grade || "");
-    const [teacherComment, setTeacherComment] = useState(lrdata?.teacherComment || ""); // Новое состояние для комментария
+    const [teacherComment, setTeacherComment] = useState(lrdata?.teacherComment || "");
     const [isLoading, setIsLoading] = useState(false);
 
     const maxGrade = data.grade;
@@ -33,17 +31,14 @@ function LrRate() {
     };
 
     const handleSaveGrade = async () => {
-        console.log(currentGrade);
         if (currentGrade === lrdata.grade && teacherComment === lrdata.teacherComment) {
             setIsEditing(false);
-            console.log("Не поменялось 1");
-            return; // Если ничего не изменилось, ничего не делаем
+            return;
         }
 
         if (currentGrade > maxGrade) {
             setIsEditing(false);
-            console.log("Не поменялось 2");
-            return; // Если оценка не изменилась, ничего не делаем
+            return;
         }
 
         try {
@@ -57,7 +52,7 @@ function LrRate() {
                     },
                     body: JSON.stringify({
                         grade: Number(currentGrade),
-                        teacherComment, // Передаем комментарий
+                        teacherComment,
                     }),
                 }
             );
@@ -67,10 +62,9 @@ function LrRate() {
             }
 
             const updatedData = await response.json();
-            console.log("Вот это пришло", updatedData);
             lrdata.grade = updatedData.grade;
             lrdata.teacherFIO = updatedData.teacherFIO;
-            lrdata.teacherComment = updatedData.teacherComment; // Обновляем комментарий
+            lrdata.teacherComment = updatedData.teacherComment;
             lrdata.markTime = updatedData.markTime;
             setIsEditing(false);
         } catch (error) {

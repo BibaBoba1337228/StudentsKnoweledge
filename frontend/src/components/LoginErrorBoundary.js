@@ -5,7 +5,6 @@ const LoginErrorBoundary = () => {
     const error = useRouteError();
     let text = "Произошла неизвестная ошибка";
 
-    console.log(error);
 
     if (error?.status === 401) {
         localStorage.clear();

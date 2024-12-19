@@ -19,7 +19,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             _context = context;
         }
 
-        // ----- Управление разделами курса -----
 
         [Authorize(Roles = "Teacher, Admin")]
         [HttpGet("Teacher/{courseId}/Sections")]
@@ -86,7 +85,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 return NotFound(new { message = "Section not found." });
             }
 
-            // Обновление имени секции
             section.Name = updatedSection.Name;
 
 
@@ -131,7 +129,6 @@ namespace StudentsKnoweledgeAPI.Controllers
         [HttpGet("{courseId}/TaskMaterialsWithAnswers")]
         public async Task<IActionResult> GetTaskMaterialsWithAnswers(int courseId)
         {
-            // Получаем секции, относящиеся к данному курсу
             var sections = await _context.Sections
                 .Where(s => s.CourseId == courseId)
                 .ToListAsync();
@@ -141,7 +138,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             var sectionIds = sections.Select(s => s.Id).ToList();
 
-            // Получаем TaskMaterials, у которых есть ответы
             var taskMaterialsWithAnswers = await _context.Materials
                 .OfType<TaskMaterial>()
                 .Where(m => sectionIds.Contains(m.SectionId) && _context.StudentAnswers.Any(a => a.MaterialId == m.Id))
@@ -157,8 +153,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 })
                 .ToListAsync();
 
-            if (!taskMaterialsWithAnswers.Any())
-                return NotFound(new { message = "No task materials with answers found for the given course." });
 
             return Ok(taskMaterialsWithAnswers);
         }
@@ -166,14 +160,12 @@ namespace StudentsKnoweledgeAPI.Controllers
         [HttpGet("{courseId}/{groupId}/GroupMarks")]
         public async Task<IActionResult> GetGroupMarks(int courseId ,int groupId)
         {
-            // Получаем курс по id, который передается в запросе
             var course = await _context.Courses
                 .FirstOrDefaultAsync(c => c.Id == courseId);
 
             if (course == null)
                 return NotFound(new { message = "Course not found." });
 
-            // Получаем студентов группы
             var students = await _context.Students
                 .Where(s => s.GroupId == groupId)
                 .ToListAsync();
@@ -181,28 +173,25 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (students == null || !students.Any())
                 return NotFound(new { message = "No students found for the given group." });
 
-            // Получаем все материалы для данного курса
             var materials = await _context.Materials
                 .OfType<TaskMaterial>()
-                .Where(m => m.Section.CourseId == course.Id) // Фильтруем материалы по courseId
+                .Where(m => m.Section.CourseId == course.Id) 
                 .ToListAsync();
 
             if (materials == null || !materials.Any())
                 return NotFound(new { message = "No materials found for the given course." });
 
-            // Получаем ответы студентов на материалы
             var studentAnswers = await _context.StudentAnswers
                 .Where(sa => students.Select(s => s.Id).Contains(sa.StudentId) && materials.Select(m => m.Id).Contains(sa.MaterialId))
                 .ToListAsync();
 
-            // Формируем данные о студентах и их оценках
             var groupMarks = students.Select(student => new
             {
                 StudentName = $"{student.MiddleName} {student.Name?[0]}. {student.LastName?[0]}.",
                 Scores = materials.Select(material =>
                 {
                     var answer = studentAnswers.FirstOrDefault(a => a.MaterialId == material.Id && a.StudentId == student.Id);
-                    return answer?.Grade ?? 0; // Если ответа нет, считаем оценку равной 0
+                    return answer?.Grade ?? 0; 
                 }).ToList(),
                 Total = materials.Sum(material =>
                 {
@@ -234,7 +223,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             section.IsVisible = isVisible;
 
-            // Если секция скрыта, удаляем все события для TaskMaterial в этой секции
             if (!isVisible)
             {
                 var taskMaterials = await _context.Materials
@@ -253,7 +241,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             }
             else
             {
-                // Если секция включена, создаем события для всех TaskMaterial в этой секции
                 var taskMaterials = await _context.Materials
                     .OfType<TaskMaterial>()
                     .Where(m => m.SectionId == sectionId)
@@ -265,7 +252,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
                 foreach (var taskMaterial in taskMaterials)
                 {
-                    // Проверяем, существует ли событие для данного TaskMaterial
                     var existingEvent = await _context.Events
                         .FirstOrDefaultAsync(e => e.MaterialId == taskMaterial.Id);
 
@@ -275,8 +261,8 @@ namespace StudentsKnoweledgeAPI.Controllers
                         {
                             CourseId = course.Id,
                             MaterialId = taskMaterial.Id,
-                            OpenDate = DateTime.Now, // или ваша желаемая дата начала
-                            CloseDate = taskMaterial.Deadline, // или ваша желаемая дата окончания
+                            OpenDate = DateTime.Now, 
+                            CloseDate = taskMaterial.Deadline, 
                             Name = taskMaterial.Title,
                             URL = $"/system/courses/course/{course.Id}/task/{taskMaterial.Id}"
                         };
@@ -288,7 +274,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            // Сохраняем изменения для секции
             _context.Entry(section).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
@@ -312,7 +297,6 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
 
-        // ----- Управление преподавателями курса -----
 
 
         [HttpGet("{courseId}/Teachers")]
@@ -362,7 +346,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (teachers.Count != teacherIds.Count)
                 return NotFound(new { message = "One or more teachers not found." });
 
-            var addedTeachers = new List<Teacher>(); // Список для добавленных преподавателей
+            var addedTeachers = new List<Teacher>(); 
 
             foreach (var teacher in teachers)
             {
@@ -370,12 +354,11 @@ namespace StudentsKnoweledgeAPI.Controllers
                     return BadRequest(new { message = $"Teacher {teacher.UserName} is already associated with this course." });
 
                 course.Teachers.Add(teacher);
-                addedTeachers.Add(teacher); // Добавляем преподавателя в список
+                addedTeachers.Add(teacher); 
             }
 
             await _context.SaveChangesAsync();
 
-            // Возвращаем добавленных преподавателей в ответе
             return Ok(addedTeachers);
         }
 
@@ -399,7 +382,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Teacher removed from course successfully." });
         }
 
-        // ----- Управление группами курса -----
 
 
         [HttpGet("{courseId}/Groups")]
@@ -443,7 +425,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (course == null)
                 return NotFound(new { message = "Course not found." });
 
-            // Загружаем все группы по их ID
             var groupsToAdd = await _context.Groups.Where(g => groupIds.Contains(g.Id)).ToListAsync();
 
             if (groupsToAdd.Count != groupIds.Count)
@@ -453,7 +434,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             foreach (var group in groupsToAdd)
             {
-                // Проверяем, не добавлена ли группа уже в курс
                 if (!course.Groups.Any(g => g.Id == group.Id))
                 {
                     course.Groups.Add(group);
@@ -461,10 +441,8 @@ namespace StudentsKnoweledgeAPI.Controllers
                 }
             }
 
-            // Сохраняем изменения в базе данных
             await _context.SaveChangesAsync();
 
-            // Возвращаем добавленные группы
             return Ok(addedGroups);
         }
 
@@ -487,7 +465,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Group removed from course successfully." });
         }
 
-        // ----- Управление курсом -----
 
         [HttpGet]
         public async Task<IActionResult> GetAllCourses()
@@ -525,7 +502,6 @@ namespace StudentsKnoweledgeAPI.Controllers
         [HttpGet("UserCourses")]
         public async Task<IActionResult> GetCoursesByUser()
         {
-            // Получаем текущего пользователя (например, из контекста запроса)
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userRole = User.FindFirstValue(ClaimTypes.Role);
 
@@ -538,22 +514,20 @@ namespace StudentsKnoweledgeAPI.Controllers
                 return Unauthorized(new { message = "User is not authenticated." });
             }
 
-            // Если пользователь — администратор, возвращаем все курсы
-            if (user.Role == UserRole.Admin) // Замените "Admin" на точное название роли администратора в вашей системе
+            if (user.Role == UserRole.Admin) 
             {
                 var allCourses = await _context.Courses
-                    .Include(c => c.Groups)   // Включаем группы
-                    .Include(c => c.Teachers) // Включаем преподавателей
+                    .Include(c => c.Groups)   
+                    .Include(c => c.Teachers) 
                     .ToListAsync();
 
 
                 return Ok(allCourses);
             }
 
-            // Если не администратор, получаем курсы пользователя
             var courses = await _context.Courses
-                .Include(c => c.Groups)   // Включаем группы, чтобы проверить студентов
-                .Include(c => c.Teachers) // Включаем преподавателей
+                .Include(c => c.Groups)   
+                .Include(c => c.Teachers) 
                 .Where(c => c.Groups.Any(g => g.Students.Any(s => s.Id.ToString() == userId))
                          || c.Teachers.Any(t => t.Id.ToString() == userId))
                 .ToListAsync();
@@ -581,7 +555,6 @@ namespace StudentsKnoweledgeAPI.Controllers
                 .OfType<TaskMaterial>()
                 .FirstOrDefault(m => m.Id == id);
 
-            // Если материал не найден
             if (material == null)
                 return NotFound(new { message = "Task material not found." });
 

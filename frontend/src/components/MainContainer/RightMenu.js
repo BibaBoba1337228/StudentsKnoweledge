@@ -14,12 +14,6 @@ function RightMenu() {
 
     const navigate = useNavigate();
 
-    const location = useLocation();
-
-    useEffect(() => {
-        console.log("Route changed:", location.pathname);
-        // Здесь можно сбрасывать состояния или выполнять другие действия
-    }, [location.pathname]);
 
     useEffect(() => {
         const fetchRecentEvents = async () => {
@@ -44,10 +38,9 @@ function RightMenu() {
                     name: item.name || "Без названия",
                     openDate: item.openDate,
                     closeDate: item.closeDate,
-                    url: item.url || null, // Добавляем ссылку, если есть
+                    url: item.url || null,
                 }));
 
-                // Сортируем по `openDate` и берем только 3 последних
                 const sortedEvents = allEvents
                     .sort((a, b) => new Date(b.openDate) - new Date(a.openDate))
                     .slice(0, 3);
@@ -76,8 +69,6 @@ function RightMenu() {
                 }
 
                 const data = await response.json();
-
-                console.log(data)
 
 
                 setRecentMessages(data);

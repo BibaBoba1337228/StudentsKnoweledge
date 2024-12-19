@@ -4,6 +4,6 @@
     {
         public string Title { get; set; }
 
-        public IEnumerable<IFormFile> Files { get; set; } // Поддержка множественной загрузки файлов
+        public IEnumerable<IFormFile> Files { get; set; } 
     }
 }

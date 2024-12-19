@@ -15,10 +15,10 @@ function ProtectedRoute({children}) {
                 });
 
                 if (response.status === 200) {
-                    setIsAuthorized(true); // Пользователь авторизован
+                    setIsAuthorized(true);
                 } else {
-                    setIsAuthorized(false); // Не авторизован
-                    navigate("/login"); // Редирект на логин
+                    setIsAuthorized(false);
+                    navigate("/login");
                 }
             } catch (error) {
                 setIsAuthorized(false);
@@ -30,14 +30,14 @@ function ProtectedRoute({children}) {
     }, [navigate]);
 
     if (isAuthorized === null) {
-        return <h1>Загрузка...</h1>; // Показываем индикатор загрузки
+        return <h1>Загрузка...</h1>;
     }
 
     if (!isAuthorized) {
-        return null; // Если не авторизован, ничего не показываем (будет редирект)
+        return null;
     }
 
-    return children; // Если авторизован, показываем дочерние элементы
+    return children;
 }
 
 export default ProtectedRoute;

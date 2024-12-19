@@ -259,7 +259,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             try
             {
-                // Генерация уникального имени файла
                 var fileName = $"{Guid.NewGuid()}{Path.GetExtension(profilePicture.FileName)}";
 
                
@@ -282,7 +281,7 @@ namespace StudentsKnoweledgeAPI.Controllers
                 if (user == null)
                     return NotFound(new { message = "User not found" });
 
-                user.ProfilePictureUrl = Path.Combine("profile_pictures", userId, fileName).Replace("\\", "/"); // URL для доступа
+                user.ProfilePictureUrl = Path.Combine("profile_pictures", userId, fileName).Replace("\\", "/"); 
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 

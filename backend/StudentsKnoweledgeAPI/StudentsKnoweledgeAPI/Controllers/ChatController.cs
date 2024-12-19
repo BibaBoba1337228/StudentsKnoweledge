@@ -28,7 +28,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             _hubContext2 = hubContext2;
         }
 
-        // Получить все чаты пользователя
         [HttpGet]
         public async Task<IActionResult> GetAllChats()
         {
@@ -108,7 +107,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(preparedChat);
         }
 
-        // Получить чат по ID
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetChatById(int id, [FromQuery] int take = 20)
         {
@@ -159,7 +158,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(preparedChat);
         }
 
-        // Создать новый чат
+
         [HttpPost]
         public async Task<IActionResult> CreateChat([FromBody] CreateChatRequest request)
         {
@@ -181,7 +180,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return CreatedAtAction(nameof(GetChatById), new { id = chat.Id }, chat);
         }
 
-        // Удалить чат
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteChat(int id)
         {
@@ -208,7 +207,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Chat deleted successfully." });
         }
 
-        // Получить сообщения чата с пагинацией
         [HttpGet("{chatId}/messages")]
         public async Task<IActionResult> GetMessagesByChatId(int chatId, [FromQuery] int skip = 0, [FromQuery] int take = 20)
         {
@@ -223,7 +221,7 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
 
-        // Отправить сообщение в чат
+
         [HttpPost("{chatId}/messages")]
         public async Task<IActionResult> SendMessage(int chatId, [FromBody] SendMessageRequest request)
         {
@@ -260,7 +258,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             var recipientId = chat.User1Id != request.SenderId ? chat.User1Id : chat.User2Id;
 
-            // If there's only one connected client, send a notification
+
             if (connectedClientsCount == 1)
             {
                 var recipient = await _context.StudingUsers.FindAsync(recipientId);
@@ -268,8 +266,8 @@ namespace StudentsKnoweledgeAPI.Controllers
                 {
                     var notification = new Notification
                     {
-                        UserId = recipientId,  // Send notification to recipient, not sender
-                        SenderFio = $"{sender.LastName} {sender.Name[0]}. {sender.MiddleName[0]}.",  // Sender's name
+                        UserId = recipientId,  
+                        SenderFio = $"{sender.LastName} {sender.Name[0]}. {sender.MiddleName[0]}.", 
                         Url = $"/system/chats/{chatId}",
                         Text = $"У вас новое сообщение от {sender.LastName} {sender.Name[0]}. {sender.MiddleName[0]}.",
                         isReaded = false
@@ -278,11 +276,10 @@ namespace StudentsKnoweledgeAPI.Controllers
                     _context.Notifications.Add(notification);
                     await _context.SaveChangesAsync();
 
-                    // Send the notification to the recipient (not the sender)
                     await _hubContext2.Clients.User(recipientId).SendAsync("ReceiveNotification", new
                     {
-                        UserId = recipientId,  // Send notification to recipient, not sender
-                        SenderFio = $"{sender.LastName} {sender.Name[0]}. {sender.MiddleName[0]}.",  // Sender's name
+                        UserId = recipientId,  
+                        SenderFio = $"{sender.LastName} {sender.Name[0]}. {sender.MiddleName[0]}.", 
                         Url = $"/system/chats/{chatId}",
                         Text = $"У вас новое сообщение от {sender.LastName} {sender.Name[0]}. {sender.MiddleName[0]}.",
                         isReaded = false
@@ -295,7 +292,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(message);
         }
 
-        // Пометить сообщение как прочитанное
+
         [HttpPut("messages/{messageId}/read")]
         public async Task<IActionResult> MarkMessageAsRead(int messageId)
         {
@@ -311,7 +308,7 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "Message marked as read." });
         }
 
-        // Удалить сообщение
+
         [HttpDelete("messages/{messageId}")]
         public async Task<IActionResult> DeleteMessage(int messageId)
         {
@@ -334,25 +331,25 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized(new { message = "User not authenticated." });
 
-            // Получаем все чаты, в которых участвует пользователь
+
             var userChats = await _context.Chats
                 .Where(uc => uc.User1Id == userId || uc.User2Id == userId)
-                .Select(uc => uc.Id) // Список чатов, в которых участвует пользователь
+                .Select(uc => uc.Id) 
                 .ToListAsync();
 
             if (!userChats.Any())
-                return Ok("Бебра1");
+                return Ok("1");
 
-            // Теперь фильтруем сообщения, относящиеся к этим чатам
+
             var recentMessages = await _context.Messages
-                .Where(m => m.SenderId != userId && userChats.Contains(m.ChatId)) // Фильтруем по чатам
+                .Where(m => m.SenderId != userId && userChats.Contains(m.ChatId)) 
                 .Include(m => m.Sender)
                 .OrderByDescending(m => m.SendDate)
                 .Take(3)
                 .ToListAsync();
 
             if (!recentMessages.Any())
-                return Ok("Бебра2");
+                return Ok("2");
 
             var preparedMessages = recentMessages.Select(message => new
             {

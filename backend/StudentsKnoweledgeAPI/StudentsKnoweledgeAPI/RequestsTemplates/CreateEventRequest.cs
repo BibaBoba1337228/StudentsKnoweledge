@@ -2,9 +2,9 @@
 {
     public class CreateEventRequest
     {
-        public int CourseId { get; set; }  // ID курса
-        public DateTime OpenDate { get; set; }  // Дата открытия
-        public DateTime CloseDate { get; set; }  // Дата закрытия
-        public int MaterialId { get; set; }  // ID материала
+        public int CourseId { get; set; }  
+        public DateTime OpenDate { get; set; }  
+        public DateTime CloseDate { get; set; }  
+        public int MaterialId { get; set; }  
     }
 }

@@ -3,11 +3,7 @@ import '../../styles/CourseElement.css';
 import ClosedIcon from '../../assets/icons/right_icon.svg';
 import OpenedIcon from '../../assets/icons/opened_icon.svg';
 import lab from '../../assets/icons/lab.svg';
-import lection from '../../assets/icons/lection.svg';
-import material from '../../assets/icons/material.svg';
-import test from '../../assets/icons/test.svg';
 import sendLab from '../../assets/icons/send_lab.svg';
-import printer from '../../assets/icons/printer.svg';
 import other from '../../assets/icons/other.svg';
 import pencil from '../../assets/icons/pencil.svg';
 import eye from '../../assets/icons/eye.svg';
@@ -102,14 +98,14 @@ const AccordionItem = ({
     const contentRef = useRef(null);
     const [isEditing, setIsEditing] = useState(false);
     const [newTitle, setNewTitle] = useState(title);
-    const [role, setRole] = useState(null); // To store the role
+    const [role, setRole] = useState(null);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Get role from localStorage
+
         const storedRole = localStorage.getItem('role');
-        setRole(storedRole);  // Update role state
+        setRole(storedRole);
     }, []);
 
     const toggleVisibility = async () => {
@@ -275,10 +271,8 @@ const AccordionSubItem = ({
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [role, setRole] = useState(null);
-    const [taskData, setTaskData] = useState(null);
 
     useEffect(() => {
-        // Get role from localStorage
         const storedRole = localStorage.getItem('role');
         setRole(storedRole);
     }, []);
@@ -345,13 +339,12 @@ const AccordionSubItem = ({
     const handleItemClick = async () => {
         if (type === "File" && filePath) {
             const fullPath = `https://${process.env.REACT_APP_API_BASE_URL}/${filePath}`;
-            console.log(`Открываю файл по пути ${fullPath}`);
             window.open(fullPath, "_blank");
         } else if (type === "TextContent") {
             setIsModalOpen(true);
         } else if (type === "Task") {
             if (role === "3" || role === "2") return;
-            navigate(`/system/courses/course/${courseId}/task/${id}`); // Pass data to the LrDetail component via navigation
+            navigate(`/system/courses/course/${courseId}/task/${id}`);
 
 
         }
@@ -403,7 +396,7 @@ const AccordionSubItem = ({
                 </div>
             )}
 
-            {/* Modal for TextContent */}
+
             {isModalOpen && (
                 <div onClick={closeModal} style={{
                     position: "fixed",

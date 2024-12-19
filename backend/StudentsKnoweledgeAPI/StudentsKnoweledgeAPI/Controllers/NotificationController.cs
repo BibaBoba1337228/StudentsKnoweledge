@@ -21,7 +21,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             _context = context;
         }
 
-        // Получение всех уведомлений
         [HttpGet]
         public async Task<IActionResult> GetAllNotifications()
         {
@@ -29,7 +28,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(notifications);
         }
 
-        // Получение уведомлений пользователя по UserId
         [HttpGet("user")]
         public async Task<IActionResult> GetNotificationsByUserId()
         {
@@ -41,7 +39,7 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             var unreadNotifications = await _context.Notifications
                 .Include(n => n.StudingUser)
-                .Where(n => n.UserId == userId && !n.isReaded) // Только непрочитанные
+                .Where(n => n.UserId == userId && !n.isReaded) 
                 .ToListAsync();
 
             if (!unreadNotifications.Any())
@@ -66,7 +64,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             if (!unreadNotifications.Any())
                 return NotFound(new { message = "No unread notifications to mark as read." });
 
-            // Пометка уведомлений как прочитанные
             foreach (var notification in unreadNotifications)
             {
                 notification.isReaded= true;
@@ -77,7 +74,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(new { message = "All unread notifications marked as read." });
         }
 
-        // Получение уведомления по ID
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetNotificationById(int id)
@@ -90,7 +86,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(notification);
         }
 
-        // Создание уведомления
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateNotification([FromBody] Notification newNotification)
@@ -110,7 +105,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             return CreatedAtAction(nameof(GetNotificationById), new { id = newNotification.Id }, newNotification);
         }
 
-        // Обновление уведомления
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateNotification(int id, [FromBody] Notification updatedNotification)
@@ -129,7 +123,6 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(notification);
         }
 
-        // Удаление уведомления
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteNotification(int id)

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLoaderData, useLocation, useNavigate, useParams} from 'react-router-dom';
 import '../styles/LrDetail.css';
 import lab from '../assets/icons/lab.svg';
-import {fetchWithAuth} from "../api/fetchWithAuth"; // Добавим функцию для работы с авторизацией
+import {fetchWithAuth} from "../api/fetchWithAuth";
 
 function LrDetail() {
     const {courseId, taskId} = useParams();
@@ -12,12 +12,11 @@ function LrDetail() {
     const location = useLocation();
 
     useEffect(() => {
-        // Например, перезагрузка данных при изменении маршрута
         setData(taskData);
     }, [location.pathname]);
 
-    const [data, setData] = useState(taskData); // Используем состояние для управления данными
-    const [isDeleting, setIsDeleting] = useState(false); // Состояние загрузки для кнопки "Удалить"
+    const [data, setData] = useState(taskData);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     if (!data) {
         return <div>Задание не найдено</div>;
@@ -46,8 +45,7 @@ function LrDetail() {
                 throw new Error("Не удалось удалить ответ");
             }
 
-            // Успешно удалено, обновляем состояние
-            setData({...data, studentAnswer: null}); // Удаляем ответ из данных
+            setData({...data, studentAnswer: null});
             alert("Ответ успешно удалён!");
         } catch (error) {
             console.error(error);

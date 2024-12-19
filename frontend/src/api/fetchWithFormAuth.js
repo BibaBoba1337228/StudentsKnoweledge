@@ -11,7 +11,6 @@ export async function fetchWithFormAuth(url, options = {}) {
         const response = await fetch(url, defaultOptions);
 
         if (response.status === 401 || response.status === 403) {
-            console.log("Говно")
             throw {status: response.status};
         }
 

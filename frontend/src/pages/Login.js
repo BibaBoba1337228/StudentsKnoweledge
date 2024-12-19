@@ -1,6 +1,6 @@
 import '../styles/Login.css'
 import '../styles/fonts.css'
-import {createBrowserRouter, RouterProvider, Outlet, useNavigate, Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import ProfileIcon from '../assets/icons/profile_icon.svg'
 import PasswordIcon from '../assets/icons/password_icon.svg'
 import {useState} from "react";
@@ -34,21 +34,17 @@ function Login() {
             });
 
             if (login_response.status === 200) {
-                const data = await login_response.json(); // Assuming this includes user info with the role
+                const data = await login_response.json();
 
-                // Save relevant user information to localStorage
                 const {user_id, role, first_name, last_name, middle_name} = data;
 
-                // Format the user's name
                 const formattedName = `${first_name} ${last_name} ${middle_name}`;
                 localStorage.setItem('user_id', user_id);
-                localStorage.setItem('role', role); // Save role for access control
+                localStorage.setItem('role', role);
                 localStorage.setItem('fio', formattedName);
 
-                // Navigate to the courses page
                 navigate('/system/courses');
             } else {
-                // Handle errors (e.g., invalid credentials)
                 setIsErrorOpen(true);
                 setErrorText('Неверный логин или пароль. Попробуйте снова.');
             }
@@ -102,7 +98,8 @@ function Login() {
                                    onChange={(e) => setPassword(e.target.value)}
                                    required
                             />
-                            <button type="button" className="LoginFormShowPassword" onClick={() => setShowPassword(!showPassword)} >
+                            <button type="button" className="LoginFormShowPassword"
+                                    onClick={() => setShowPassword(!showPassword)}>
                                 <img src={showPassword ? Hide : Show} width="20px" height="20px"/>
                             </button>
                         </div>

@@ -77,7 +77,11 @@ namespace StudentsKnoweledgeAPI.Controllers
                     return NotFound(new { message = "Course not found." });
 
               
-                var taskMaterial = mappedMaterial as TaskMaterial;
+                var taskMaterial =  await _context.TaskMaterials
+                .FirstOrDefaultAsync(m => m.SectionId == sectionId && m.Id == materialId);
+
+
+
 
                 if (isVisible && section.IsVisible)
                 {
@@ -125,7 +129,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
 
-        // ----- Управление заданиями -----
 
 
         [HttpPost("Task")]
@@ -171,7 +174,6 @@ namespace StudentsKnoweledgeAPI.Controllers
         }
 
 
-        // ----- Управление файлами -----
 
         [HttpPost("File")]
         [Authorize(Roles = "Teacher,Admin")]
@@ -183,7 +185,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
             var filePaths = new List<string>();
 
-            // Обработка файлов
             foreach (var file in request.Files)
             {
                 if (file.Length == 0)
@@ -273,7 +274,6 @@ namespace StudentsKnoweledgeAPI.Controllers
 
 
 
-        // ----- Управление текст блоками -----
 
         [HttpPost("TextContent")]
         [Authorize(Roles = "Teacher,Admin")]
