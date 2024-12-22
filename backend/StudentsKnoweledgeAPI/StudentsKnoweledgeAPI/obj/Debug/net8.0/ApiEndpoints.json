@@ -153,6 +153,27 @@
   },
   {
     "ContainingType": "StudentsKnoweledgeAPI.Controllers.ChatController",
+    "Method": "MarkMessagesAsRead",
+    "RelativePath": "api/Chat/{chatId}/messages/read",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "chatId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "messageIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudentsKnoweledgeAPI.Controllers.ChatController",
     "Method": "GetChatById",
     "RelativePath": "api/Chat/{id}",
     "HttpMethod": "GET",

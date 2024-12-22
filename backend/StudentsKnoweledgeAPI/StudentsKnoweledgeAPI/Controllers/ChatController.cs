@@ -152,6 +152,7 @@ namespace StudentsKnoweledgeAPI.Controllers
                     sendDate = message.SendDate,
                     text = message.Text,
                     senderId = message.SenderId,
+                    isReaded = message.IsReaded
                 }).ToList()
             };
 
@@ -249,7 +250,8 @@ namespace StudentsKnoweledgeAPI.Controllers
                 Id = message.Id,
                 Text = message.Text,
                 SenderId = message.SenderId,
-                SendDate = message.SendDate
+                SendDate = message.SendDate,
+                IsReaded = message.IsReaded
             });
 
             var chatHub = _hubContext.Clients.Group(chatId.ToString());
@@ -362,6 +364,54 @@ namespace StudentsKnoweledgeAPI.Controllers
             return Ok(preparedMessages);
         }
 
+
+        [HttpPost("{chatId}/messages/read")]
+        public async Task<IActionResult> MarkMessagesAsRead(int chatId, [FromBody] List<int> messageIds)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized(new { message = "User is not authenticated." });
+            }
+
+            var chat = await _context.Chats.FindAsync(chatId);
+            if (chat == null)
+                return NotFound(new { message = "Chat not found." });
+
+            
+            if (!(chat.User1Id == userId || chat.User2Id == userId))
+            {
+                return NotFound(new { message = "Chat not found." });
+            }
+
+            
+            var messages = await _context.Messages
+                .Where(m => m.ChatId == chatId && messageIds.Contains(m.Id))
+                .ToListAsync();
+
+            
+            if (!messages.Any())
+                return Ok(new { message = "No messages were found to update." });
+
+            
+            foreach (var msg in messages)
+            {
+                msg.IsReaded = true;
+                _context.Entry(msg).State = EntityState.Modified;
+            }
+
+            await _context.SaveChangesAsync();
+
+            
+            await _hubContext.Clients.Group(chatId.ToString())
+                .SendAsync("MessagesRead", new
+                {
+                    ChatId = chatId,
+                    MessageIds = messageIds
+                });
+
+            return Ok();
+        }
     }
 
 

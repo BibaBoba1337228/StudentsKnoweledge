@@ -1,6 +1,9 @@
 import React from 'react';
 import {useLoaderData, useNavigate,} from 'react-router-dom';
 import '../styles/MyChats.css';
+import add from "../assets/icons/add.svg";
+import Readed from "../assets/icons/readed.png";
+import Unreaded from "../assets/icons/unreaded.png";
 
 
 function MyChats() {
@@ -14,6 +17,12 @@ function MyChats() {
 
                     <div id="MyChatsHeader">Мои чаты</div>
                     <div id="MyChatsDelimiter"></div>
+                </div>
+                <div className="MyChatsFindContactsWrapper"
+                     onClick={() => navigate('/system/findcontacts')}
+                     style={{cursor: "pointer"}}>
+                    <div className="MyChatsFindContactsText">Найти контакты</div>
+                    <img src={add} alt="add" style={{width: '20px', marginLeft: '10px'}}/>
                 </div>
                 <div id="MyChatsCourceContainer">
                     {chats.map((chat) => (
@@ -34,11 +43,19 @@ function MyChats() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="MyChatsTextBlockWithChatsImage">
-                                <div className="MyChatsInfoBlockInfoWithChatsImage">
-                                    {chat.lastMessage?.sendingDate}
-                                </div>
-                            </div>
+                            {
+                                chat.lastMessage ? <div className="MyChatsTextBlockWithChatsImage">
+                                    <div className="MyChatsInfoBlockInfoWithChatsImage">
+                                        {new Date(chat.lastMessage.sendDate).toLocaleString()}
+                                    </div>
+                                    <div>
+                                        {chat.lastMessage.isReaded ?
+                                            <img src={Readed} alt="readed" style={{height: "15px"}}/> :
+                                            <img src={Unreaded} alt="unreaded" style={{height: "15px"}}/>}
+                                    </div>
+                                </div> : ""
+                            }
+
                         </div>
                     ))}
                 </div>

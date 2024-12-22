@@ -4,6 +4,8 @@ import React, {useState, useRef, useEffect} from 'react';
 import {HubConnectionBuilder} from "@microsoft/signalr";
 import {useParams, useLoaderData} from 'react-router-dom';
 import {ErrorHandler, ErrorModal, fetchWithErrorHandling} from "../components/ErrorHandler";
+import Readed from "../assets/icons/readed.png"
+import Unreaded from "../assets/icons/unreaded.png"
 
 function Chat() {
     const {chatId} = useParams();
@@ -22,6 +24,8 @@ function Chat() {
     const [error, setError] = useState(null);
     const errorHandler = new ErrorHandler(setError);
 
+    console.log(messages);
+
     useEffect(() => {
         errorHandler.setErrorCallback(setError);
     }, []);
@@ -38,7 +42,6 @@ function Chat() {
             .then(() => console.log("Connected to SignalR"))
             .catch((err) => console.error("SignalR Connection Error: ", err));
 
-        // Очистка при размонтировании компонента
         return () => {
             if (connectionRef.current) {
                 connectionRef.current.stop().then(() => {
@@ -51,6 +54,23 @@ function Chat() {
 
 
     useEffect(() => {
+        if (!messages || messages.length === 0) return;
+
+        const currentUserId = localStorage.getItem("user_id");
+
+        const unreadMessageIds = messages
+            .filter((m) => m.senderId !== currentUserId && !m.isReaded)
+            .map((m) => m.id);
+
+        if (unreadMessageIds.length > 0) {
+            console.log("Я", currentUserId);
+            console.log("Сообщения на прочитку", unreadMessageIds);
+            markMessagesAsRead(chatId, unreadMessageIds);
+        }
+    }, [messages]);
+
+
+    useEffect(() => {
         const connection = connectionRef.current;
 
         if (connection) {
@@ -59,12 +79,47 @@ function Chat() {
                     setMessages((prevMessages) => [message, ...prevMessages]);
                 }
             });
+            connection.on("MessagesRead", (data) => {
+                console.log("Сокет", data);
 
+                if (parseInt(data.chatId) === parseInt(chatId)) {
+                    setMessages((prevMessages) =>
+                        prevMessages.map((msg) => {
+                            if (data.messageIds.includes(msg.id)) {
+                                console.log("Поймал сообщение", msg);
+                                return {
+                                    ...msg,
+                                    isReaded: true
+                                };
+                            }
+                            return msg;
+                        })
+                    );
+                }
+            });
             return () => {
                 connection.off("ReceiveMessage");
+                connection.off("MessagesRead");
             };
         }
     }, []);
+
+    const markMessagesAsRead = async (chatId, messageIds) => {
+        try {
+            await fetchWithErrorHandling(
+                `https://${process.env.REACT_APP_API_BASE_URL}/api/Chat/${chatId}/messages/read`,
+                {
+                    method: "POST",
+                    body: JSON.stringify(messageIds),
+                },
+                null,
+                errorHandler
+            );
+            console.log("Отправил прочитку", messageIds);
+        } catch (error) {
+            console.error("Error marking messages as read:", error);
+        }
+    };
 
     const sendMessage = async () => {
         if (newMessage.trim()) {
@@ -99,7 +154,6 @@ function Chat() {
             );
             if (data !== null) {
                 sendedMsg.sendDate = data.sendDate;
-                sendedMsg.isReaded = data.isReaded;
                 sendedMsg.id = data.id;
             }
         }
@@ -172,6 +226,11 @@ function Chat() {
                                  className={`ChatMessage ${message.senderId === localStorage.getItem("user_id") ? 'fromMe' : 'fromBro'}`}>
                                 <div className="ChatMessageText">{message.text}</div>
                                 <div className="ChatMessageDate">{new Date(message.sendDate).toLocaleString()}</div>
+                                <div>
+                                    {message.isReaded ?
+                                        <img src={Readed} alt="readed" style={{height: "15px"}}/> :
+                                    <img src={Unreaded} alt="unreaded" style={{height: "15px"}}/>}
+                                </div>
                             </div>
                         ))}
 

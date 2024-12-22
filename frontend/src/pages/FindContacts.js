@@ -12,7 +12,9 @@ function FindContacts() {
     const take = 10; // сколько пользователей загружать за раз
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
+    const searchQueryElement = useRef(null);
+
 
     const containerRef = useRef(null);
 
@@ -34,7 +36,7 @@ function FindContacts() {
         const currentSkip = reset ? 0 : skip;
 
         const response = await fetchWithErrorHandling(
-            `https://${process.env.REACT_APP_API_BASE_URL}/api/StudingUser/contacts?skip=${currentSkip}&take=${take}&search=${encodeURIComponent(searchTerm)}`,
+            `https://${process.env.REACT_APP_API_BASE_URL}/api/StudingUser/contacts?skip=${currentSkip}&take=${take}&search=${encodeURIComponent(searchQueryElement.current.value)}`,
             {
                 method: "GET",
                 credentials: "include",
@@ -75,7 +77,7 @@ function FindContacts() {
 
     const handleSearchChange = (e) => {
         const value = e.target.value;
-        setSearchTerm(value);
+        setSearchQuery(value);
 
         loadUsers(true);
     };
@@ -91,8 +93,9 @@ function FindContacts() {
                             <input
                                 id="MyCourcesSearchBarInput"
                                 placeholder="Поиск контакта"
-                                value={searchTerm}
+                                value={searchQuery}
                                 onChange={handleSearchChange}
+                                ref={searchQueryElement}
                             />
                             <img src={SearchIcon} alt="Иконка поиска" style={{width: '25px'}}/>
                         </div>

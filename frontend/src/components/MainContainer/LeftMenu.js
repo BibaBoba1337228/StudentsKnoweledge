@@ -143,16 +143,11 @@ function LeftMenu({onMenuToggle}) {
                              onClick={() => navigate('/system/chats')}
                              style={{cursor: "pointer"}}>
                             <img src={MessengerIcon} alt="Messenger icon" style={{width: "20px"}}/>
-                            {!isCollapsed && <p className="LeftMenuTopPageName">Сообщения</p>}
+                            {!isCollapsed && <p className="LeftMenuTopPageName">Чаты</p>}
                         </div>
                     )}
 
-                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={openNotificationModal}
-                         style={{cursor: "pointer"}}>
-                        <img src={notifications.length > 0 ? HaveNotifs : NotificationIcon} alt="Notification icon"
-                             style={{width: "20px"}}/>
-                        {!isCollapsed && <p className="LeftMenuTopPageName">Уведомления</p>}
-                    </div>
+
                     <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={() => {
                         navigate('/system/schedule/')
                     }}
@@ -231,7 +226,12 @@ function LeftMenu({onMenuToggle}) {
             <div id="LeftMenuDownPagesContainer">
                 <div id="LeftMenuTopPages" className={isCollapsed ? 'collapsed' : ''}>
 
-
+                    <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'} onClick={openNotificationModal}
+                         style={{cursor: "pointer"}}>
+                        <img src={notifications.length > 0 ? HaveNotifs : NotificationIcon} alt="Notification icon"
+                             style={{width: "20px"}}/>
+                        {!isCollapsed && <p className="LeftMenuTopPageName">Уведомления</p>}
+                    </div>
                     {localStorage.getItem('role') != 3 && (
                         <div className={isCollapsed ? 'collapsed' : 'LeftMenuTopPage'}
                              onClick={() => navigate(`/system/profile/${localStorage.getItem("user_id")}`)}

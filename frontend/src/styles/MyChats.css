@@ -11,6 +11,17 @@
 
 }
 
+
+.MyChatsFindContactsWrapper{
+    margin-top: 10px;
+    display: flex;
+    height: 25px;
+    align-content: center;
+}
+.MyChatsFindContactsText {
+    font-size: 18px;
+}
+
 #MyChatsDelimiter {
     width: 100%;
     border-collapse: collapse;
