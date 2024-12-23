@@ -68,7 +68,7 @@ function StudingUserProfile() {
 
                             <div className="MyProfileTextBlockWithProfileImage">
                                 <div
-                                    className="MyProfileInfoBlockHeaderWithProfileImage">{userData.middleName} {userData.name[0]}. {userData.lastName[0]}.
+                                    className="MyProfileInfoBlockHeaderWithProfileImage">{userData.lastName} {userData.name[0]}. {userData.middleName[0]}.
                                 </div>
 
                                 {userData.id === userId ? (

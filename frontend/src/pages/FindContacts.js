@@ -9,7 +9,7 @@ function FindContacts() {
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [skip, setSkip] = useState(0);
-    const take = 10; // сколько пользователей загружать за раз
+    const take = 15; // сколько пользователей загружать за раз
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
@@ -69,8 +69,7 @@ function FindContacts() {
         if (!hasMore || loading) return;
 
         const element = containerRef.current;
-        if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-            // Доскролили до низа
+        if (element.scrollHeight - element.scrollTop < element.clientHeight + 20) {
             loadUsers();
         }
     };

@@ -410,7 +410,7 @@ namespace StudentsKnoweledgeAPI.Controllers
                     MessageIds = messageIds
                 });
 
-            return Ok();
+            return Ok(new{status = "saved" });
         }
     }
 

@@ -109,6 +109,7 @@ export async function fetchWithErrorHandling(url, options, callback = null, erro
         }
     } catch (error) {
         if (errorHandler) {
+            console.log("Я отправлял ", url);
             errorHandler.handleError(error);
         } else {
             console.error("Network error:", error);
